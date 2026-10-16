@@ -599,4 +599,102 @@ Consultez la surveillance : l'entrée doit être vérifiée par le superviseur (
   <data name="DB_Col_YearAgo" xml:space="preserve"><value>Il y a 1 an</value></data>
   <data name="DB_Col_TwoYearsAgo" xml:space="preserve"><value>Il y a 2 ans</value></data>
   <data name="DB_Nationalities" xml:space="preserve"><value>Nationalités les plus représentées aujourd'hui</value></data>
+  <data name="EX_Title" xml:space="preserve"><value>Échanges frontaliers</value></data>
+  <data name="EX_Tab_Messages" xml:space="preserve"><value>Messages APIS</value></data>
+  <data name="EX_Tab_Doubtful" xml:space="preserve"><value>Passagers douteux</value></data>
+  <data name="EX_Tab_Checks" xml:space="preserve"><value>Contrôles externes</value></data>
+  <data name="EX_Tab_Journal" xml:space="preserve"><value>Journal des échanges</value></data>
+  <data name="EX_Tab_Connectors" xml:space="preserve"><value>Connecteurs</value></data>
+  <data name="EX_From" xml:space="preserve"><value>Du</value></data>
+  <data name="EX_ImportPaxlst" xml:space="preserve"><value>Importer PAXLST…</value></data>
+  <data name="EX_ExportPaxlst" xml:space="preserve"><value>Exporter en PAXLST…</value></data>
+  <data name="EX_ExportXml" xml:space="preserve"><value>Exporter en XML…</value></data>
+  <data name="EX_GenerateFromMovements" xml:space="preserve"><value>Générer depuis les mouvements…</value></data>
+  <data name="EX_ImportDialog" xml:space="preserve"><value>Importer un message EDIFACT PAXLST</value></data>
+  <data name="EX_ImportFilter" xml:space="preserve"><value>Messages EDIFACT (*.edi;*.edifact;*.paxlst;*.txt)|*.edi;*.edifact;*.paxlst;*.txt|Tous les fichiers (*.*)|*.*</value></data>
+  <data name="EX_ImportDone" xml:space="preserve"><value>Import terminé : {0} message(s), {1} passager(s), {2} équipage ; {3} rapproché(s), {4} douteux, {5} sans correspondance.</value></data>
+  <data name="EX_ExportDone" xml:space="preserve"><value>Export terminé : {0}</value></data>
+  <data name="EX_GenerateDone" xml:space="preserve"><value>Export généré : {0} vol(s), {1} voyageur(s) → {2}</value></data>
+  <data name="EX_MessagesFound" xml:space="preserve"><value>{0} message(s)</value></data>
+  <data name="EX_MessageDetail" xml:space="preserve"><value>Fichiers : {1} — {2}</value></data>
+  <data name="EX_PassengersOfMessage" xml:space="preserve"><value>Passagers du message</value></data>
+  <data name="EX_Col_Flight" xml:space="preserve"><value>Vol / passage</value></data>
+  <data name="EX_Col_Departure" xml:space="preserve"><value>Départ</value></data>
+  <data name="EX_Col_Arrival" xml:space="preserve"><value>Arrivée</value></data>
+  <data name="EX_Col_ArrivalDate" xml:space="preserve"><value>Arrivée prévue</value></data>
+  <data name="EX_Col_Passengers" xml:space="preserve"><value>Passagers</value></data>
+  <data name="EX_Col_Status" xml:space="preserve"><value>Statut</value></data>
+  <data name="EX_Col_Sender" xml:space="preserve"><value>Expéditeur</value></data>
+  <data name="EX_Col_Files" xml:space="preserve"><value>Fichiers</value></data>
+  <data name="EX_Col_Type" xml:space="preserve"><value>Type</value></data>
+  <data name="EX_Col_Sex" xml:space="preserve"><value>Sexe</value></data>
+  <data name="EX_Col_Reason" xml:space="preserve"><value>Motif</value></data>
+  <data name="EX_Col_Matched" xml:space="preserve"><value>Rapprochement</value></data>
+  <data name="EX_Col_ActionStatus" xml:space="preserve"><value>Décision</value></data>
+  <data name="EX_Col_Supervisor" xml:space="preserve"><value>Superviseur</value></data>
+  <data name="EX_Col_Note" xml:space="preserve"><value>Note</value></data>
+  <data name="EX_Col_Connector" xml:space="preserve"><value>Connecteur</value></data>
+  <data name="EX_Col_Verdict" xml:space="preserve"><value>Verdict</value></data>
+  <data name="EX_Col_Reference" xml:space="preserve"><value>Référence</value></data>
+  <data name="EX_Col_Mode" xml:space="preserve"><value>Mode</value></data>
+  <data name="EX_Col_Summary" xml:space="preserve"><value>Résumé</value></data>
+  <data name="EX_Col_Channel" xml:space="preserve"><value>Canal</value></data>
+  <data name="EX_Col_Direction" xml:space="preserve"><value>Direction</value></data>
+  <data name="EX_Col_Items" xml:space="preserve"><value>Éléments (réussis/total/erreurs)</value></data>
+  <data name="EX_Col_Step" xml:space="preserve"><value>Étape</value></data>
+  <data name="EX_Col_Item" xml:space="preserve"><value>Élément</value></data>
+  <data name="EX_Col_Endpoint" xml:space="preserve"><value>Point d'accès</value></data>
+  <data name="EX_Col_Active" xml:space="preserve"><value>Actif</value></data>
+  <data name="EX_Col_Time" xml:space="preserve"><value>Heure</value></data>
+  <data name="EX_Type_Pax" xml:space="preserve"><value>Passager</value></data>
+  <data name="EX_Type_Crew" xml:space="preserve"><value>Équipage</value></data>
+  <data name="EX_MsgStatus_0" xml:space="preserve"><value>Reçu</value></data>
+  <data name="EX_MsgStatus_1" xml:space="preserve"><value>Rapproché</value></data>
+  <data name="EX_MsgStatus_2" xml:space="preserve"><value>Alerte</value></data>
+  <data name="EX_MsgStatus_3" xml:space="preserve"><value>Exporté</value></data>
+  <data name="EX_PaxStatus_0" xml:space="preserve"><value>Reçu</value></data>
+  <data name="EX_PaxStatus_1" xml:space="preserve"><value>Rapproché</value></data>
+  <data name="EX_PaxStatus_2" xml:space="preserve"><value>Douteux</value></data>
+  <data name="EX_PaxStatus_3" xml:space="preserve"><value>Écarté</value></data>
+  <data name="EX_NotMatched" xml:space="preserve"><value>Sans correspondance</value></data>
+  <data name="EX_MatchedDocument" xml:space="preserve"><value>Document local {0} — mouvement {1}</value></data>
+  <data name="EX_Direction_IMPORT" xml:space="preserve"><value>Import</value></data>
+  <data name="EX_Direction_EXPORT" xml:space="preserve"><value>Export</value></data>
+  <data name="EX_Direction_CHECK" xml:space="preserve"><value>Contrôle</value></data>
+  <data name="EX_RunStatus_0" xml:space="preserve"><value>En cours</value></data>
+  <data name="EX_RunStatus_1" xml:space="preserve"><value>Succès</value></data>
+  <data name="EX_RunStatus_2" xml:space="preserve"><value>Partiel</value></data>
+  <data name="EX_RunStatus_3" xml:space="preserve"><value>Échec</value></data>
+  <data name="EX_Verdict_CLEAR" xml:space="preserve"><value>Aucune opposition</value></data>
+  <data name="EX_Verdict_ALERT" xml:space="preserve"><value>Opposition</value></data>
+  <data name="EX_Verdict_INCONCLUSIVE" xml:space="preserve"><value>Indéterminé</value></data>
+  <data name="EX_Verdict_ERROR" xml:space="preserve"><value>Indisponible</value></data>
+  <data name="EX_Mode_Mock" xml:space="preserve"><value>Simulé</value></data>
+  <data name="EX_Mode_Live" xml:space="preserve"><value>Direct</value></data>
+  <data name="EX_Mode_MockShort" xml:space="preserve"><value>Simulé</value></data>
+  <data name="EX_Mode_LiveShort" xml:space="preserve"><value>Direct</value></data>
+  <data name="EX_Connector_Simiec" xml:space="preserve"><value>SIMIEC (immigration)</value></data>
+  <data name="EX_Connector_Belize" xml:space="preserve"><value>Belize (cartes et permis)</value></data>
+  <data name="EX_Connector_Air" xml:space="preserve"><value>Système aérien (liste noire)</value></data>
+  <data name="EX_Check_DocumentType" xml:space="preserve"><value>Type de document</value></data>
+  <data name="EX_Check_Expiry" xml:space="preserve"><value>Expiration</value></data>
+  <data name="EX_Check_All" xml:space="preserve"><value>Contrôler (tous)</value></data>
+  <data name="EX_ChecksDone" xml:space="preserve"><value>{0} contrôle(s) exécuté(s)</value></data>
+  <data name="EX_ShowProcessed" xml:space="preserve"><value>Afficher les signalements traités</value></data>
+  <data name="EX_Decide" xml:space="preserve"><value>Décider pour le passager</value></data>
+  <data name="EX_DoubtPending" xml:space="preserve"><value>En attente</value></data>
+  <data name="EX_DoubtProcessed" xml:space="preserve"><value>Traitée</value></data>
+  <data name="EX_ErrorsOfRun" xml:space="preserve"><value>Erreurs unitaires de l'exécution</value></data>
+  <data name="EX_Refresh" xml:space="preserve"><value>Rafraîchir</value></data>
+  <data name="EX_ConnectorSaved" xml:space="preserve"><value>Configuration du connecteur enregistrée.</value></data>
+  <data name="EX_Error_SelectDoubt" xml:space="preserve"><value>Sélectionnez d'abord un signalement.</value></data>
+  <data name="EX_Error_SelectConnector" xml:space="preserve"><value>Sélectionnez d'abord un connecteur.</value></data>
+  <data name="EX_Error_MessageNotFound" xml:space="preserve"><value>Message APIS introuvable.</value></data>
+  <data name="EX_Error_DoubtNotFound" xml:space="preserve"><value>Signalement introuvable.</value></data>
+  <data name="EX_Error_DoubtAlreadyProcessed" xml:space="preserve"><value>Ce signalement a déjà reçu une décision.</value></data>
+  <data name="EX_Error_InvalidAction" xml:space="preserve"><value>Action inconnue.</value></data>
+  <data name="EX_Error_ConnectorUnknown" xml:space="preserve"><value>Connecteur inconnu.</value></data>
+  <data name="EX_Error_ConnectorInactive" xml:space="preserve"><value>Le connecteur est désactivé.</value></data>
+  <data name="EX_Error_NoMessageSelected" xml:space="preserve"><value>Aucun message à exporter.</value></data>
+  <data name="Shell_Menu_Exchanges" xml:space="preserve"><value>Éc_hanges (APIS / EDIFACT)</value></data>
 </root>

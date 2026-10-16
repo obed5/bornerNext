@@ -69,4 +69,7 @@ public static class AuditEventTypes
     public const string ReportExported = "AUDIT_LOG_ReportExported";
     public const string ReportPreviewed = "AUDIT_LOG_ReportPreviewed";
     public const string ReportPrinted = "AUDIT_LOG_ReportPrinted";
+
+    /// <summary>Exécution d'un échange (import/export de messages, contrôle externe).</summary>
+    public const string ExchangeRun = "AUDIT_LOG_ExchangeRun";
 }

@@ -69,6 +69,15 @@ public class BorderNextDbContext : DbContext
     public DbSet<TripCrossing> TripCrossings => Set<TripCrossing>();
     public DbSet<Vessel> Vessels => Set<Vessel>();
 
+    // Lot 7 — échanges (messages APIS, passagers, fichiers, journal d'échanges).
+    public DbSet<ApisMessage> ApisMessages => Set<ApisMessage>();
+    public DbSet<ApisMessageFile> ApisMessageFiles => Set<ApisMessageFile>();
+    public DbSet<ApisPassenger> ApisPassengers => Set<ApisPassenger>();
+    public DbSet<ApisDoubtfulPerson> ApisDoubtfulPersons => Set<ApisDoubtfulPerson>();
+    public DbSet<ExchangeTask> ExchangeTasks => Set<ExchangeTask>();
+    public DbSet<ExchangeRun> ExchangeRuns => Set<ExchangeRun>();
+    public DbSet<ExchangeError> ExchangeErrors => Set<ExchangeError>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<UserRole>(e =>
@@ -903,6 +912,150 @@ public class BorderNextDbContext : DbContext
         // Rattachement de l'ordre de reconduite à l'entrée de liste d'alerte (Lot 5).
         modelBuilder.Entity<RemovalOrder>()
             .HasOne<PersonStopList>().WithMany().HasForeignKey(x => x.PersonStopListId).OnDelete(DeleteBehavior.Restrict);
+
+        // -------------------------------------------------------------------
+        // Lot 7 — échanges (héritage : APIMessage, APIPassenger, APIMessageFiles,
+        // APIDoubtablePersons, sync.ImportExportManager / ExportHistory /
+        // ImportExportErrorLog).
+        // -------------------------------------------------------------------
+
+        modelBuilder.Entity<ApisMessage>(e =>
+        {
+            e.ToTable("ApisMessages");
+            e.HasKey(x => x.Id);
+            e.Property(x => x.FlightNumber).HasMaxLength(20);
+            e.Property(x => x.DepartureLocation).HasMaxLength(50);
+            e.Property(x => x.ArrivalLocation).HasMaxLength(50);
+            e.Property(x => x.DepartureDate).HasColumnType("datetime");
+            e.Property(x => x.ArrivalDate).HasColumnType("datetime");
+            e.Property(x => x.SourceFormat).HasMaxLength(20).IsRequired();
+            e.Property(x => x.ControlReference).HasMaxLength(30);
+            e.Property(x => x.SenderId).HasMaxLength(50);
+            e.Property(x => x.RecipientId).HasMaxLength(50);
+            e.Property(x => x.CarrierName).HasMaxLength(150);
+            e.Property(x => x.BorderPointId).HasColumnType("smallint");
+            e.Property(x => x.CreatedDate).HasColumnType("datetime");
+            e.Property(x => x.CreatedByUserId).HasMaxLength(50);
+            e.Property(x => x.UpdateDate).HasColumnType("datetime");
+            e.Property(x => x.UpdateUser).HasMaxLength(50);
+            e.Ignore(x => x.FlightLabel);
+            e.HasIndex(x => x.CreatedDate);
+            e.HasIndex(x => x.ArrivalDate);
+            e.HasIndex(x => x.FlightNumber);
+            e.HasOne(x => x.BorderPoint).WithMany().HasForeignKey(x => x.BorderPointId).OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<ApisMessageFile>(e =>
+        {
+            e.ToTable("ApisMessageFiles");
+            e.HasKey(x => x.Id);
+            e.Property(x => x.FilePath).HasMaxLength(250).IsRequired();
+            e.Property(x => x.FileName).HasMaxLength(150);
+            e.Property(x => x.ContentHash).HasMaxLength(64);
+            e.Property(x => x.CreatedDate).HasColumnType("datetime");
+            e.HasIndex(x => x.ContentHash);
+            e.HasOne(x => x.ApisMessage).WithMany(m => m.Files).HasForeignKey(x => x.ApisMessageId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<ApisPassenger>(e =>
+        {
+            e.ToTable("ApisPassengers");
+            e.HasKey(x => x.Id);
+            e.Property(x => x.PassportRegistrationId).HasMaxLength(50);
+            e.Property(x => x.DocumentType).HasMaxLength(10);
+            e.Property(x => x.DocumentNumber).HasMaxLength(50);
+            e.Property(x => x.CountryOfIssue).HasMaxLength(50);
+            e.Property(x => x.IssueDate).HasColumnType("datetime");
+            e.Property(x => x.ExpireDate).HasColumnType("datetime");
+            e.Property(x => x.Surname).HasMaxLength(50);
+            e.Property(x => x.GivenName).HasMaxLength(50);
+            e.Property(x => x.DateOfBirth).HasColumnType("datetime");
+            e.Property(x => x.Citizenship).HasMaxLength(50);
+            e.Property(x => x.Gender).HasMaxLength(10);
+            e.Property(x => x.CountryOfResidence).HasMaxLength(50);
+            e.Property(x => x.CheckingReason).HasMaxLength(30);
+            e.Property(x => x.IsPassenger).HasColumnType("bit");
+            e.Property(x => x.CreatedDate).HasColumnType("datetime");
+            e.Property(x => x.UpdateDate).HasColumnType("datetime");
+            e.Property(x => x.UpdateUser).HasMaxLength(50);
+            e.Ignore(x => x.FullName);
+            e.HasIndex(x => x.DocumentNumber);
+            e.HasIndex(x => x.Status);
+            e.HasOne(x => x.ApisMessage).WithMany(m => m.Passengers).HasForeignKey(x => x.ApisMessageId)
+                .OnDelete(DeleteBehavior.Cascade);
+            e.HasOne(x => x.MatchedDocument).WithMany().HasForeignKey(x => x.MatchedDocumentId)
+                .OnDelete(DeleteBehavior.Restrict);
+            e.HasOne(x => x.MatchedMovement).WithMany().HasForeignKey(x => x.MatchedMovementId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<ApisDoubtfulPerson>(e =>
+        {
+            e.ToTable("ApisDoubtfulPersons");
+            e.HasKey(x => x.Id);
+            e.Property(x => x.CheckingReason).HasMaxLength(30);
+            e.Property(x => x.SupervisorsNote).HasMaxLength(500);
+            e.Property(x => x.Supervisor).HasMaxLength(50);
+            e.Property(x => x.SupervisorPcNumber).HasMaxLength(50);
+            e.Property(x => x.CreateDate).HasColumnType("datetime");
+            e.Property(x => x.UpdateDate).HasColumnType("datetime");
+            e.Property(x => x.UpdateUser).HasMaxLength(50);
+            e.HasIndex(x => x.ApisPassengerId);
+            e.HasOne(x => x.ApisPassenger).WithMany(p => p.DoubtfulRecords).HasForeignKey(x => x.ApisPassengerId)
+                .OnDelete(DeleteBehavior.Cascade);
+            e.HasOne(x => x.PerformAction).WithMany().HasForeignKey(x => x.PerformActionId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<ExchangeTask>(e =>
+        {
+            e.ToTable("ExchangeTasks");
+            e.HasKey(x => x.Id);
+            e.Property(x => x.Name).HasMaxLength(150).IsRequired();
+            e.Property(x => x.Channel).HasMaxLength(20).IsRequired();
+            e.Property(x => x.Direction).HasMaxLength(10).IsRequired();
+            e.Property(x => x.Endpoint).HasMaxLength(400);
+            e.Property(x => x.FileDirectory).HasMaxLength(400);
+            e.Property(x => x.Parameters).HasMaxLength(1000);
+            e.Property(x => x.Description).HasMaxLength(400);
+            e.Property(x => x.CreatedDate).HasColumnType("datetime");
+            e.Property(x => x.UpdateDate).HasColumnType("datetime");
+            e.Property(x => x.UpdateUser).HasMaxLength(50);
+            e.HasIndex(x => x.Channel);
+        });
+
+        modelBuilder.Entity<ExchangeRun>(e =>
+        {
+            e.ToTable("ExchangeRuns");
+            e.HasKey(x => x.Id);
+            e.Property(x => x.Channel).HasMaxLength(20).IsRequired();
+            e.Property(x => x.Direction).HasMaxLength(10).IsRequired();
+            e.Property(x => x.Reference).HasMaxLength(100);
+            e.Property(x => x.FilePath).HasMaxLength(400);
+            e.Property(x => x.StartedAt).HasColumnType("datetime");
+            e.Property(x => x.CompletedAt).HasColumnType("datetime");
+            e.Property(x => x.DataFrom).HasColumnType("datetime");
+            e.Property(x => x.DataTo).HasColumnType("datetime");
+            e.Property(x => x.Summary).HasMaxLength(1000);
+            e.Property(x => x.UserId).HasMaxLength(50);
+            e.HasIndex(x => x.StartedAt);
+            e.HasOne(x => x.ExchangeTask).WithMany().HasForeignKey(x => x.ExchangeTaskId)
+                .OnDelete(DeleteBehavior.SetNull);
+        });
+
+        modelBuilder.Entity<ExchangeError>(e =>
+        {
+            e.ToTable("ExchangeErrors");
+            e.HasKey(x => x.Id);
+            e.Property(x => x.Step).HasMaxLength(100);
+            e.Property(x => x.ItemReference).HasMaxLength(100);
+            e.Property(x => x.Message).HasMaxLength(1000);
+            e.Property(x => x.OccurredAt).HasColumnType("datetime");
+            e.HasIndex(x => x.ExchangeRunId);
+            e.HasOne(x => x.ExchangeRun).WithMany(r => r.Errors).HasForeignKey(x => x.ExchangeRunId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
 
         // Référentiels de base (Lot 0 minimal pour un premier démarrage).
         modelBuilder.Entity<UserRole>().HasData(

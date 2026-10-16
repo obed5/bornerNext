@@ -19,6 +19,7 @@ par un tableau de bord — interface WPF en français/anglais, données SQL Serv
 | **Permis** | Permis de séjour : résidence, contacts, permis de conduire, antécédents, voyage et activité, indépendants, personnes à charge, statuts et révocations. |
 | **Refus et sanctions** | Refus d'entrée avec base légale imprimable, ordres de reconduite et avis d'inadmissibilité, amendes (copies document/titulaire/visa au moment des faits) avec encaissement et reçu. |
 | **Surveillance** | Listes de surveillance personnes et documents (sources, variantes orthographiques, action à mener, annulation motivée, autorisation de lever), moteur de correspondance flou (distance d'édition, découpage des noms, noms inversés, seuil renforcé pour les nationaux), empreintes de liste d'alerte, personnes douteuses en seconde inspection (décision du superviseur), simulateur de correspondance et contrôle inverse contre le registre. |
+| **Échanges** | Listes de passagers EDIFACT PAXLST : import depuis les compagnies (enveloppes UNB/UNH/UNT/UNZ, libérations, messages multiples), conservation du fichier d'origine, rapprochement des passagers avec les dossiers locaux et inscription en seconde inspection des passagers douteux ; export PAXLST (régénération des messages reçus ou déclaration des mouvements du poste) et export XML inter-postes ; contrôles externes SIMIEC (immigration), Belize (cartes et permis) et système aérien (liste noire, dernier mouvement) en mode simulé ou direct ; journal des échanges (statuts, comptages, erreurs unitaires) et configuration des connecteurs. |
 | **Administration** | 6 onglets : nomenclatures (44 types, 175 éléments fr/en), pays et géographie (220 pays), postes frontières, utilisateurs et droits (`ControlsToRoles`), paramètres, journal d'audit avec export CSV. |
 
 Transversal : authentification et rôles (ADMIN, SUPERUSER, officiers), journal d'audit
@@ -62,6 +63,10 @@ postes frontières, utilisateurs & droits, paramètres, journal d'audit.
 
 Configuration : `src/BorderNext.UI/appsettings.json` (chaîne de connexion, culture par
 défaut, mot de passe bootstrap — à remplacer en production par un secret protégé).
+Le répertoire de conservation des fichiers échangés (paramètre
+`Exchange_MessageDirectory`) et les points d'accès des systèmes partenaires se règlent
+dans l'application (module **Échanges → Connecteurs**), connecteurs par défaut en mode
+simulé.
 
 ## Sécurité
 
@@ -91,8 +96,12 @@ défaut, mot de passe bootstrap — à remplacer en production par un secret pro
       douteux 1→2→3, empreintes de liste, simulateur, contrôle inverse.
 - [x] **Lot 6 — Opérations frontière** : voyages et passages (vols, navires, trains),
       personnes rattachées et réaffectation, registre des navires, transporteurs et terminaux.
+- [x] **Lot 7 — Échanges** : messages de listes de passagers EDIFACT (PAXLST) à l'import
+      comme à l'export, conservation des fichiers d'origine, rapprochement des passagers
+      avec les dossiers locaux, passagers douteux avec décision du superviseur, contrôles
+      externes (SIMIEC, Belize, système aérien) en mode simulé ou direct, journal des
+      échanges et configuration des connecteurs.
 - [x] **Tableau de bord du poste** : écran d'accueil décrit ci-dessus.
-- [ ] **Lot 7 — Échanges** : messages EDIFACT (PAXLST), API passagers, connecteurs externes.
 - [ ] **Lot 8 — Rapports** : éditions (QuestPDF), manifestes, résultats et questionnaires.
 - [ ] **Lot 9 — Migration des données et durcissement** : reprise des données historiques,
       secrets protégés, revue de sécurité.
@@ -106,7 +115,7 @@ dotnet test --filter PasswordHasher   # une classe
 
 Scénarios de bout en bout (pilotage de l'application réelle par automatisation UI, avec
 captures) : `tools/test-login-flow.ps1`, `test-admin-flow.ps1`, puis un scénario par lot
-(`tools/test-lot2-flow.ps1` … `tools/test-lot6-flow.ps1`) et
+(`tools/test-lot2-flow.ps1` … `tools/test-lot7-flow.ps1`) et
 `tools/test-dashboard-flow.ps1` (contrôle croisé écran/base).
 
 ```powershell

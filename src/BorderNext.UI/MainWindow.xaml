@@ -47,6 +47,7 @@
                 <MenuItem Header="{res:Str Key=Shell_Menu_Enforcement}" Click="Module_Click" Tag="Enforcement"/>
                 <MenuItem Header="{x:Static res:Strings.Shell_Menu_BorderOps}" Click="Module_Click" Tag="BorderOps"/>
                 <MenuItem Header="{x:Static res:Strings.Shell_Menu_Watchlist}" Click="Module_Click" Tag="Watchlist"/>
+                <MenuItem Header="{res:Str Key=Shell_Menu_Exchanges}" Click="Module_Click" Tag="Exchanges"/>
                 <MenuItem Header="{x:Static res:Strings.Shell_Menu_Reports}" Click="Module_Click" Tag="Reports"/>
                 <Separator/>
                 <MenuItem Header="{x:Static res:Strings.Shell_Menu_Admin}" Click="Module_Click" Tag="Admin"/>

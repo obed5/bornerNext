@@ -28,6 +28,8 @@ public static class UiServiceCollectionExtensions
         services.AddTransient<WatchlistWindow>();
         // Lot 6 — opérations frontière.
         services.AddTransient<BorderOpsWindow>();
+        // Lot 7 — échanges frontaliers (messages APIS, connecteurs, journal).
+        services.AddTransient<ExchangesWindow>();
         return services;
     }
 }

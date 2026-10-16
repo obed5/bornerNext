@@ -129,6 +129,13 @@ public partial class MainWindow : Window
                 watchlist.Show();
                 return;
             }
+            case "Exchanges":
+            {
+                var exchanges = _scopes.Current.GetRequiredService<ExchangesWindow>();
+                exchanges.Owner = this;
+                exchanges.Show();
+                return;
+            }
             case "Admin":
             {
                 // Fenêtre d'administration résolue dans la portée de session (services scoped).

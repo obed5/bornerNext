@@ -1,6 +1,7 @@
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using BorderNext.Application.Services;
 using BorderNext.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,6 +40,8 @@ public static class ReferenceDataSeeder
         // Remappage des réglages référençant un identifiant hérité (pays, terminal du poste) :
         // après le semis des pays, terminaux et réglages concernés.
         await RemapCountrySettingsAsync(db, seed, ct);
+        // Lot 7 — tâches d'échange et réglages des connecteurs externes.
+        await EnsureExchangeTasksAsync(db, ct);
     }
 
     private static SeedFile LoadSeed()
@@ -212,6 +215,72 @@ public static class ReferenceDataSeeder
             carrier.Cultures.Add(new CarrierCulture { Culture = "en", Description = Truncate(c.En, 150) });
             db.Carriers.Add(carrier);
         }
+        await db.SaveChangesAsync(ct);
+    }
+
+    /// <summary>
+    /// Tâches d'échange du Lot 7 (héritage : sync.ImportExportManager) et réglages des
+    /// connecteurs : imports/exports EDIFACT et APIS, contrôles SIMIEC, Belize et système
+    /// aérien (mode simulé et activation par défaut). Idempotent par canal/direction.
+    /// </summary>
+    private static async Task EnsureExchangeTasksAsync(BorderNextDbContext db, CancellationToken ct)
+    {
+        var defaults = new (string Name, string Channel, string Direction, string? Parameters, int Priority)[]
+        {
+            ("Import PAXLST (EDIFACT)", ExchangeChannels.Edifact, ExchangeDirections.Import, null, 10),
+            ("Export PAXLST (EDIFACT)", ExchangeChannels.Edifact, ExchangeDirections.Export, null, 20),
+            ("Export messages APIS (XML)", ExchangeChannels.Apis, ExchangeDirections.Export, null, 30),
+            ("SIMIEC — registre de l'immigration", ExchangeChannels.Simiec, ExchangeDirections.Check,
+                "MODE=MOCK", 40),
+            ("Belize — cartes et permis de séjour", ExchangeChannels.Belize, ExchangeDirections.Check,
+                "MODE=MOCK", 50),
+            ("Système aérien — liste noire / dernier mouvement", ExchangeChannels.Air, ExchangeDirections.Check,
+                "MODE=MOCK", 60),
+        };
+
+        var existing = await db.ExchangeTasks
+            .Select(t => new { t.Channel, t.Direction })
+            .ToListAsync(ct);
+
+        foreach (var task in defaults)
+        {
+            if (existing.Any(e => e.Channel == task.Channel && e.Direction == task.Direction)) continue;
+            db.ExchangeTasks.Add(new ExchangeTask
+            {
+                Name = task.Name,
+                Channel = task.Channel,
+                Direction = task.Direction,
+                IsActive = true,
+                DependingOnBorderPoint = false,
+                Parameters = task.Parameters,
+                Priority = task.Priority,
+                CreatedDate = DateTime.Now,
+                UpdateUser = "seed",
+            });
+        }
+
+        // Réglages par défaut des échanges (aucune donnée personnelle).
+        var settings = new (string Type, string? Value, string Description)[]
+        {
+            (ExchangeFileStore.DirectorySetting, null,
+                "Répertoire de conservation des fichiers échangés (vide = répertoire de l'application)."),
+            (AirConnector.MockBlacklistSetting, null,
+                "Liste noire simulée du système aérien (noms séparés par des virgules) — mode simulé uniquement."),
+        };
+
+        foreach (var setting in settings)
+        {
+            if (await db.Settings.AnyAsync(s => s.Type == setting.Type, ct)) continue;
+            db.Settings.Add(new Setting
+            {
+                Type = setting.Type,
+                StringValue = setting.Value,
+                Description = setting.Description,
+                UpdateDate = DateTime.Now,
+                UpdateUser = "seed",
+            });
+        }
+
         await db.SaveChangesAsync(ct);
     }
 
@@ -472,9 +541,7 @@ public static class ReferenceDataSeeder
         public int SortOrder { get; set; }
         public string Fr { get; set; } = string.Empty;
         public string En { get; set; } = string.Empty;
-    }
-
-    private sealed class SeedCountry
+    }    private sealed class SeedCountry
     {
         [JsonPropertyName("oldId")] public int OldId { get; set; }
         public string Alpha2 { get; set; } = string.Empty;

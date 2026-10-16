@@ -62,11 +62,23 @@ public static class DependencyInjection
         // Lot 6 — opérations frontière (voyages, passages, navires, transporteurs).
         services.AddScoped<TripService>();
         services.AddScoped<TransportReferentialService>();
+        // Lot 7 — échanges (messages APIS EDIFACT, connecteurs externes, journal).
+        services.AddScoped<ExchangeJournal>();
+        services.AddScoped<ExchangeFileStore>();
+        services.AddScoped<ApisMessageService>();
+        services.AddScoped<ExternalCheckService>();
+        services.AddSingleton<Func<HttpClient>>(_ => CreateHttpClient);
+        services.AddScoped<IExternalCheckConnector, SimiecConnector>();
+        services.AddScoped<IExternalCheckConnector, BelizeConnector>();
+        services.AddScoped<IExternalCheckConnector, AirConnector>();
         // Tableau de bord du poste (héritage : schéma dashboard).
         services.AddScoped<DashboardService>();
 
         return services;
     }
+
+    /// <summary>Client HTTP des connecteurs externes (mode direct).</summary>
+    private static HttpClient CreateHttpClient() => new() { Timeout = TimeSpan.FromSeconds(15) };
 
     /// <summary>
     /// Initialisation de la base : applique les migrations, crée un administrateur

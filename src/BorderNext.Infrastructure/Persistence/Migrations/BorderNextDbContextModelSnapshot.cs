@@ -22,6 +22,277 @@ namespace BorderNext.Infrastructure.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("BorderNext.Domain.Entities.ApisDoubtfulPerson", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ActionStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ApisPassengerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CheckingReason")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<int?>("PerformActionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Supervisor")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("SupervisorPcNumber")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("SupervisorsNote")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("UpdateUser")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApisPassengerId");
+
+                    b.HasIndex("PerformActionId");
+
+                    b.ToTable("ApisDoubtfulPersons", (string)null);
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.ApisMessage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("ArrivalDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("ArrivalLocation")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<short?>("BorderPointId")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("CarrierName")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("ControlReference")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("CreatedByUserId")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime?>("DepartureDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("DepartureLocation")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("FlightNumber")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("PassengerCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RecipientId")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("SenderId")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("SourceFormat")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("UpdateUser")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArrivalDate");
+
+                    b.HasIndex("BorderPointId");
+
+                    b.HasIndex("CreatedDate");
+
+                    b.HasIndex("FlightNumber");
+
+                    b.ToTable("ApisMessages", (string)null);
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.ApisMessageFile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ApisMessageId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ContentHash")
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("FileName")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<long?>("SizeBytes")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApisMessageId");
+
+                    b.HasIndex("ContentHash");
+
+                    b.ToTable("ApisMessageFiles", (string)null);
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.ApisPassenger", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ApisMessageId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CheckingReason")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("Citizenship")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("CountryOfIssue")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("CountryOfResidence")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("DocumentNumber")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("DocumentType")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<DateTime?>("ExpireDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Gender")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("GivenName")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("IsPassenger")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("IssueDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<int?>("MatchedDocumentId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MatchedMovementId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PassportRegistrationId")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Surname")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("UpdateUser")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApisMessageId");
+
+                    b.HasIndex("DocumentNumber");
+
+                    b.HasIndex("MatchedDocumentId");
+
+                    b.HasIndex("MatchedMovementId");
+
+                    b.HasIndex("Status");
+
+                    b.ToTable("ApisPassengers", (string)null);
+                });
+
             modelBuilder.Entity("BorderNext.Domain.Entities.AuditLog", b =>
                 {
                     b.Property<long>("Id")
@@ -713,6 +984,174 @@ namespace BorderNext.Infrastructure.Persistence.Migrations
                     b.HasIndex("WorkflowStatus");
 
                     b.ToTable("DoubtablePersons", (string)null);
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.ExchangeError", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("ExchangeRunId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ItemReference")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Message")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<DateTime>("OccurredAt")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Step")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExchangeRunId");
+
+                    b.ToTable("ExchangeErrors", (string)null);
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.ExchangeRun", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Channel")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<DateTime?>("CompletedAt")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime?>("DataFrom")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime?>("DataTo")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Direction")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<int>("ErrorCount")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ExchangeTaskId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FilePath")
+                        .HasMaxLength(400)
+                        .HasColumnType("nvarchar(400)");
+
+                    b.Property<int>("ItemCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Reference")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("StartedAt")
+                        .HasColumnType("datetime");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SuccessCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Summary")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("UserId")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExchangeTaskId");
+
+                    b.HasIndex("StartedAt");
+
+                    b.ToTable("ExchangeRuns", (string)null);
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.ExchangeTask", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Channel")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<bool>("DependingOnBorderPoint")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(400)
+                        .HasColumnType("nvarchar(400)");
+
+                    b.Property<string>("Direction")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Endpoint")
+                        .HasMaxLength(400)
+                        .HasColumnType("nvarchar(400)");
+
+                    b.Property<string>("FileDirectory")
+                        .HasMaxLength(400)
+                        .HasColumnType("nvarchar(400)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("Parameters")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("UpdateUser")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Channel");
+
+                    b.ToTable("ExchangeTasks", (string)null);
                 });
 
             modelBuilder.Entity("BorderNext.Domain.Entities.Fingerprint", b =>
@@ -2906,6 +3345,70 @@ namespace BorderNext.Infrastructure.Persistence.Migrations
                     b.ToTable("VisaChildren", (string)null);
                 });
 
+            modelBuilder.Entity("BorderNext.Domain.Entities.ApisDoubtfulPerson", b =>
+                {
+                    b.HasOne("BorderNext.Domain.Entities.ApisPassenger", "ApisPassenger")
+                        .WithMany("DoubtfulRecords")
+                        .HasForeignKey("ApisPassengerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BorderNext.Domain.Entities.Lookup", "PerformAction")
+                        .WithMany()
+                        .HasForeignKey("PerformActionId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("ApisPassenger");
+
+                    b.Navigation("PerformAction");
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.ApisMessage", b =>
+                {
+                    b.HasOne("BorderNext.Domain.Entities.BorderPoint", "BorderPoint")
+                        .WithMany()
+                        .HasForeignKey("BorderPointId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("BorderPoint");
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.ApisMessageFile", b =>
+                {
+                    b.HasOne("BorderNext.Domain.Entities.ApisMessage", "ApisMessage")
+                        .WithMany("Files")
+                        .HasForeignKey("ApisMessageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApisMessage");
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.ApisPassenger", b =>
+                {
+                    b.HasOne("BorderNext.Domain.Entities.ApisMessage", "ApisMessage")
+                        .WithMany("Passengers")
+                        .HasForeignKey("ApisMessageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BorderNext.Domain.Entities.TravelDocument", "MatchedDocument")
+                        .WithMany()
+                        .HasForeignKey("MatchedDocumentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("BorderNext.Domain.Entities.Movement", "MatchedMovement")
+                        .WithMany()
+                        .HasForeignKey("MatchedMovementId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("ApisMessage");
+
+                    b.Navigation("MatchedDocument");
+
+                    b.Navigation("MatchedMovement");
+                });
+
             modelBuilder.Entity("BorderNext.Domain.Entities.BorderPointCulture", b =>
                 {
                     b.HasOne("BorderNext.Domain.Entities.BorderPoint", "Owner")
@@ -3123,6 +3626,27 @@ namespace BorderNext.Infrastructure.Persistence.Migrations
                     b.Navigation("RefusalCountry");
 
                     b.Navigation("RefusalJustification");
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.ExchangeError", b =>
+                {
+                    b.HasOne("BorderNext.Domain.Entities.ExchangeRun", "ExchangeRun")
+                        .WithMany("Errors")
+                        .HasForeignKey("ExchangeRunId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ExchangeRun");
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.ExchangeRun", b =>
+                {
+                    b.HasOne("BorderNext.Domain.Entities.ExchangeTask", "ExchangeTask")
+                        .WithMany()
+                        .HasForeignKey("ExchangeTaskId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("ExchangeTask");
                 });
 
             modelBuilder.Entity("BorderNext.Domain.Entities.Fingerprint", b =>
@@ -3890,6 +4414,18 @@ namespace BorderNext.Infrastructure.Persistence.Migrations
                     b.Navigation("Visa");
                 });
 
+            modelBuilder.Entity("BorderNext.Domain.Entities.ApisMessage", b =>
+                {
+                    b.Navigation("Files");
+
+                    b.Navigation("Passengers");
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.ApisPassenger", b =>
+                {
+                    b.Navigation("DoubtfulRecords");
+                });
+
             modelBuilder.Entity("BorderNext.Domain.Entities.BorderPoint", b =>
                 {
                     b.Navigation("Cultures");
@@ -3917,6 +4453,11 @@ namespace BorderNext.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("BorderNext.Domain.Entities.Country", b =>
                 {
                     b.Navigation("Cultures");
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.ExchangeRun", b =>
+                {
+                    b.Navigation("Errors");
                 });
 
             modelBuilder.Entity("BorderNext.Domain.Entities.Lookup", b =>
