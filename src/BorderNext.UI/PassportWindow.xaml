@@ -1,0 +1,242 @@
+<Window x:Class="BorderNext.UI.PassportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:res="clr-namespace:BorderNext.UI.Resources"
+        Title="{res:Str Key=Passport_Title}"
+        Height="860" Width="1180"
+        WindowStartupLocation="CenterOwner"
+        KeyDown="Window_KeyDown">
+    <DockPanel>
+        <Border DockPanel.Dock="Top" Background="{StaticResource ThemePanelBrush}" BorderBrush="{StaticResource ThemeBorderBrush}"
+                BorderThickness="0,0,0,1" Padding="10">
+            <StackPanel Orientation="Horizontal">
+                <Button Content="{res:Str Key=PAL_Search}" Style="{StaticResource ToolbarButton}" Padding="12,6" Click="Search_Click"/>
+                <Button Content="{res:Str Key=PAL_New}" Style="{StaticResource ToolbarButton}" Padding="12,6" Click="New_Click"/>
+                <Button Content="{res:Str Key=PAL_Save}" Style="{StaticResource PrimaryButton}" Padding="16,6" Margin="0,0,12,0" Click="Save_Click"/>
+                <TextBlock x:Name="ModeText" VerticalAlignment="Center" FontWeight="SemiBold" Foreground="#1F4E79" Margin="0,0,12,0"/>
+                <TextBlock x:Name="StatusText" VerticalAlignment="Center" Foreground="#4A5568"/>
+            </StackPanel>
+        </Border>
+
+        <Border DockPanel.Dock="Bottom" Padding="10">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="{res:Str Key=PAL_Close}" Padding="16,8" Click="Close_Click"/>
+            </StackPanel>
+        </Border>
+
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Document + Mouvement côte à côte -->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.15*"/>
+                    <ColumnDefinition Width="1.35*"/>
+                </Grid.ColumnDefinitions>
+
+                <GroupBox Grid.Column="0" Header="{res:Str Key=PAL_Section_Document}" Margin="0,0,8,8" Padding="8">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0">
+                            <TextBlock Text="{res:Str Key=PAL_DocumentType}" Style="{StaticResource FieldLabel}"/>
+                            <ComboBox x:Name="DocTypeCombo" Style="{StaticResource FieldCombo}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="1">
+                            <TextBlock Text="{res:Str Key=PAL_DocumentNumber}" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="DocNumberBox" Style="{StaticResource FieldBox}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Grid.Column="0">
+                            <TextBlock Text="{res:Str Key=PAL_CountryOfIssue}" Style="{StaticResource FieldLabel}"/>
+                            <ComboBox x:Name="CountryOfIssueCombo" Style="{StaticResource FieldCombo}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="1">
+                            <TextBlock Text="{res:Str Key=PAL_PersonalNumber}" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="PersonalNumberBox" Style="{StaticResource FieldBox}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Grid.Column="0">
+                            <TextBlock Text="{res:Str Key=PAL_IssueDate}" Style="{StaticResource FieldLabel}"/>
+                            <DatePicker x:Name="IssueDatePicker" Margin="0,0,12,8"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Grid.Column="1">
+                            <TextBlock Text="{res:Str Key=PAL_ExpireDate}" Style="{StaticResource FieldLabel}"/>
+                            <DatePicker x:Name="ExpireDatePicker" Margin="0,0,12,8"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="3" Grid.Column="0">
+                            <TextBlock Text="{res:Str Key=PAL_Surname}" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="SurnameBox" Style="{StaticResource FieldBox}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="3" Grid.Column="1">
+                            <TextBlock Text="{res:Str Key=PAL_GivenName}" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="GivenNameBox" Style="{StaticResource FieldBox}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="4" Grid.Column="0">
+                            <TextBlock Text="{res:Str Key=PAL_FatherName}" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="FatherNameBox" Style="{StaticResource FieldBox}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="4" Grid.Column="1">
+                            <TextBlock Text="{res:Str Key=PAL_DateOfBirth}" Style="{StaticResource FieldLabel}"/>
+                            <DatePicker x:Name="BirthDatePicker" Margin="0,0,12,8"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="5" Grid.Column="0">
+                            <TextBlock Text="{res:Str Key=PAL_Sex}" Style="{StaticResource FieldLabel}"/>
+                            <ComboBox x:Name="SexCombo" Style="{StaticResource FieldCombo}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="5" Grid.Column="1">
+                            <TextBlock Text="{res:Str Key=PAL_Citizenship}" Style="{StaticResource FieldLabel}"/>
+                            <ComboBox x:Name="CitizenshipCombo" Style="{StaticResource FieldCombo}"/>
+                        </StackPanel>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Grid.Column="1" Header="{res:Str Key=PAL_Section_Movement}" Margin="0,0,0,8" Padding="8">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0">
+                            <TextBlock Text="{res:Str Key=PAL_Direction}" Style="{StaticResource FieldLabel}"/>
+                            <ComboBox x:Name="DirectionCombo" Style="{StaticResource FieldCombo}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="1">
+                            <TextBlock Text="{res:Str Key=PAL_TravelDate}" Style="{StaticResource FieldLabel}"/>
+                            <DatePicker x:Name="TravelDatePicker" Margin="0,0,12,8"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Grid.Column="0">
+                            <TextBlock Text="{res:Str Key=PAL_TravelReason}" Style="{StaticResource FieldLabel}"/>
+                            <ComboBox x:Name="TravelReasonCombo" Style="{StaticResource FieldCombo}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="1">
+                            <TextBlock Text="{res:Str Key=PAL_Transport}" Style="{StaticResource FieldLabel}"/>
+                            <ComboBox x:Name="TransportCombo" Style="{StaticResource FieldCombo}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Grid.Column="0">
+                            <TextBlock Text="{res:Str Key=PAL_ResidentCountry}" Style="{StaticResource FieldLabel}"/>
+                            <ComboBox x:Name="ResidentCountryCombo" Style="{StaticResource FieldCombo}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Grid.Column="1">
+                            <TextBlock Text="{res:Str Key=PAL_DestinationCountry}" Style="{StaticResource FieldLabel}"/>
+                            <ComboBox x:Name="DestinationCountryCombo" Style="{StaticResource FieldCombo}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+                            <StackPanel Width="330">
+                                <TextBlock Text="{res:Str Key=BO_Trip}" Style="{StaticResource FieldLabel}"/>
+                                <ComboBox x:Name="TripCombo" Style="{StaticResource FieldCombo}"/>
+                            </StackPanel>
+                            <Button x:Name="RefreshTripsBtn" Content="{res:Str Key=BO_RefreshTrips}" Style="{StaticResource ToolbarButton}"
+                                    Padding="10,6" Margin="8,20,0,0" Click="RefreshTrips_Click"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="3" Grid.Column="0">
+                            <TextBlock Text="{res:Str Key=PAL_AccommodationType}" Style="{StaticResource FieldLabel}"/>
+                            <ComboBox x:Name="AccommodationCombo" Style="{StaticResource FieldCombo}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="3" Grid.Column="1">
+                            <TextBlock Text="{res:Str Key=PAL_DurationOfStay}" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="DurationBox" Width="80" HorizontalAlignment="Left" Style="{StaticResource FieldBox}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="4" Grid.Column="0">
+                            <TextBlock Text="{res:Str Key=PAL_AccommodationAddress}" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="AccommodationAddressBox" Style="{StaticResource FieldBox}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="4" Grid.Column="1">
+                            <TextBlock Text="{res:Str Key=PAL_Occupation}" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="OccupationBox" Style="{StaticResource FieldBox}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="5" Grid.Column="0">
+                            <TextBlock Text="{res:Str Key=PAL_Visa}" Style="{StaticResource FieldLabel}"/>
+                            <ComboBox x:Name="VisaCombo" Style="{StaticResource FieldCombo}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="5" Grid.Column="1">
+                            <TextBlock Text="{res:Str Key=PAL_ChildrenCount}" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="ChildrenBox" Width="80" HorizontalAlignment="Left" Style="{StaticResource FieldBox}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="6" Grid.Column="0" Orientation="Horizontal" Margin="0,0,0,8">
+                            <CheckBox x:Name="DriverCheck" Content="{res:Str Key=PAL_IsDriver}" VerticalAlignment="Center" Margin="0,0,14,0"/>
+                            <CheckBox x:Name="TransitCheck" Content="{res:Str Key=PAL_IsTransit}" VerticalAlignment="Center" Margin="0,0,14,0"/>
+                            <CheckBox x:Name="HasVisaCheck" Content="{res:Str Key=PAL_HasVisa}" VerticalAlignment="Center" Checked="HasVisa_Changed" Unchecked="HasVisa_Changed"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,8">
+                            <CheckBox x:Name="GrantedCheck" Content="{res:Str Key=PAL_Granted}" VerticalAlignment="Center" IsChecked="True"
+                                      Checked="Granted_Changed" Unchecked="Granted_Changed" Margin="0,0,14,0"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="7" Grid.Column="0">
+                            <TextBlock Text="{res:Str Key=PAL_DeportationReason}" Style="{StaticResource FieldLabel}"/>
+                            <ComboBox x:Name="DeportationReasonCombo" Style="{StaticResource FieldCombo}" IsEnabled="False"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="7" Grid.Column="1">
+                            <TextBlock Text="{res:Str Key=PAL_Note}" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="NoteBox" Style="{StaticResource FieldBox}"/>
+                        </StackPanel>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+
+            <!-- Photo + scanné + appareils -->
+            <GroupBox Grid.Row="1" Header="{res:Str Key=PAL_Section_Photo}" Margin="0,0,0,8" Padding="8">
+                <StackPanel Orientation="Horizontal">
+                    <Border BorderBrush="{StaticResource ThemeBorderBrush}" BorderThickness="1" Width="96" Height="120" Background="White">
+                        <Image x:Name="PhotoPreview" Stretch="Uniform"/>
+                    </Border>
+                    <StackPanel Margin="10,0,0,0" VerticalAlignment="Center">
+                        <Button x:Name="LoadPhotoBtn" Content="{res:Str Key=PAL_LoadPhoto}" Style="{StaticResource ToolbarButton}" Padding="12,6" Margin="0,0,0,6" Click="LoadPhoto_Click"/>
+                        <Button x:Name="CapturePhotoBtn" Content="{res:Str Key=PAL_CapturePhoto}" Style="{StaticResource ToolbarButton}" Padding="12,6" Margin="0,0,0,6" Click="CapturePhoto_Click"/>
+                        <Button x:Name="LoadScanBtn" Content="{res:Str Key=PAL_LoadScan}" Style="{StaticResource ToolbarButton}" Padding="12,6" Margin="0,0,0,6" Click="LoadScan_Click"/>
+                        <TextBlock x:Name="ScanStatus" Foreground="#4A5568" FontSize="12"/>
+                    </StackPanel>
+                    <StackPanel Margin="18,0,0,0" VerticalAlignment="Center">
+                        <Button x:Name="ReadDocumentBtn" Content="{res:Str Key=PAL_ReadDocument}" Style="{StaticResource ToolbarButton}" Padding="12,6" Margin="0,0,0,6" Click="ReadDocument_Click"/>
+                        <Button x:Name="FingerprintsBtn" Content="{res:Str Key=PAL_Fingerprints}" Style="{StaticResource ToolbarButton}" Padding="12,6" Margin="0,0,0,6" Click="Fingerprints_Click"/>
+                        <TextBlock x:Name="DeviceStatus" Foreground="#8A8F99" FontSize="11" TextWrapping="Wrap" MaxWidth="360"/>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+
+            <!-- Historique -->
+            <GroupBox Grid.Row="2" Header="{res:Str Key=PAL_Section_History}" Padding="8">
+                <DataGrid x:Name="HistoryGrid">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{res:Str Key=Admin_Col_Date}" Binding="{Binding RegistrationTime, StringFormat=dd/MM/yyyy HH:mm}" Width="140"/>
+                        <DataGridTextColumn Header="{res:Str Key=PAL_Col_Direction}" Binding="{Binding DirectionFr}" Width="110"/>
+                        <DataGridTextColumn Header="{res:Str Key=PAL_Col_TravelDate}" Binding="{Binding TravelDate, StringFormat=dd/MM/yyyy}" Width="110"/>
+                        <DataGridTextColumn Header="{res:Str Key=PAL_Col_Transport}" Binding="{Binding TransportFr}" Width="120"/>
+                        <DataGridTextColumn Header="{res:Str Key=PAL_Col_Reason}" Binding="{Binding ReasonFr}" Width="*"/>
+                        <DataGridCheckBoxColumn Header="{res:Str Key=PAL_Col_Granted}" Binding="{Binding Granted}" Width="80"/>
+                        <DataGridTextColumn Header="{res:Str Key=PAL_Col_Visa}" Binding="{Binding VisaNumber}" Width="130"/>
+                        <DataGridTextColumn Header="{res:Str Key=PAL_Col_Inspector}" Binding="{Binding Inspector}" Width="120"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </GroupBox>
+        </Grid>
+    </DockPanel>
+</Window>

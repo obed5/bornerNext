@@ -1,0 +1,57 @@
+<Window x:Class="BorderNext.UI.DocumentSearchWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:res="clr-namespace:BorderNext.UI.Resources"
+        Title="{res:Str Key=DocumentSearch_Title}"
+        Height="620" Width="1020"
+        WindowStartupLocation="CenterOwner">
+    <DockPanel>
+        <Border DockPanel.Dock="Top" Background="{StaticResource ThemePanelBrush}" BorderBrush="{StaticResource ThemeBorderBrush}"
+                BorderThickness="0,0,0,1" Padding="10">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel>
+                    <TextBlock Text="{res:Str Key=PAL_DocumentNumber}" Style="{StaticResource FieldLabel}"/>
+                    <TextBox x:Name="NumberBox" Width="150" Style="{StaticResource FieldBox}" KeyDown="Search_KeyDown"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="{res:Str Key=PAL_Surname}" Style="{StaticResource FieldLabel}"/>
+                    <TextBox x:Name="SurnameBox" Width="160" Style="{StaticResource FieldBox}" KeyDown="Search_KeyDown"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="{res:Str Key=PAL_GivenName}" Style="{StaticResource FieldLabel}"/>
+                    <TextBox x:Name="GivenNameBox" Width="160" Style="{StaticResource FieldBox}" KeyDown="Search_KeyDown"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="{res:Str Key=PAL_DateOfBirth}" Style="{StaticResource FieldLabel}"/>
+                    <DatePicker x:Name="BirthPicker" Width="130" Margin="0,0,12,0"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="{res:Str Key=PAL_Citizenship}" Style="{StaticResource FieldLabel}"/>
+                    <ComboBox x:Name="CitizenshipCombo" Width="190" Style="{StaticResource FieldCombo}"/>
+                </StackPanel>
+                <Button Content="{res:Str Key=Common_Search}" Style="{StaticResource PrimaryButton}" Padding="16,6"
+                        VerticalAlignment="Bottom" Margin="0,0,0,2" Click="Search_Click"/>
+            </StackPanel>
+        </Border>
+
+        <Border DockPanel.Dock="Bottom" Padding="10">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock x:Name="StatusText" VerticalAlignment="Center" Margin="0,0,12,0" Foreground="#4A5568"/>
+                <Button Content="{res:Str Key=PAL_Select}" Style="{StaticResource PrimaryButton}" Padding="16,8" Margin="0,0,8,0" Click="Select_Click"/>
+                <Button Content="{res:Str Key=PAL_Close}" Padding="16,8" Click="Close_Click"/>
+            </StackPanel>
+        </Border>
+
+        <DataGrid x:Name="ResultsGrid" Margin="10" MouseDoubleClick="Results_MouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{res:Str Key=PAL_DocumentNumber}" Binding="{Binding DocumentNumber}" Width="140"/>
+                <DataGridTextColumn Header="{res:Str Key=PAL_DocumentType}" Binding="{Binding DocumentTypeFr}" Width="170"/>
+                <DataGridTextColumn Header="{res:Str Key=PAL_Col_Holder}" Binding="{Binding Holder}" Width="*"/>
+                <DataGridTextColumn Header="{res:Str Key=PAL_DateOfBirth}" Binding="{Binding DateOfBirth, StringFormat=dd/MM/yyyy}" Width="110"/>
+                <DataGridTextColumn Header="{res:Str Key=PAL_Citizenship}" Binding="{Binding CitizenshipFr}" Width="160"/>
+                <DataGridTextColumn Header="{res:Str Key=PAL_ExpireDate}" Binding="{Binding ExpireDate, StringFormat=dd/MM/yyyy}" Width="100"/>
+                <DataGridTextColumn Header="{res:Str Key=PAL_Col_LastMovement}" Binding="{Binding LastMovement}" Width="170"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</Window>

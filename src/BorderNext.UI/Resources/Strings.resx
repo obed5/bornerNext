@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <data name="App_Title" xml:space="preserve"><value>BorderNext</value></data>
+  <data name="Login_Title" xml:space="preserve"><value>Connexion — BorderNext</value></data>
+  <data name="Login_Subtitle" xml:space="preserve"><value>Gestion du contrôle frontalier</value></data>
+  <data name="Login_UserName" xml:space="preserve"><value>Nom d'utilisateur</value></data>
+  <data name="Login_Password" xml:space="preserve"><value>Mot de passe</value></data>
+  <data name="Login_Button" xml:space="preserve"><value>Se connecter</value></data>
+  <data name="Login_Language" xml:space="preserve"><value>Langue</value></data>
+  <data name="Login_Error_UserNameRequired" xml:space="preserve"><value>Veuillez saisir le nom d'utilisateur.</value></data>
+  <data name="Login_Error_PasswordRequired" xml:space="preserve"><value>Veuillez saisir le mot de passe.</value></data>
+  <data name="Login_Error_InvalidCredentials" xml:space="preserve"><value>Nom d'utilisateur ou mot de passe incorrect.</value></data>
+  <data name="Login_Error_AccountRevoked" xml:space="preserve"><value>Ce compte a été révoqué. Contactez un administrateur.</value></data>
+  <data name="ChangePassword_Title" xml:space="preserve"><value>Changement de mot de passe</value></data>
+  <data name="ChangePassword_Info" xml:space="preserve"><value>Veuillez changer votre mot de passe personnel.</value></data>
+  <data name="ChangePassword_Current" xml:space="preserve"><value>Mot de passe actuel</value></data>
+  <data name="ChangePassword_New" xml:space="preserve"><value>Nouveau mot de passe</value></data>
+  <data name="ChangePassword_Confirm" xml:space="preserve"><value>Confirmation</value></data>
+  <data name="ChangePassword_Button" xml:space="preserve"><value>Valider</value></data>
+  <data name="ChangePassword_Error_Mismatch" xml:space="preserve"><value>Les deux mots de passe ne correspondent pas.</value></data>
+  <data name="ChangePassword_Error_TooShort" xml:space="preserve"><value>Le mot de passe doit contenir au moins 8 caractères.</value></data>
+  <data name="ChangePassword_Error_Failed" xml:space="preserve"><value>Échec du changement de mot de passe.</value></data>
+  <data name="Shell_Title" xml:space="preserve"><value>BorderNext — Poste de contrôle frontalier</value></data>
+  <data name="Shell_Menu_File" xml:space="preserve"><value>_Fichier</value></data>
+  <data name="Shell_Menu_Logout" xml:space="preserve"><value>_Déconnexion</value></data>
+  <data name="Shell_Menu_Exit" xml:space="preserve"><value>Quitter</value></data>
+  <data name="Shell_Menu_Modules" xml:space="preserve"><value>_Modules</value></data>
+  <data name="Shell_Menu_Passport" xml:space="preserve"><value>_Passeports (F5)</value></data>
+  <data name="Shell_Menu_Visa" xml:space="preserve"><value>_Visas</value></data>
+  <data name="Shell_Menu_Permit" xml:space="preserve"><value>_Permis</value></data>
+  <data name="Shell_Menu_Watchlist" xml:space="preserve"><value>_Surveillance</value></data>
+  <data name="Shell_Menu_Reports" xml:space="preserve"><value>Rapports</value></data>
+  <data name="Shell_Menu_Admin" xml:space="preserve"><value>_Administration</value></data>
+  <data name="Shell_Status_User" xml:space="preserve"><value>Utilisateur : {0}</value></data>
+  <data name="Shell_Status_Role" xml:space="preserve"><value>Rôle : {0}</value></data>
+  <data name="Shell_Status_PC" xml:space="preserve"><value>Poste : {0}</value></data>
+  <data name="Shell_Module_Placeholder" xml:space="preserve"><value>Module « {0} » — prévu au lot de construction suivant.</value></data>
+  <data name="Common_Error" xml:space="preserve"><value>Erreur</value></data>
+  <data name="Common_Information" xml:space="preserve"><value>Information</value></data>
+  <data name="Admin_Title" xml:space="preserve"><value>Administration</value></data>
+  <data name="Admin_Tab_Reference" xml:space="preserve"><value>Référentiels</value></data>
+  <data name="Admin_Tab_Geo" xml:space="preserve"><value>Pays &amp; géographie</value></data>
+  <data name="Admin_Tab_BorderPoints" xml:space="preserve"><value>Postes frontières</value></data>
+  <data name="Admin_Tab_Users" xml:space="preserve"><value>Utilisateurs &amp; droits</value></data>
+  <data name="Admin_Tab_Settings" xml:space="preserve"><value>Paramètres</value></data>
+  <data name="Admin_Tab_Audit" xml:space="preserve"><value>Journal d’audit</value></data>
+  <data name="Admin_Geo_Countries" xml:space="preserve"><value>Pays</value></data>
+  <data name="Admin_Geo_Provinces" xml:space="preserve"><value>Provinces</value></data>
+  <data name="Admin_Geo_Cities" xml:space="preserve"><value>Villes</value></data>
+  <data name="Admin_Saved" xml:space="preserve"><value>Enregistré.</value></data>
+  <data name="Admin_NoPermission" xml:space="preserve"><value>Vous n’avez pas les droits d’accès à l’administration.</value></data>
+  <data name="Common_New" xml:space="preserve"><value>Nouveau</value></data>
+  <data name="Common_Save" xml:space="preserve"><value>Enregistrer</value></data>
+  <data name="Common_Revoke" xml:space="preserve"><value>Révoquer</value></data>
+  <data name="Common_Restore" xml:space="preserve"><value>Réactiver</value></data>
+  <data name="Common_Delete" xml:space="preserve"><value>Supprimer</value></data>
+  <data name="Common_Search" xml:space="preserve"><value>Rechercher</value></data>
+  <data name="Common_All" xml:space="preserve"><value>(tous)</value></data>
+  <data name="Common_ShowRevoked" xml:space="preserve"><value>Afficher les éléments révoqués</value></data>
+  <data name="Common_Yes" xml:space="preserve"><value>Oui</value></data>
+  <data name="Common_No" xml:space="preserve"><value>Non</value></data>
+  <data name="Common_Close" xml:space="preserve"><value>Fermer</value></data>
+  <data name="Admin_Col_Code" xml:space="preserve"><value>Code</value></data>
+  <data name="Admin_Col_NameFr" xml:space="preserve"><value>Français</value></data>
+  <data name="Admin_Col_NameEn" xml:space="preserve"><value>Anglais</value></data>
+  <data name="Admin_Col_SortOrder" xml:space="preserve"><value>Ordre</value></data>
+  <data name="Admin_Col_Revoked" xml:space="preserve"><value>Révoqué</value></data>
+  <data name="Admin_Col_Count" xml:space="preserve"><value>Éléments</value></data>
+  <data name="Admin_Col_Alpha2" xml:space="preserve"><value>Alpha-2</value></data>
+  <data name="Admin_Col_Alpha3" xml:space="preserve"><value>Alpha-3</value></data>
+  <data name="Admin_Col_Region" xml:space="preserve"><value>Région</value></data>
+  <data name="Admin_Col_Country" xml:space="preserve"><value>Pays</value></data>
+  <data name="Admin_Col_Abbreviation" xml:space="preserve"><value>Abréviation</value></data>
+  <data name="Admin_Col_RegionalSite" xml:space="preserve"><value>Site régional</value></data>
+  <data name="Admin_Col_UserId" xml:space="preserve"><value>Matricule</value></data>
+  <data name="Admin_Col_UserName" xml:space="preserve"><value>Identifiant</value></data>
+  <data name="Admin_Col_FirstName" xml:space="preserve"><value>Prénom</value></data>
+  <data name="Admin_Col_LastName" xml:space="preserve"><value>Nom</value></data>
+  <data name="Admin_Col_Role" xml:space="preserve"><value>Rôle</value></data>
+  <data name="Admin_Col_BorderPoint" xml:space="preserve"><value>Poste frontière</value></data>
+  <data name="Admin_Col_LastLogin" xml:space="preserve"><value>Dernière connexion</value></data>
+  <data name="Admin_Col_MustChange" xml:space="preserve"><value>Changement MDP</value></data>
+  <data name="Admin_Col_Type" xml:space="preserve"><value>Type</value></data>
+  <data name="Admin_Col_Value" xml:space="preserve"><value>Valeur</value></data>
+  <data name="Admin_Col_StringValue" xml:space="preserve"><value>Valeur texte</value></data>
+  <data name="Admin_Col_Description" xml:space="preserve"><value>Description</value></data>
+  <data name="Admin_Col_Pc" xml:space="preserve"><value>Poste</value></data>
+  <data name="Admin_Col_User" xml:space="preserve"><value>Utilisateur</value></data>
+  <data name="Admin_Col_Date" xml:space="preserve"><value>Date/heure</value></data>
+  <data name="Admin_Col_EventType" xml:space="preserve"><value>Événement</value></data>
+  <data name="Admin_Col_Entity" xml:space="preserve"><value>Entité</value></data>
+  <data name="Admin_Col_EntityId" xml:space="preserve"><value>Réf.</value></data>
+  <data name="Admin_Col_Details" xml:space="preserve"><value>Détail</value></data>
+  <data name="Admin_Col_Control" xml:space="preserve"><value>Contrôle</value></data>
+  <data name="Admin_Col_Permission" xml:space="preserve"><value>Autorisé</value></data>
+  <data name="Admin_Col_Visibility" xml:space="preserve"><value>Visible</value></data>
+  <data name="Admin_Users_New" xml:space="preserve"><value>Créer un utilisateur</value></data>
+  <data name="Admin_Users_ResetPassword" xml:space="preserve"><value>Réinitialiser le mot de passe</value></data>
+  <data name="Admin_Rights_Title" xml:space="preserve"><value>Droits du rôle sur les contrôles</value></data>
+  <data name="Admin_Rights_Save" xml:space="preserve"><value>Enregistrer les droits</value></data>
+  <data name="Admin_Rights_Role" xml:space="preserve"><value>Rôle</value></data>
+  <data name="Admin_Audit_UserFilter" xml:space="preserve"><value>Utilisateur</value></data>
+  <data name="Admin_Audit_EventFilter" xml:space="preserve"><value>Événement</value></data>
+  <data name="Admin_Audit_From" xml:space="preserve"><value>Du</value></data>
+  <data name="Admin_Audit_To" xml:space="preserve"><value>Au</value></data>
+  <data name="Admin_Audit_Export" xml:space="preserve"><value>Exporter CSV</value></data>
+  <data name="Admin_Audit_ExportDone" xml:space="preserve"><value>Export enregistré : {0}</value></data>
+  <data name="PasswordPrompt_Title" xml:space="preserve"><value>Mot de passe</value></data>
+  <data name="PasswordPrompt_Info" xml:space="preserve"><value>Saisissez le mot de passe (8 caractères minimum).</value></data>
+  <data name="Admin_Error_TypeNotFound" xml:space="preserve"><value>Type de nomenclature introuvable.</value></data>
+  <data name="Admin_Error_ItemNotFound" xml:space="preserve"><value>Élément introuvable.</value></data>
+  <data name="Admin_Error_DuplicateCode" xml:space="preserve"><value>Ce code existe déjà.</value></data>
+  <data name="Admin_Error_NameRequired" xml:space="preserve"><value>Saisissez au moins un libellé (code ou nom).</value></data>
+  <data name="Admin_Error_UserExists" xml:space="preserve"><value>Ce matricule ou identifiant existe déjà.</value></data>
+  <data name="Admin_Error_UserIdRequired" xml:space="preserve"><value>Matricule et identifiant obligatoires.</value></data>
+  <data name="Admin_Error_PasswordTooShort" xml:space="preserve"><value>Mot de passe trop court (8 caractères minimum).</value></data>
+  <data name="Admin_Error_CannotRevokeSelf" xml:space="preserve"><value>Vous ne pouvez pas révoquer votre propre compte.</value></data>
+  <data name="Admin_Error_LastAdmin" xml:space="preserve"><value>Impossible de révoquer le dernier administrateur actif.</value></data>
+  <data name="Admin_Error_CountryInUse" xml:space="preserve"><value>Ce pays est utilisé par des villes actives.</value></data>
+  <data name="Admin_Error_BorderPointInUse" xml:space="preserve"><value>Ce poste est affecté à des utilisateurs actifs.</value></data>
+  <data name="Admin_Error_CountryRequired" xml:space="preserve"><value>Sélectionnez un pays.</value></data>
+  <data name="Admin_Error_SettingTypeRequired" xml:space="preserve"><value>Le type de réglage est obligatoire.</value></data>
+  <data name="Admin_Error_ExportFailed" xml:space="preserve"><value>Échec de l’export.</value></data>
+  <data name="Passport_Title" xml:space="preserve"><value>Enregistrement passeport — BorderNext</value></data>
+  <data name="Visa_Title" xml:space="preserve"><value>Visas — BorderNext</value></data>
+  <data name="DocumentSearch_Title" xml:space="preserve"><value>Recherche de documents</value></data>
+  <data name="PAL_Section_Document" xml:space="preserve"><value>Document de voyage</value></data>
+  <data name="PAL_Section_Movement" xml:space="preserve"><value>Mouvement frontière</value></data>
+  <data name="PAL_Section_Photo" xml:space="preserve"><value>Photo &amp; document scanné</value></data>
+  <data name="PAL_Section_History" xml:space="preserve"><value>Derniers mouvements</value></data>
+  <data name="PAL_DocumentType" xml:space="preserve"><value>Type de document</value></data>
+  <data name="PAL_DocumentNumber" xml:space="preserve"><value>N° de document</value></data>
+  <data name="PAL_CountryOfIssue" xml:space="preserve"><value>Pays de délivrance</value></data>
+  <data name="PAL_IssueDate" xml:space="preserve"><value>Émis le</value></data>
+  <data name="PAL_ExpireDate" xml:space="preserve"><value>Expire le</value></data>
+  <data name="PAL_Surname" xml:space="preserve"><value>Nom</value></data>
+  <data name="PAL_GivenName" xml:space="preserve"><value>Prénom</value></data>
+  <data name="PAL_FatherName" xml:space="preserve"><value>Nom du père</value></data>
+  <data name="PAL_DateOfBirth" xml:space="preserve"><value>Date de naissance</value></data>
+  <data name="PAL_Sex" xml:space="preserve"><value>Sexe</value></data>
+  <data name="PAL_Citizenship" xml:space="preserve"><value>Nationalité</value></data>
+  <data name="PAL_PersonalNumber" xml:space="preserve"><value>N° national</value></data>
+  <data name="PAL_Direction" xml:space="preserve"><value>Sens</value></data>
+  <data name="PAL_TravelDate" xml:space="preserve"><value>Date de voyage</value></data>
+  <data name="PAL_TravelReason" xml:space="preserve"><value>Motif de voyage</value></data>
+  <data name="PAL_Transport" xml:space="preserve"><value>Transport</value></data>
+  <data name="PAL_IsDriver" xml:space="preserve"><value>Conducteur</value></data>
+  <data name="PAL_IsTransit" xml:space="preserve"><value>En transit</value></data>
+  <data name="PAL_HasVisa" xml:space="preserve"><value>Titulaire d’un visa</value></data>
+  <data name="PAL_Visa" xml:space="preserve"><value>Visa</value></data>
+  <data name="PAL_Granted" xml:space="preserve"><value>Passage accordé</value></data>
+  <data name="PAL_DeportationReason" xml:space="preserve"><value>Motif de refus / déportation</value></data>
+  <data name="PAL_ResidentCountry" xml:space="preserve"><value>Pays de résidence</value></data>
+  <data name="PAL_DestinationCountry" xml:space="preserve"><value>Pays de destination</value></data>
+  <data name="PAL_DurationOfStay" xml:space="preserve"><value>Durée de séjour (nuitées)</value></data>
+  <data name="PAL_AccommodationType" xml:space="preserve"><value>Hébergement</value></data>
+  <data name="PAL_AccommodationAddress" xml:space="preserve"><value>Adresse d’hébergement</value></data>
+  <data name="PAL_Occupation" xml:space="preserve"><value>Profession</value></data>
+  <data name="PAL_ChildrenCount" xml:space="preserve"><value>Nombre d’enfants</value></data>
+  <data name="PAL_Note" xml:space="preserve"><value>Note</value></data>
+  <data name="PAL_LoadPhoto" xml:space="preserve"><value>Charger une photo…</value></data>
+  <data name="PAL_LoadScan" xml:space="preserve"><value>Charger un scan…</value></data>
+  <data name="PAL_ClearImage" xml:space="preserve"><value>Retirer</value></data>
+  <data name="PAL_Search" xml:space="preserve"><value>Rechercher un document (Ctrl+F)</value></data>
+  <data name="PAL_New" xml:space="preserve"><value>Nouveau (Ctrl+N)</value></data>
+  <data name="PAL_Save" xml:space="preserve"><value>Enregistrer (F2)</value></data>
+  <data name="PAL_Close" xml:space="preserve"><value>Fermer</value></data>
+  <data name="PAL_Mode_New" xml:space="preserve"><value>Nouveau document</value></data>
+  <data name="PAL_Mode_Existing" xml:space="preserve"><value>Document n°{0}</value></data>
+  <data name="PAL_Saved" xml:space="preserve"><value>Enregistrement effectué (mouvement n°{0}).</value></data>
+  <data name="PAL_Col_Holder" xml:space="preserve"><value>Titulaire</value></data>
+  <data name="PAL_Col_LastMovement" xml:space="preserve"><value>Dernier mouvement</value></data>
+  <data name="PAL_Col_Direction" xml:space="preserve"><value>Sens</value></data>
+  <data name="PAL_Col_TravelDate" xml:space="preserve"><value>Voyage</value></data>
+  <data name="PAL_Col_Transport" xml:space="preserve"><value>Transport</value></data>
+  <data name="PAL_Col_Reason" xml:space="preserve"><value>Motif</value></data>
+  <data name="PAL_Col_Granted" xml:space="preserve"><value>Accordé</value></data>
+  <data name="PAL_Col_Visa" xml:space="preserve"><value>Visa</value></data>
+  <data name="PAL_Col_Inspector" xml:space="preserve"><value>Inspecteur</value></data>
+  <data name="PAL_Search_Required" xml:space="preserve"><value>Saisissez au moins un critère de recherche.</value></data>
+  <data name="PAL_Select" xml:space="preserve"><value>Sélectionner</value></data>
+  <data name="PAL_Error_SearchCriteriaRequired" xml:space="preserve"><value>Saisissez au moins un critère de recherche.</value></data>
+  <data name="PAL_Error_DocumentNotFound" xml:space="preserve"><value>Document introuvable.</value></data>
+  <data name="PAL_Error_DocumentNumberRequired" xml:space="preserve"><value>Le numéro de document est obligatoire.</value></data>
+  <data name="PAL_Error_DocumentDuplicate" xml:space="preserve"><value>Un document de ce type porte déjà ce numéro.</value></data>
+  <data name="PAL_Error_DocumentIncomplete" xml:space="preserve"><value>Document incomplet : renseignez {0}.</value></data>
+  <data name="PAL_Error_DirectionRequired" xml:space="preserve"><value>Sélectionnez un sens de passage valide.</value></data>
+  <data name="PAL_Error_TravelDateRequired" xml:space="preserve"><value>La date de voyage est obligatoire.</value></data>
+  <data name="PAL_Error_TravelDateFuture" xml:space="preserve"><value>La date de voyage ne peut pas être future.</value></data>
+  <data name="PAL_Error_DocumentExpired" xml:space="preserve"><value>Document expiré ou valabilité insuffisante : {0}.</value></data>
+  <data name="PAL_Error_DeportationReasonRequired" xml:space="preserve"><value>Un motif est obligatoire en cas de refus.</value></data>
+  <data name="PAL_Error_NegativeValue" xml:space="preserve"><value>Les nombres ne peuvent pas être négatifs.</value></data>
+  <data name="PAL_Error_VisaNotFound" xml:space="preserve"><value>Aucun visa valide trouvé pour ce document.</value></data>
+  <data name="PAL_Error_VisaMismatch" xml:space="preserve"><value>Le visa sélectionné n’appartient pas à ce document.</value></data>
+  <data name="PAL_Error_TransportTypeUnknown" xml:space="preserve"><value>Mode de transport inconnu.</value></data>
+  <data name="PAL_Error_TravelReasonUnknown" xml:space="preserve"><value>Motif de voyage inconnu.</value></data>
+  <data name="PAL_Error_AccommodationUnknown" xml:space="preserve"><value>Type d’hébergement inconnu.</value></data>
+  <data name="VISA_Error_TypeRequired" xml:space="preserve"><value>Sélectionnez un type de visa valide.</value></data>
+  <data name="VISA_Error_EntryUnknown" xml:space="preserve"><value>Entrée de visa inconnue.</value></data>
+  <data name="VISA_Error_DatesInvalid" xml:space="preserve"><value>La date d’expiration doit suivre la date d’émission.</value></data>
+  <data name="VISA_Error_DurationInvalid" xml:space="preserve"><value>Durée invalide.</value></data>
+  <data name="VISA_Error_NumberGeneration" xml:space="preserve"><value>Impossible de générer un numéro de visa.</value></data>
+  <data name="Visa_New" xml:space="preserve"><value>Nouveau visa</value></data>
+  <data name="Visa_Number" xml:space="preserve"><value>Numéro</value></data>
+  <data name="Visa_Type" xml:space="preserve"><value>Type de visa</value></data>
+  <data name="Visa_Entry" xml:space="preserve"><value>Entrées</value></data>
+  <data name="Visa_Duration" xml:space="preserve"><value>Durée (jours)</value></data>
+  <data name="Visa_Reference" xml:space="preserve"><value>Référence</value></data>
+  <data name="Visa_Receipt" xml:space="preserve"><value>Reçu n°</value></data>
+  <data name="Visa_Employer" xml:space="preserve"><value>Employeur</value></data>
+  <data name="Visa_InvitedBy" xml:space="preserve"><value>Invité par</value></data>
+  <data name="Visa_Address" xml:space="preserve"><value>Adresse</value></data>
+  <data name="Visa_Contact" xml:space="preserve"><value>Téléphone</value></data>
+  <data name="Visa_Voucher" xml:space="preserve"><value>Voucher</value></data>
+  <data name="Visa_Barcode" xml:space="preserve"><value>Code-barres</value></data>
+  <data name="Visa_Section_Document" xml:space="preserve"><value>Document porteur</value></data>
+  <data name="Visa_Section_Details" xml:space="preserve"><value>Détails du visa</value></data>
+  <data name="Visa_Section_Children" xml:space="preserve"><value>Enfants rattachés</value></data>
+  <data name="Visa_AddChild" xml:space="preserve"><value>Ajouter un enfant</value></data>
+  <data name="Visa_RemoveChild" xml:space="preserve"><value>Retirer</value></data>
+  <data name="Visa_Saved" xml:space="preserve"><value>Visa enregistré.</value></data>
+  <data name="Visa_Existing" xml:space="preserve"><value>Visas du document</value></data>
+  <data name="Visa_NoDocument" xml:space="preserve"><value>(aucun document)</value></data>
+  <data name="Visa_Col_Number" xml:space="preserve"><value>N°</value></data>
+  <data name="Visa_Col_Type" xml:space="preserve"><value>Type</value></data>
+  <data name="Visa_Col_Issue" xml:space="preserve"><value>Émission</value></data>
+  <data name="Visa_Col_Expire" xml:space="preserve"><value>Expiration</value></data>
+  <data name="Visa_Col_Valid" xml:space="preserve"><value>Valide</value></data>
+  <data name="Bio_Title" xml:space="preserve"><value>Empreintes digitales</value></data>
+  <data name="Bio_Scan_Title" xml:space="preserve"><value>Capture d’empreinte</value></data>
+  <data name="Bio_Device" xml:space="preserve"><value>Capteur</value></data>
+  <data name="Bio_SimulatedIdentity" xml:space="preserve"><value>Doigt simulé (démonstration)</value></data>
+  <data name="Bio_Capture" xml:space="preserve"><value>Capturer</value></data>
+  <data name="Bio_Capturing" xml:space="preserve"><value>Capture en cours…</value></data>
+  <data name="Bio_Quality" xml:space="preserve"><value>Qualité : {0} %</value></data>
+  <data name="Bio_Enrolled" xml:space="preserve"><value>Empreinte capturée (qualité {0} %).</value></data>
+  <data name="Bio_Col_Finger" xml:space="preserve"><value>Doigt</value></data>
+  <data name="Bio_Col_Captured" xml:space="preserve"><value>Capturé</value></data>
+  <data name="Bio_Col_Quality" xml:space="preserve"><value>Qualité</value></data>
+  <data name="Bio_Col_Date" xml:space="preserve"><value>Date de capture</value></data>
+  <data name="Bio_Col_Device" xml:space="preserve"><value>Appareil</value></data>
+  <data name="Bio_Show" xml:space="preserve"><value>Afficher</value></data>
+  <data name="Bio_Delete" xml:space="preserve"><value>Supprimer</value></data>
+  <data name="Bio_NoPrint" xml:space="preserve"><value>Aucune empreinte enregistrée pour ce doigt.</value></data>
+  <data name="Bio_ForPerson" xml:space="preserve"><value>Empreintes de : {0}</value></data>
+  <data name="Bio_Identify" xml:space="preserve"><value>Connexion par empreinte</value></data>
+  <data name="Bio_Identify_Scan" xml:space="preserve"><value>Posez le doigt sur le capteur puis cliquez sur Capturer.</value></data>
+  <data name="Bio_Identify_Unknown" xml:space="preserve"><value>Empreinte non reconnue.</value></data>
+  <data name="Bio_Identify_Welcome" xml:space="preserve"><value>Opérateur identifié : {0}</value></data>
+  <data name="Bio_Enroll_Slot1" xml:space="preserve"><value>Enrôler empreinte 1</value></data>
+  <data name="Bio_Enroll_Slot2" xml:space="preserve"><value>Enrôler empreinte 2</value></data>
+  <data name="Bio_Clear_Slot1" xml:space="preserve"><value>Effacer empreinte 1</value></data>
+  <data name="Bio_Clear_Slot2" xml:space="preserve"><value>Effacer empreinte 2</value></data>
+  <data name="Bio_User_Enrolled" xml:space="preserve"><value>Empreinte {0} enrôlée.</value></data>
+  <data name="Bio_User_Cleared" xml:space="preserve"><value>Empreinte {0} effacée.</value></data>
+  <data name="Bio_User_Status" xml:space="preserve"><value>Biométrie opérateur : doigt 1 {0} · doigt 2 {1}</value></data>
+  <data name="Bio_Yes" xml:space="preserve"><value>enrôlé</value></data>
+  <data name="Bio_No" xml:space="preserve"><value>absent</value></data>
+  <data name="Bio_RequiresSavedDocument" xml:space="preserve"><value>Enregistrez d’abord le document (F2) pour capturer les empreintes.</value></data>
+  <data name="Bio_Error_FingerNumber" xml:space="preserve"><value>Numéro de doigt invalide (1 à 10).</value></data>
+  <data name="Bio_Error_DuplicateFingerprint" xml:space="preserve"><value>Cette empreinte est déjà enrôlée pour une autre personne.</value></data>
+  <data name="Bio_Error_Slot" xml:space="preserve"><value>Emplacement biométrique invalide (1 ou 2).</value></data>
+  <data name="DEVICE_Error_Unreadable" xml:space="preserve"><value>Document illisible — repositionnez le document.</value></data>
+  <data name="PAL_ReadDocument" xml:space="preserve"><value>Lire le document (lecteur)</value></data>
+  <data name="PAL_CapturePhoto" xml:space="preserve"><value>Capturer la photo (caméra)</value></data>
+  <data name="PAL_Fingerprints" xml:space="preserve"><value>Empreintes…</value></data>
+  <data name="PAL_DocumentRead" xml:space="preserve"><value>Document lu : {0}</value></data>
+  <data name="PAL_PhotoCaptured" xml:space="preserve"><value>Photo capturée (portrait simulé). Enregistrez pour la conserver.</value></data>
+  <data name="PAL_DeviceStatus" xml:space="preserve"><value>Appareils : {0}</value></data>
+  <data name="Login_Biometrics" xml:space="preserve"><value>Empreinte</value></data>
+  <data name="Login_Biometrics_EnrollHint" xml:space="preserve"><value>Aucun opérateur n’a d’empreinte enrôlée (Administration → Utilisateurs).</value></data>
+  <data name="Bio_Finger_1" xml:space="preserve"><value>Pouce gauche</value></data>
+  <data name="Bio_Finger_2" xml:space="preserve"><value>Index gauche</value></data>
+  <data name="Bio_Finger_3" xml:space="preserve"><value>Majeur gauche</value></data>
+  <data name="Bio_Finger_4" xml:space="preserve"><value>Annulaire gauche</value></data>
+  <data name="Bio_Finger_5" xml:space="preserve"><value>Auriculaire gauche</value></data>
+  <data name="Bio_Finger_6" xml:space="preserve"><value>Pouce droit</value></data>
+  <data name="Bio_Finger_7" xml:space="preserve"><value>Index droit</value></data>
+  <data name="Bio_Finger_8" xml:space="preserve"><value>Majeur droit</value></data>
+  <data name="Bio_Finger_9" xml:space="preserve"><value>Annulaire droit</value></data>
+  <data name="Bio_Finger_10" xml:space="preserve"><value>Auriculaire droit</value></data>
+  <data name="Permit_Title" xml:space="preserve"><value>Permis de résidence / travail — BorderNext</value></data>
+  <data name="Enforcement_Title" xml:space="preserve"><value>Refus et sanctions — BorderNext</value></data>
+  <data name="Permit_Section_Header" xml:space="preserve"><value>Permis</value></data>
+  <data name="Permit_Section_Details" xml:space="preserve"><value>Résidence et situation</value></data>
+  <data name="Permit_Section_Contacts" xml:space="preserve"><value>Contacts, permis de conduire, antécédents</value></data>
+  <data name="Permit_Section_Travel" xml:space="preserve"><value>Voyage et activité</value></data>
+  <data name="Permit_Section_Dependants" xml:space="preserve"><value>Personnes à charge</value></data>
+  <data name="Permit_Holder" xml:space="preserve"><value>Titulaire : {0}</value></data>
+  <data name="Permit_NoDocument" xml:space="preserve"><value>Aucun document sélectionné (recherche Ctrl+F).</value></data>
+  <data name="Permit_Type" xml:space="preserve"><value>Type de permis</value></data>
+  <data name="Permit_Number" xml:space="preserve"><value>N° de permis</value></data>
+  <data name="Permit_Status" xml:space="preserve"><value>Statut</value></data>
+  <data name="Permit_MaritalStatus" xml:space="preserve"><value>État civil</value></data>
+  <data name="Permit_Occupation" xml:space="preserve"><value>Profession</value></data>
+  <data name="Permit_OccupationOther" xml:space="preserve"><value>Profession (précision)</value></data>
+  <data name="Permit_Qualification" xml:space="preserve"><value>Qualification</value></data>
+  <data name="Permit_CourseOfStudy" xml:space="preserve"><value>Filière d'études</value></data>
+  <data name="Permit_BloodType" xml:space="preserve"><value>Groupe sanguin</value></data>
+  <data name="Permit_IssuingAuthority" xml:space="preserve"><value>Autorité émettrice du document</value></data>
+  <data name="Permit_Visa" xml:space="preserve"><value>Visa associé</value></data>
+  <data name="Permit_SaveHeader" xml:space="preserve"><value>Enregistrer le permis</value></data>
+  <data name="Permit_SaveDetails" xml:space="preserve"><value>Enregistrer les détails</value></data>
+  <data name="Permit_SaveTravel" xml:space="preserve"><value>Enregistrer voyage et activité</value></data>
+  <data name="Permit_CurrentAddress" xml:space="preserve"><value>Adresse actuelle</value></data>
+  <data name="Permit_CurrentTown" xml:space="preserve"><value>Ville actuelle</value></data>
+  <data name="Permit_CurrentPhone" xml:space="preserve"><value>Téléphone</value></data>
+  <data name="Permit_PreviousAddress" xml:space="preserve"><value>Adresse précédente</value></data>
+  <data name="Permit_PreviousTown" xml:space="preserve"><value>Ville précédente</value></data>
+  <data name="Permit_PreviousPostal" xml:space="preserve"><value>Code postal</value></data>
+  <data name="Permit_PlaceOfBirthTown" xml:space="preserve"><value>Lieu de naissance (ville)</value></data>
+  <data name="Permit_SecondCitizenship" xml:space="preserve"><value>Seconde nationalité</value></data>
+  <data name="Permit_CurrentPermitType" xml:space="preserve"><value>Permis en cours (type)</value></data>
+  <data name="Permit_CurrentPermitNumber" xml:space="preserve"><value>Permis en cours (n°)</value></data>
+  <data name="Permit_ReferencePerson" xml:space="preserve"><value>Personne de référence</value></data>
+  <data name="Permit_ReferencePhone" xml:space="preserve"><value>Téléphone (référence)</value></data>
+  <data name="Permit_ChildrenBornHere" xml:space="preserve"><value>Enfants nés ici</value></data>
+  <data name="Permit_ChildrenLivingHere" xml:space="preserve"><value>Enfants vivant ici</value></data>
+  <data name="Permit_PeopleLiveWith" xml:space="preserve"><value>Personnes au foyer</value></data>
+  <data name="Permit_IntendedToStayMore" xml:space="preserve"><value>Intention de rester davantage</value></data>
+  <data name="Permit_HadFixJob" xml:space="preserve"><value>A déjà un emploi fixe</value></data>
+  <data name="Permit_CitizenFamilyMember" xml:space="preserve"><value>Membre de famille ressortissant</value></data>
+  <data name="Permit_HasChildrenBornHere" xml:space="preserve"><value>A des enfants nés ici</value></data>
+  <data name="Permit_LivingWithMigrants" xml:space="preserve"><value>Vit avec d'autres migrants</value></data>
+  <data name="Permit_ChildrenSameHouse" xml:space="preserve"><value>Enfants dans le même foyer</value></data>
+  <data name="Permit_ChildrenEducation" xml:space="preserve"><value>Enfants scolarisés</value></data>
+  <data name="Permit_ContactType" xml:space="preserve"><value>Type de contact</value></data>
+  <data name="Permit_ContactDesc" xml:space="preserve"><value>Description</value></data>
+  <data name="Permit_LicenseCountry" xml:space="preserve"><value>Pays de délivrance</value></data>
+  <data name="Permit_LicenseNumber" xml:space="preserve"><value>N° de permis de conduire</value></data>
+  <data name="Permit_Add" xml:space="preserve"><value>Ajouter</value></data>
+  <data name="Permit_Remove" xml:space="preserve"><value>Retirer</value></data>
+  <data name="Permit_RecordType" xml:space="preserve"><value>Type d'antécédent</value></data>
+  <data name="Permit_TravelFreeWill" xml:space="preserve"><value>Voyage librement choisi</value></data>
+  <data name="Permit_TravelDeparture" xml:space="preserve"><value>Départ (ville)</value></data>
+  <data name="Permit_TravelDepartureDate" xml:space="preserve"><value>Date de départ</value></data>
+  <data name="Permit_TravelArrival" xml:space="preserve"><value>Date d'arrivée</value></data>
+  <data name="Permit_TravelPort" xml:space="preserve"><value>Poste d'entrée</value></data>
+  <data name="Permit_TravelImmigrationCheck" xml:space="preserve"><value>Contrôle d'immigration</value></data>
+  <data name="Permit_TravelIrregularExit" xml:space="preserve"><value>Sortie irrégulière</value></data>
+  <data name="Permit_SelfEmployedName" xml:space="preserve"><value>Activité (nom)</value></data>
+  <data name="Permit_SelfEmployedAddress" xml:space="preserve"><value>Adresse de l'activité</value></data>
+  <data name="Permit_Industry" xml:space="preserve"><value>Secteur</value></data>
+  <data name="Permit_EmployeeRange" xml:space="preserve"><value>Effectif</value></data>
+  <data name="Permit_Dependant_Add" xml:space="preserve"><value>Ajouter la personne à charge</value></data>
+  <data name="Permit_Dependant_Edit" xml:space="preserve"><value>Enregistrer les modifications</value></data>
+  <data name="Permit_Dependant_Relation" xml:space="preserve"><value>Lien</value></data>
+  <data name="Permit_Dependant_Phone" xml:space="preserve"><value>Téléphone</value></data>
+  <data name="Permit_Saved" xml:space="preserve"><value>Permis enregistré.</value></data>
+  <data name="Permit_DetailsSaved" xml:space="preserve"><value>Détails enregistrés.</value></data>
+  <data name="Permit_TravelSaved" xml:space="preserve"><value>Voyage et activité enregistrés.</value></data>
+  <data name="Permit_RequiresSaved" xml:space="preserve"><value>Enregistrez d'abord le permis pour cette section.</value></data>
+  <data name="ENF_Tab_Refusals" xml:space="preserve"><value>Refus d'entrée</value></data>
+  <data name="ENF_Tab_RemovalOrders" xml:space="preserve"><value>Ordres de reconduite</value></data>
+  <data name="ENF_Tab_Penalties" xml:space="preserve"><value>Amendes</value></data>
+  <data name="ENF_Col_Document" xml:space="preserve"><value>Document</value></data>
+  <data name="ENF_Col_Justification" xml:space="preserve"><value>Base légale</value></data>
+  <data name="ENF_Col_RemovalOrder" xml:space="preserve"><value>Reconduite</value></data>
+  <data name="ENF_Col_Penalty" xml:space="preserve"><value>Amende</value></data>
+  <data name="ENF_Justification" xml:space="preserve"><value>Base légale du refus</value></data>
+  <data name="ENF_ApplyJustification" xml:space="preserve"><value>Appliquer la base légale</value></data>
+  <data name="ENF_CreateOrder" xml:space="preserve"><value>Ordre de reconduite</value></data>
+  <data name="ENF_CreateNotice" xml:space="preserve"><value>Avis d'inadmissibilité</value></data>
+  <data name="ENF_CreatePenalty" xml:space="preserve"><value>Amende…</value></data>
+  <data name="ENF_OrderCreated" xml:space="preserve"><value>Ordre de reconduite créé.</value></data>
+  <data name="ENF_NoticeCreated" xml:space="preserve"><value>Avis d'inadmissibilité créé.</value></data>
+  <data name="ENF_JustificationSaved" xml:space="preserve"><value>Base légale enregistrée.</value></data>
+  <data name="ENF_Penalty_Title" xml:space="preserve"><value>Nouvelle amende</value></data>
+  <data name="ENF_Penalty_Reason" xml:space="preserve"><value>Motif</value></data>
+  <data name="ENF_Penalty_Amount" xml:space="preserve"><value>Montant</value></data>
+  <data name="ENF_Penalty_Currency" xml:space="preserve"><value>Devise</value></data>
+  <data name="ENF_Penalty_Duration" xml:space="preserve"><value>Durée (jours)</value></data>
+  <data name="ENF_Penalty_Number" xml:space="preserve"><value>Numéro (auto si vide)</value></data>
+  <data name="ENF_Penalty_Created" xml:space="preserve"><value>Amende {0} créée.</value></data>
+  <data name="ENF_Col_Amount" xml:space="preserve"><value>Montant</value></data>
+  <data name="ENF_Col_Duration" xml:space="preserve"><value>Durée</value></data>
+  <data name="ENF_Col_Paid" xml:space="preserve"><value>Payée</value></data>
+  <data name="ENF_Col_Receipt" xml:space="preserve"><value>Reçu</value></data>
+  <data name="ENF_Col_Officer" xml:space="preserve"><value>Officier</value></data>
+  <data name="ENF_Col_Info" xml:space="preserve"><value>Informations</value></data>
+  <data name="ENF_Pay" xml:space="preserve"><value>Encaisser</value></data>
+  <data name="ENF_Pay_Title" xml:space="preserve"><value>Encaissement</value></data>
+  <data name="ENF_Pay_Info" xml:space="preserve"><value>Numéro de reçu :</value></data>
+  <data name="ENF_Paid" xml:space="preserve"><value>Amende encaissée.</value></data>
+  <data name="ENF_CancelPenalty" xml:space="preserve"><value>Annuler l'amende</value></data>
+  <data name="ENF_RestorePenalty" xml:space="preserve"><value>Réactiver l'amende</value></data>
+  <data name="ENF_RequiresSavedPermitAndDocument" xml:space="preserve"><value>Enregistrez d'abord le permis et son document.</value></data>
+  <data name="PV_Error_DuplicateNumber" xml:space="preserve"><value>Ce numéro de permis existe déjà.</value></data>
+  <data name="PV_Error_TypeRequired" xml:space="preserve"><value>Sélectionnez un type de permis valide.</value></data>
+  <data name="PV_Error_StatusUnknown" xml:space="preserve"><value>Statut de permis inconnu.</value></data>
+  <data name="PV_Error_LicenseNumberRequired" xml:space="preserve"><value>Le numéro du permis de conduire est obligatoire.</value></data>
+  <data name="PV_Error_NumberGeneration" xml:space="preserve"><value>Impossible de générer un numéro de permis.</value></data>
+  <data name="ENF_Error_MovementNotRefused" xml:space="preserve"><value>Ce passage n'est pas un refus d'entrée.</value></data>
+  <data name="ENF_Error_JustificationUnknown" xml:space="preserve"><value>Base légale inconnue.</value></data>
+  <data name="ENF_Error_RemovalTypeRequired" xml:space="preserve"><value>Type d'ordre de reconduite inconnu.</value></data>
+  <data name="ENF_Error_ReasonRequired" xml:space="preserve"><value>Sélectionnez un motif d'amende valide.</value></data>
+  <data name="ENF_Error_AmountInvalid" xml:space="preserve"><value>Le montant doit être supérieur à zéro.</value></data>
+  <data name="ENF_Error_DurationInvalid" xml:space="preserve"><value>Durée invalide.</value></data>
+  <data name="ENF_Error_DuplicatePenalty" xml:space="preserve"><value>Une amende active existe déjà pour ce passage et ce motif.</value></data>
+  <data name="ENF_Error_ReceiptRequired" xml:space="preserve"><value>Numéro de reçu obligatoire pour l'encaissement.</value></data>
+  <data name="ENF_Error_NumberGeneration" xml:space="preserve"><value>Impossible de générer un numéro d'amende.</value></data>
+  <data name="Shell_Menu_Enforcement" xml:space="preserve"><value>_Refus &amp; sanctions</value></data>
+  <data name="Country_Of_Birth" xml:space="preserve"><value>Pays de naissance</value></data>
+  <data name="WL_Title" xml:space="preserve"><value>Surveillance — listes d'alerte et douteux</value></data>
+  <data name="WL_Tab_Persons" xml:space="preserve"><value>Liste personnes</value></data>
+  <data name="WL_Tab_Documents" xml:space="preserve"><value>Liste documents</value></data>
+  <data name="WL_Tab_Doubtful" xml:space="preserve"><value>Personnes douteuses</value></data>
+  <data name="WL_Tab_Simulator" xml:space="preserve"><value>Simulateur d'alerte</value></data>
+  <data name="WL_Col_Surname" xml:space="preserve"><value>Nom</value></data>
+  <data name="WL_Col_GivenName" xml:space="preserve"><value>Prénom(s)</value></data>
+  <data name="WL_Col_FathersName" xml:space="preserve"><value>Nom du père</value></data>
+  <data name="WL_Col_BirthDate" xml:space="preserve"><value>Naissance</value></data>
+  <data name="WL_Col_Sex" xml:space="preserve"><value>Sexe</value></data>
+  <data name="WL_Col_Citizenship" xml:space="preserve"><value>Nationalité</value></data>
+  <data name="WL_Col_Document" xml:space="preserve"><value>Document</value></data>
+  <data name="WL_Col_DocumentType" xml:space="preserve"><value>Type doc.</value></data>
+  <data name="WL_Col_PersonalNumber" xml:space="preserve"><value>N° personnel</value></data>
+  <data name="WL_Col_Action" xml:space="preserve"><value>Action</value></data>
+  <data name="WL_Col_SetUpDate" xml:space="preserve"><value>Inscrit le</value></data>
+  <data name="WL_Col_CancelDate" xml:space="preserve"><value>Annulé le</value></data>
+  <data name="WL_Col_Authorized" xml:space="preserve"><value>Autorisée</value></data>
+  <data name="WL_Col_Country" xml:space="preserve"><value>Pays</value></data>
+  <data name="WL_Col_Source" xml:space="preserve"><value>Source</value></data>
+  <data name="WL_Col_Info" xml:space="preserve"><value>Informations</value></data>
+  <data name="WL_Col_WorkflowStatus" xml:space="preserve"><value>État</value></data>
+  <data name="WL_Col_TravelDate" xml:space="preserve"><value>Voyage</value></data>
+  <data name="WL_Col_CheckingReason" xml:space="preserve"><value>Motif de contrôle</value></data>
+  <data name="WL_Col_StopListEntry" xml:space="preserve"><value>Entrée liste</value></data>
+  <data name="WL_Col_Supervisor" xml:space="preserve"><value>Superviseur</value></data>
+  <data name="WL_Col_SecondInspection" xml:space="preserve"><value>Seconde insp.</value></data>
+  <data name="WL_Col_PerformedAction" xml:space="preserve"><value>Action menée</value></data>
+  <data name="WL_ShowCancelled" xml:space="preserve"><value>Afficher les annulées</value></data>
+  <data name="WL_NewEntry" xml:space="preserve"><value>Nouvelle entrée</value></data>
+  <data name="WL_SurnameAlt" xml:space="preserve"><value>Nom (variante)</value></data>
+  <data name="WL_GivenNameAlt" xml:space="preserve"><value>Prénom (variante)</value></data>
+  <data name="WL_SourceDocument" xml:space="preserve"><value>Document source</value></data>
+  <data name="WL_ActionRequired" xml:space="preserve"><value>Action à mener</value></data>
+  <data name="WL_CancelAlert" xml:space="preserve"><value>Annuler l'alerte</value></data>
+  <data name="WL_CancelDocument" xml:space="preserve"><value>Document d'annulation (référence)</value></data>
+  <data name="WL_ToggleAuthorized" xml:space="preserve"><value>Autoriser / Retirer</value></data>
+  <data name="WL_Authorize" xml:space="preserve"><value>Autoriser l'alerte</value></data>
+  <data name="WL_WithdrawAuthorized" xml:space="preserve"><value>Retirer l'autorisation</value></data>
+  <data name="WL_CaptureFingerprint" xml:space="preserve"><value>Capture d'empreinte de liste</value></data>
+  <data name="WL_FingerNumber" xml:space="preserve"><value>Numéro du doigt (1 à 10)</value></data>
+  <data name="WL_IdentifyFingerprint" xml:space="preserve"><value>Identifier une empreinte</value></data>
+  <data name="WL_ReverseCheck" xml:space="preserve"><value>Tester contre le registre</value></data>
+  <data name="WL_OnlyPending" xml:space="preserve"><value>En attente seulement</value></data>
+  <data name="WL_SupervisorNote" xml:space="preserve"><value>Note du superviseur</value></data>
+  <data name="WL_RefusalOfficer" xml:space="preserve"><value>Agent du refus</value></data>
+  <data name="WL_RefusalRank" xml:space="preserve"><value>Grade</value></data>
+  <data name="WL_RefusalDocNumber" xml:space="preserve"><value>N° document agent</value></data>
+  <data name="WL_Process" xml:space="preserve"><value>Traiter</value></data>
+  <data name="WL_CancelDoubt" xml:space="preserve"><value>Annuler le doute</value></data>
+  <data name="WL_AutoCheck" xml:space="preserve"><value>Contrôle automatique des douteux à l'enregistrement (CheckInDoubtablePersons)</value></data>
+  <data name="WL_Status_All" xml:space="preserve"><value>Tous les états</value></data>
+  <data name="WL_Status_Pending" xml:space="preserve"><value>1 — En attente du superviseur</value></data>
+  <data name="WL_Status_Processed" xml:space="preserve"><value>2 — Traité</value></data>
+  <data name="WL_Status_Cancelled" xml:space="preserve"><value>3 — Annulé</value></data>
+  <data name="WL_OpenDoubts" xml:space="preserve"><value>{0} doute(s) en attente</value></data>
+  <data name="WL_SimulatorList" xml:space="preserve"><value>Liste</value></data>
+  <data name="WL_SimulatorType" xml:space="preserve"><value>Type de correspondance</value></data>
+  <data name="WL_Simulate" xml:space="preserve"><value>Simuler</value></data>
+  <data name="WL_SimType_1" xml:space="preserve"><value>1 — Noms exacts + date de naissance</value></data>
+  <data name="WL_SimType_2" xml:space="preserve"><value>2 — Numéro de document exact</value></data>
+  <data name="WL_SimType_3" xml:space="preserve"><value>3 — Nom proche (distance &lt; 3) + date</value></data>
+  <data name="WL_SimType_4" xml:space="preserve"><value>4 — Prénom proche (distance &lt; 3) + date</value></data>
+  <data name="WL_SimType_5" xml:space="preserve"><value>5 — Noms exacts ± 5 ans</value></data>
+  <data name="WL_SimType_6" xml:space="preserve"><value>6 — Deux noms proches (distance &lt; 2) + date</value></data>
+  <data name="WL_SimType_7" xml:space="preserve"><value>7 — Nom et prénom inversés + date</value></data>
+  <data name="WL_SimType_8" xml:space="preserve"><value>8 — Numéro de document proche (distance &lt; 2)</value></data>
+  <data name="WL_NewEntryHint" xml:space="preserve"><value>Saisissez les champs puis Enregistrer.</value></data>
+  <data name="WL_PersonSaved" xml:space="preserve"><value>Entrée n° {0} créée dans la liste d'alerte personnes.</value></data>
+  <data name="WL_PersonUpdated" xml:space="preserve"><value>Entrée n° {0} mise à jour.</value></data>
+  <data name="WL_DocumentSaved" xml:space="preserve"><value>Entrée n° {0} créée dans la liste d'alerte documents.</value></data>
+  <data name="WL_DocumentUpdated" xml:space="preserve"><value>Entrée n° {0} mise à jour.</value></data>
+  <data name="WL_AlertCancelled" xml:space="preserve"><value>Alerte annulée.</value></data>
+  <data name="WL_Authorized" xml:space="preserve"><value>Alerte autorisée (levée).</value></data>
+  <data name="WL_AuthorizationWithdrawn" xml:space="preserve"><value>Autorisation retirée.</value></data>
+  <data name="WL_FingerprintSaved" xml:space="preserve"><value>Empreinte du doigt {0} enregistrée.</value></data>
+  <data name="WL_Fingerprints" xml:space="preserve"><value>Empreintes : doigts {0}</value></data>
+  <data name="WL_NoFingerprints" xml:space="preserve"><value>Aucune empreinte sur cette entrée.</value></data>
+  <data name="WL_Identify_NoMatch" xml:space="preserve"><value>Aucune correspondance dans les empreintes de liste d'alerte.</value></data>
+  <data name="WL_Identify_Match" xml:space="preserve"><value>{0} correspondance(s) — score {1}.</value></data>
+  <data name="WL_ReverseCheck_Result" xml:space="preserve"><value>{0} document(s) du registre correspondent à cette entrée.</value></data>
+  <data name="WL_DoubtProcessed" xml:space="preserve"><value>Doute traité par le superviseur.</value></data>
+  <data name="WL_DoubtCancelled" xml:space="preserve"><value>Doute annulé.</value></data>
+  <data name="WL_AutoCheck_On" xml:space="preserve"><value>Contrôle automatique des douteux activé.</value></data>
+  <data name="WL_AutoCheck_Off" xml:space="preserve"><value>Contrôle automatique des douteux désactivé.</value></data>
+  <data name="WL_Simulate_Result" xml:space="preserve"><value>Type {0} : {1} correspondance(s).</value></data>
+  <data name="WL_Alarm_Title" xml:space="preserve"><value>ALERTE LISTE DE SURVEILLANCE</value></data>
+  <data name="WL_Alarm_Message" xml:space="preserve"><value>Correspondance sur la liste {0} (critère n° {1}).
+
+{2}{3}
+{4}
+
+Consultez la surveillance : l'entrée doit être vérifiée par le superviseur (seconde inspection).</value></data>
+  <data name="WL_DoubtRegistered" xml:space="preserve"><value>Personne douteuse inscrite en seconde inspection.</value></data>
+  <data name="WL_Warning_PriorDoubt" xml:space="preserve"><value>Cette personne a déjà fait l'objet d'une décision défavorable (doute traité au-delà de « Permit »).</value></data>
+  <data name="WL_Error_EntryNotFound" xml:space="preserve"><value>Entrée de liste d'alerte introuvable.</value></data>
+  <data name="WL_Error_IdentifierRequired" xml:space="preserve"><value>Au moins un identifiant est requis (nom, numéro de document ou numéro personnel).</value></data>
+  <data name="WL_Error_AlreadyCancelled" xml:space="preserve"><value>Cette alerte est déjà annulée.</value></data>
+  <data name="WL_Error_FingerNumberRange" xml:space="preserve"><value>Numéro de doigt invalide (1 à 10).</value></data>
+  <data name="WL_Error_NotPending" xml:space="preserve"><value>Seul un doute en attente peut être traité ou annulé.</value></data>
+  <data name="WL_Error_ActionUnknown" xml:space="preserve"><value>Action inconnue dans la nomenclature ACTION.</value></data>
+  <data name="WL_Error_DoubtAlreadyExists" xml:space="preserve"><value>Un doute existe déjà pour ce passage.</value></data>
+  <data name="WL_List_Persons" xml:space="preserve"><value>la liste des personnes</value></data>
+  <data name="WL_List_Documents" xml:space="preserve"><value>la liste des documents</value></data>
+  <data name="Shell_Menu_BorderOps" xml:space="preserve"><value>Voyages et _transports</value></data>
+  <data name="BO_Title" xml:space="preserve"><value>Voyages et transports — opérations frontière</value></data>
+  <data name="BO_Tab_Trips" xml:space="preserve"><value>Voyages</value></data>
+  <data name="BO_Tab_Vessels" xml:space="preserve"><value>Navires</value></data>
+  <data name="BO_Tab_Carriers" xml:space="preserve"><value>Transporteurs</value></data>
+  <data name="BO_Tab_Terminals" xml:space="preserve"><value>Terminaux</value></data>
+  <data name="BO_Col_Name" xml:space="preserve"><value>Nom</value></data>
+  <data name="BO_Col_Type" xml:space="preserve"><value>Type</value></data>
+  <data name="BO_Col_From" xml:space="preserve"><value>Départ</value></data>
+  <data name="BO_Col_To" xml:space="preserve"><value>Arrivée</value></data>
+  <data name="BO_Col_Carrier" xml:space="preserve"><value>Transporteur</value></data>
+  <data name="BO_Col_Passengers" xml:space="preserve"><value>Personnes</value></data>
+  <data name="BO_Col_OpenTime" xml:space="preserve"><value>Ouvert à</value></data>
+  <data name="BO_Col_CloseTime" xml:space="preserve"><value>Fermé à</value></data>
+  <data name="BO_Col_ExternalNumber" xml:space="preserve"><value>N° externe</value></data>
+  <data name="BO_Col_ScheduledTime" xml:space="preserve"><value>Heure prévue</value></data>
+  <data name="BO_Col_FormerName" xml:space="preserve"><value>Ancien nom</value></data>
+  <data name="BO_Col_Registration" xml:space="preserve"><value>Immatriculation</value></data>
+  <data name="BO_Col_RegistrationDate" xml:space="preserve"><value>Inscrit le</value></data>
+  <data name="BO_Col_Nationality" xml:space="preserve"><value>Nationalité</value></data>
+  <data name="BO_Col_HomePort" xml:space="preserve"><value>Port d'attache</value></data>
+  <data name="BO_Col_Dimension" xml:space="preserve"><value>Dimensions</value></data>
+  <data name="BO_Col_Color" xml:space="preserve"><value>Couleur</value></data>
+  <data name="BO_Col_CallSign" xml:space="preserve"><value>Indicatif</value></data>
+  <data name="BO_Col_Frequencies" xml:space="preserve"><value>Fréquences</value></data>
+  <data name="BO_Col_Code" xml:space="preserve"><value>Code</value></data>
+  <data name="BO_Col_DisplayName" xml:space="preserve"><value>Libellé</value></data>
+  <data name="BO_Col_City" xml:space="preserve"><value>Ville</value></data>
+  <data name="BO_OnlyOpen" xml:space="preserve"><value>Passages ouverts seulement</value></data>
+  <data name="BO_NewTrip" xml:space="preserve"><value>Nouveau voyage</value></data>
+  <data name="BO_NewTripHint" xml:space="preserve"><value>Saisissez le voyage puis Enregistrer : il sera ouvert à l'enregistrement.</value></data>
+  <data name="BO_ToggleOpen" xml:space="preserve"><value>Ouvrir / Fermer</value></data>
+  <data name="BO_Open" xml:space="preserve"><value>Ouvrir</value></data>
+  <data name="BO_Close" xml:space="preserve"><value>Fermer</value></data>
+  <data name="BO_Opened" xml:space="preserve"><value>Passage ouvert à l'enregistrement.</value></data>
+  <data name="BO_Closed" xml:space="preserve"><value>Passage fermé.</value></data>
+  <data name="BO_Reassign" xml:space="preserve"><value>Réaffecter la personne</value></data>
+  <data name="BO_Reassigned" xml:space="preserve"><value>{0} réaffecté(e) au passage sélectionné.</value></data>
+  <data name="BO_SelectPassenger" xml:space="preserve"><value>Sélectionnez d'abord une personne dans la liste.</value></data>
+  <data name="BO_NoTargetTrip" xml:space="preserve"><value>Aucun autre passage ouvert disponible.</value></data>
+  <data name="BO_ConfirmDelete" xml:space="preserve"><value>Supprimer le passage du voyage « {0} » ?</value></data>
+  <data name="BO_TripDeleted" xml:space="preserve"><value>Passage supprimé.</value></data>
+  <data name="BO_TripRegistered" xml:space="preserve"><value>Passage n° {0} créé et ouvert.</value></data>
+  <data name="BO_TripUpdated" xml:space="preserve"><value>Passage n° {0} mis à jour.</value></data>
+  <data name="BO_VesselSaved" xml:space="preserve"><value>Navire n° {0} enregistré.</value></data>
+  <data name="BO_VesselUpdated" xml:space="preserve"><value>Navire n° {0} mis à jour.</value></data>
+  <data name="BO_CarrierSaved" xml:space="preserve"><value>Transporteur n° {0} enregistré.</value></data>
+  <data name="BO_CarrierUpdated" xml:space="preserve"><value>Transporteur n° {0} mis à jour.</value></data>
+  <data name="BO_TerminalSaved" xml:space="preserve"><value>Terminal n° {0} enregistré.</value></data>
+  <data name="BO_TerminalUpdated" xml:space="preserve"><value>Terminal n° {0} mis à jour.</value></data>
+  <data name="BO_Revoked" xml:space="preserve"><value>Élément révoqué.</value></data>
+  <data name="BO_Restored" xml:space="preserve"><value>Élément restauré.</value></data>
+  <data name="BO_Error_NameRequired" xml:space="preserve"><value>Le nom est obligatoire.</value></data>
+  <data name="BO_Error_CodeRequired" xml:space="preserve"><value>Le code est obligatoire.</value></data>
+  <data name="BO_Error_TerminalRequired" xml:space="preserve"><value>Renseignez au moins un terminal de départ ou d'arrivée.</value></data>
+  <data name="BO_Error_TerminalUnknown" xml:space="preserve"><value>Terminal inconnu.</value></data>
+  <data name="BO_Error_CarrierUnknown" xml:space="preserve"><value>Transporteur inconnu.</value></data>
+  <data name="BO_Error_TransportTypeUnknown" xml:space="preserve"><value>Type de transport inconnu (nomenclature TRANSPORT_TYPE).</value></data>
+  <data name="BO_Error_DirectionUnknown" xml:space="preserve"><value>Sens de passage inconnu (nomenclature MOVEMENT_DIRECTION).</value></data>
+  <data name="BO_Error_CrossingNotFound" xml:space="preserve"><value>Passage introuvable.</value></data>
+  <data name="BO_Error_TripHasPassengers" xml:space="preserve"><value>Suppression impossible : des personnes sont rattachées à ce passage.</value></data>
+  <data name="BO_Error_DuplicateCode" xml:space="preserve"><value>Ce code existe déjà.</value></data>
+  <data name="BO_Error_CarrierInUse" xml:space="preserve"><value>Ce transporteur est utilisé par un voyage.</value></data>
+  <data name="BO_Error_TerminalInUse" xml:space="preserve"><value>Ce terminal est utilisé par un voyage.</value></data>
+  <data name="BO_Error_EntryNotFound" xml:space="preserve"><value>Élément introuvable.</value></data>
+  <data name="BO_Error_VesselRegistrationRequired" xml:space="preserve"><value>L'immatriculation du navire est obligatoire.</value></data>
+  <data name="BO_Trip" xml:space="preserve"><value>Voyage</value></data>
+  <data name="BO_NoTrip" xml:space="preserve"><value>— hors voyage —</value></data>
+  <data name="BO_RefreshTrips" xml:space="preserve"><value>Rafraîchir les voyages</value></data>
+  <data name="DB_Title" xml:space="preserve"><value>Tableau de bord</value></data>
+  <data name="DB_Refresh" xml:space="preserve"><value>Actualiser</value></data>
+  <data name="DB_Station" xml:space="preserve"><value>Poste : {0}</value></data>
+  <data name="DB_NoStation" xml:space="preserve"><value>Poste non défini</value></data>
+  <data name="DB_Transactions" xml:space="preserve"><value>Transactions du jour</value></data>
+  <data name="DB_EntriesExits" xml:space="preserve"><value>Entrées : {0} · Départs : {1}</value></data>
+  <data name="DB_Comparison" xml:space="preserve"><value>Même jour, an passé</value></data>
+  <data name="DB_ComparisonDetail" xml:space="preserve"><value>Il y a 2 ans : {0} · Écart : {1:+#;-#;0}</value></data>
+  <data name="DB_Doubtful" xml:space="preserve"><value>Personnes douteuses en attente</value></data>
+  <data name="DB_DoubtfulDetail" xml:space="preserve"><value>Traitées aujourd'hui : {0}</value></data>
+  <data name="DB_Trips" xml:space="preserve"><value>Voyages ouverts</value></data>
+  <data name="DB_TripsDetail" xml:space="preserve"><value>Vols du jour : {0}</value></data>
+  <data name="DB_Inspectors" xml:space="preserve"><value>Inspecteurs actifs</value></data>
+  <data name="DB_InspectorsDetail" xml:space="preserve"><value>Arrivées : {0} · Départs : {1}</value></data>
+  <data name="DB_Refusals" xml:space="preserve"><value>Refus aujourd'hui</value></data>
+  <data name="DB_RefusalsDetail" xml:space="preserve"><value>Amendes aujourd'hui : {0}</value></data>
+  <data name="DB_PerBorderPoint" xml:space="preserve"><value>Transactions par poste frontière (comparaison sur 3 ans)</value></data>
+  <data name="DB_Col_Post" xml:space="preserve"><value>Poste</value></data>
+  <data name="DB_Col_Code" xml:space="preserve"><value>Code</value></data>
+  <data name="DB_Col_Today" xml:space="preserve"><value>Aujourd'hui</value></data>
+  <data name="DB_Col_YearAgo" xml:space="preserve"><value>Il y a 1 an</value></data>
+  <data name="DB_Col_TwoYearsAgo" xml:space="preserve"><value>Il y a 2 ans</value></data>
+  <data name="DB_Nationalities" xml:space="preserve"><value>Nationalités les plus représentées aujourd'hui</value></data>
+</root>

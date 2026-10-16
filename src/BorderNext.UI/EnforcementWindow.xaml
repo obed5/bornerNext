@@ -1,0 +1,124 @@
+<Window x:Class="BorderNext.UI.EnforcementWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:res="clr-namespace:BorderNext.UI.Resources"
+        Title="{res:Str Key=Enforcement_Title}"
+        Height="760" Width="1240"
+        WindowStartupLocation="CenterOwner">
+    <DockPanel>
+        <Border DockPanel.Dock="Bottom" Padding="10">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock x:Name="StatusText" VerticalAlignment="Center" Margin="0,0,12,0" Foreground="#4A5568"/>
+                <Button Content="{res:Str Key=PAL_Close}" Padding="16,8" Click="Close_Click"/>
+            </StackPanel>
+        </Border>
+
+        <TabControl Margin="8">
+            <!-- ===================== REFUS D'ENTRÉE ===================== -->
+            <TabItem Header="{res:Str Key=ENF_Tab_Refusals}">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,6">
+                        <TextBlock Text="{res:Str Key=PAL_Col_TravelDate}" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                        <DatePicker x:Name="RefusalFromPicker" Width="120" Margin="0,0,10,0"/>
+                        <TextBlock Text="{res:Str Key=Admin_Audit_To}" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                        <DatePicker x:Name="RefusalToPicker" Width="120" Margin="0,0,10,0"/>
+                        <Button Content="{res:Str Key=Common_Search}" Style="{StaticResource ToolbarButton}" Padding="10,4" Click="SearchRefusals_Click"/>
+                    </StackPanel>
+
+                    <DataGrid x:Name="RefusalsGrid" Grid.Row="1" SelectionChanged="Refusal_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_Date}" Binding="{Binding RegistrationTime, StringFormat=dd/MM/yyyy HH:mm}" Width="140"/>
+                            <DataGridTextColumn Header="{res:Str Key=ENF_Col_Document}" Binding="{Binding DocumentNumber}" Width="130"/>
+                            <DataGridTextColumn Header="{res:Str Key=PAL_Col_Holder}" Binding="{Binding HolderName}" Width="*"/>
+                            <DataGridTextColumn Header="{res:Str Key=PAL_Col_Direction}" Binding="{Binding DirectionFr}" Width="100"/>
+                            <DataGridTextColumn Header="{res:Str Key=PAL_DeportationReason}" Binding="{Binding DeportationReasonFr}" Width="170"/>
+                            <DataGridTextColumn Header="{res:Str Key=ENF_Col_Justification}" Binding="{Binding RefusalJustificationFr}" Width="*"/>
+                            <DataGridCheckBoxColumn Header="{res:Str Key=ENF_Col_RemovalOrder}" Binding="{Binding HasRemovalOrder}" Width="100"/>
+                            <DataGridCheckBoxColumn Header="{res:Str Key=ENF_Col_Penalty}" Binding="{Binding HasPenalty}" Width="90"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Border Grid.Row="2" Background="{StaticResource ThemePanelBrush}" BorderBrush="{StaticResource ThemeBorderBrush}"
+                            BorderThickness="1" Padding="10" Margin="0,8,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{res:Str Key=ENF_Justification}" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                            <ComboBox x:Name="JustificationCombo" Width="330" Style="{StaticResource FieldCombo}"/>
+                            <Button Content="{res:Str Key=ENF_ApplyJustification}" Style="{StaticResource ToolbarButton}" Padding="10,6" Click="ApplyJustification_Click"/>
+                            <Button Content="{res:Str Key=ENF_CreateOrder}" Style="{StaticResource PrimaryButton}" Padding="12,6" Margin="8,0,6,0" Click="CreateOrder_Click"/>
+                            <Button Content="{res:Str Key=ENF_CreateNotice}" Style="{StaticResource ToolbarButton}" Padding="12,6" Click="CreateNotice_Click"/>
+                            <Button Content="{res:Str Key=ENF_CreatePenalty}" Style="{StaticResource ToolbarButton}" Padding="12,6" Click="CreatePenalty_Click"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </TabItem>
+
+            <!-- ===================== ORDRES DE RECONDUITE ===================== -->
+            <TabItem Header="{res:Str Key=ENF_Tab_RemovalOrders}">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <CheckBox x:Name="OrderShowRevoked" Content="{res:Str Key=Common_ShowRevoked}" Margin="0,0,0,6"
+                              Checked="OrderFilter_Changed" Unchecked="OrderFilter_Changed"/>
+
+                    <DataGrid x:Name="OrdersGrid" Grid.Row="1" SelectionChanged="Order_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_Date}" Binding="{Binding CreateDate, StringFormat=dd/MM/yyyy HH:mm}" Width="150"/>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_Type}" Binding="{Binding TypeFr}" Width="200"/>
+                            <DataGridTextColumn Header="{res:Str Key=ENF_Col_Document}" Binding="{Binding DocNumber}" Width="140"/>
+                            <DataGridTextColumn Header="{res:Str Key=PAL_Col_Holder}" Binding="{Binding HolderName}" Width="*"/>
+                            <DataGridTextColumn Header="{res:Str Key=ENF_Col_Info}" Binding="{Binding Info}" Width="*"/>
+                            <DataGridTextColumn Header="{res:Str Key=ENF_Col_Officer}" Binding="{Binding OfficerName}" Width="120"/>
+                            <DataGridCheckBoxColumn Header="{res:Str Key=Admin_Col_Revoked}" Binding="{Binding Revoke}" Width="90"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,8,0,0">
+                        <Button x:Name="OrderRevokeBtn" Content="{res:Str Key=Common_Revoke}" Style="{StaticResource ToolbarButton}" Padding="12,6" Click="ToggleOrderRevoked_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- ===================== AMENDES ===================== -->
+            <TabItem Header="{res:Str Key=ENF_Tab_Penalties}">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,6">
+                        <TextBox x:Name="PenaltySearch" Width="240" Style="{StaticResource FieldBox}"/>
+                        <Button Content="{res:Str Key=Common_Search}" Style="{StaticResource ToolbarButton}" Padding="10,4" Click="SearchPenalties_Click"/>
+                        <CheckBox x:Name="PenaltyShowRevoked" Content="{res:Str Key=Common_ShowRevoked}" VerticalAlignment="Center" Margin="12,0,0,0"
+                                  Checked="PenaltyFilter_Changed" Unchecked="PenaltyFilter_Changed"/>
+                    </StackPanel>
+
+                    <DataGrid x:Name="PenaltiesGrid" Grid.Row="1" SelectionChanged="Penalty_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{res:Str Key=Visa_Number}" Binding="{Binding Number}" Width="170"/>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_Date}" Binding="{Binding CreateDate, StringFormat=dd/MM/yyyy HH:mm}" Width="140"/>
+                            <DataGridTextColumn Header="{res:Str Key=ENF_Penalty_Reason}" Binding="{Binding ReasonFr}" Width="180"/>
+                            <DataGridTextColumn Header="{res:Str Key=ENF_Col_Amount}" Binding="{Binding Amount, StringFormat=N2}" Width="100"/>
+                            <DataGridTextColumn Header="{res:Str Key=ENF_Penalty_Currency}" Binding="{Binding CurrencyCode}" Width="70"/>
+                            <DataGridTextColumn Header="{res:Str Key=ENF_Col_Duration}" Binding="{Binding Duration}" Width="70"/>
+                            <DataGridTextColumn Header="{res:Str Key=ENF_Col_Document}" Binding="{Binding DocumentNumber}" Width="130"/>
+                            <DataGridTextColumn Header="{res:Str Key=PAL_Col_Holder}" Binding="{Binding HolderName}" Width="*"/>
+                            <DataGridCheckBoxColumn Header="{res:Str Key=ENF_Col_Paid}" Binding="{Binding Paid}" Width="70"/>
+                            <DataGridCheckBoxColumn Header="{res:Str Key=Admin_Col_Revoked}" Binding="{Binding Revoke}" Width="90"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,8,0,0">
+                        <Button Content="{res:Str Key=ENF_Pay}" Style="{StaticResource PrimaryButton}" Padding="12,6" Margin="0,0,6,0" Click="Pay_Click"/>
+                        <Button x:Name="PenaltyRevokeBtn" Content="{res:Str Key=ENF_CancelPenalty}" Style="{StaticResource ToolbarButton}" Padding="12,6" Click="TogglePenaltyRevoked_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>

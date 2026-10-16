@@ -1,0 +1,179 @@
+<Window x:Class="BorderNext.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:res="clr-namespace:BorderNext.UI.Resources"
+        Title="{x:Static res:Strings.Shell_Title}"
+        Height="700" Width="1100"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        KeyDown="MainWindow_KeyDown">
+    <Window.Resources>
+        <Style x:Key="DashboardCard" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ThemeBorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="14,10"/>
+            <Setter Property="Margin" Value="0,0,10,10"/>
+            <Setter Property="MinWidth" Value="210"/>
+        </Style>
+        <Style x:Key="DashboardCardTitle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#6B7280"/>
+        </Style>
+        <Style x:Key="DashboardCardValue" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="28"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="{StaticResource ThemePrimaryBrush}"/>
+        </Style>
+        <Style x:Key="DashboardCardDetail" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="11.5"/>
+            <Setter Property="Foreground" Value="#4A5568"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+    </Window.Resources>
+
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="{x:Static res:Strings.Shell_Menu_File}">
+                <MenuItem Header="{x:Static res:Strings.Shell_Menu_Logout}" Click="Logout_Click"/>
+                <Separator/>
+                <MenuItem Header="{x:Static res:Strings.Shell_Menu_Exit}" Click="Exit_Click"/>
+            </MenuItem>
+            <MenuItem Header="{x:Static res:Strings.Shell_Menu_Modules}">
+                <MenuItem Header="{x:Static res:Strings.Shell_Menu_Passport}" Click="Module_Click" Tag="Passport"/>
+                <MenuItem Header="{x:Static res:Strings.Shell_Menu_Visa}" Click="Module_Click" Tag="Visa"/>
+                <MenuItem Header="{x:Static res:Strings.Shell_Menu_Permit}" Click="Module_Click" Tag="Permit"/>
+                <MenuItem Header="{res:Str Key=Shell_Menu_Enforcement}" Click="Module_Click" Tag="Enforcement"/>
+                <MenuItem Header="{x:Static res:Strings.Shell_Menu_BorderOps}" Click="Module_Click" Tag="BorderOps"/>
+                <MenuItem Header="{x:Static res:Strings.Shell_Menu_Watchlist}" Click="Module_Click" Tag="Watchlist"/>
+                <MenuItem Header="{x:Static res:Strings.Shell_Menu_Reports}" Click="Module_Click" Tag="Reports"/>
+                <Separator/>
+                <MenuItem Header="{x:Static res:Strings.Shell_Menu_Admin}" Click="Module_Click" Tag="Admin"/>
+            </MenuItem>
+        </Menu>
+
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <TextBlock x:Name="UserStatus"/>
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem>
+                <TextBlock x:Name="RoleStatus"/>
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem>
+                <TextBlock x:Name="PcStatus"/>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <TextBlock x:Name="ClockStatus"/>
+            </StatusBarItem>
+        </StatusBar>
+
+        <Grid Background="#F5F6F8">
+            <Grid Margin="18">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- En-tête -->
+                <Grid Grid.Row="0" Margin="0,0,0,12">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{res:Str Key=DB_Title}" FontSize="22" FontWeight="Bold" Foreground="#2D3748"/>
+                        <TextBlock x:Name="DbDateText" VerticalAlignment="Bottom" Margin="14,0,0,3" Foreground="#6B7280"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBlock x:Name="DbStationText" VerticalAlignment="Center" Margin="0,0,12,0" Foreground="#4A5568"/>
+                        <Button x:Name="RefreshDashboardBtn" Content="{res:Str Key=DB_Refresh}" Style="{StaticResource ToolbarButton}"
+                                Padding="10,4" Click="RefreshDashboard_Click"/>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Cartes -->
+                <WrapPanel Grid.Row="1">
+                    <Border Style="{StaticResource DashboardCard}">
+                        <StackPanel>
+                            <TextBlock Text="{res:Str Key=DB_Transactions}" Style="{StaticResource DashboardCardTitle}"/>
+                            <TextBlock x:Name="DbTransactionsValue" Style="{StaticResource DashboardCardValue}" Text="0"/>
+                            <TextBlock x:Name="DbTransactionsDetail" Style="{StaticResource DashboardCardDetail}"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource DashboardCard}">
+                        <StackPanel>
+                            <TextBlock Text="{res:Str Key=DB_Comparison}" Style="{StaticResource DashboardCardTitle}"/>
+                            <TextBlock x:Name="DbYearAgoValue" Style="{StaticResource DashboardCardValue}" Text="0"/>
+                            <TextBlock x:Name="DbYearAgoDetail" Style="{StaticResource DashboardCardDetail}"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource DashboardCard}">
+                        <StackPanel>
+                            <TextBlock Text="{res:Str Key=DB_Doubtful}" Style="{StaticResource DashboardCardTitle}"/>
+                            <TextBlock x:Name="DbDoubtfulValue" Style="{StaticResource DashboardCardValue}" Text="0"/>
+                            <TextBlock x:Name="DbDoubtfulDetail" Style="{StaticResource DashboardCardDetail}"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource DashboardCard}">
+                        <StackPanel>
+                            <TextBlock Text="{res:Str Key=DB_Trips}" Style="{StaticResource DashboardCardTitle}"/>
+                            <TextBlock x:Name="DbTripsValue" Style="{StaticResource DashboardCardValue}" Text="0"/>
+                            <TextBlock x:Name="DbTripsDetail" Style="{StaticResource DashboardCardDetail}"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource DashboardCard}">
+                        <StackPanel>
+                            <TextBlock Text="{res:Str Key=DB_Inspectors}" Style="{StaticResource DashboardCardTitle}"/>
+                            <TextBlock x:Name="DbInspectorsValue" Style="{StaticResource DashboardCardValue}" Text="0"/>
+                            <TextBlock x:Name="DbInspectorsDetail" Style="{StaticResource DashboardCardDetail}"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource DashboardCard}">
+                        <StackPanel>
+                            <TextBlock Text="{res:Str Key=DB_Refusals}" Style="{StaticResource DashboardCardTitle}"/>
+                            <TextBlock x:Name="DbRefusalsValue" Style="{StaticResource DashboardCardValue}" Text="0"/>
+                            <TextBlock x:Name="DbRefusalsDetail" Style="{StaticResource DashboardCardDetail}"/>
+                        </StackPanel>
+                    </Border>
+                </WrapPanel>
+
+                <!-- Détail : par poste frontière + nationalités -->
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0" Background="White" BorderBrush="{StaticResource ThemeBorderBrush}"
+                            BorderThickness="1" CornerRadius="6" Padding="10" Margin="0,0,10,0">
+                        <DockPanel>
+                            <TextBlock DockPanel.Dock="Top" Text="{res:Str Key=DB_PerBorderPoint}" FontWeight="SemiBold" Margin="0,0,0,6"/>
+                            <DataGrid x:Name="BorderPointGrid" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="{res:Str Key=DB_Col_Post}" Binding="{Binding NameFr}" Width="*"/>
+                                    <DataGridTextColumn Header="{res:Str Key=DB_Col_Code}" Binding="{Binding Code}" Width="70"/>
+                                    <DataGridTextColumn Header="{res:Str Key=DB_Col_Today}" Binding="{Binding Today}" Width="90"/>
+                                    <DataGridTextColumn Header="{res:Str Key=DB_Col_YearAgo}" Binding="{Binding YearAgo}" Width="90"/>
+                                    <DataGridTextColumn Header="{res:Str Key=DB_Col_TwoYearsAgo}" Binding="{Binding TwoYearsAgo}" Width="90"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DockPanel>
+                    </Border>
+
+                    <Border Grid.Column="1" Background="White" BorderBrush="{StaticResource ThemeBorderBrush}"
+                            BorderThickness="1" CornerRadius="6" Padding="10">
+                        <DockPanel>
+                            <TextBlock DockPanel.Dock="Top" Text="{res:Str Key=DB_Nationalities}" FontWeight="SemiBold" Margin="0,0,0,6"/>
+                            <ListBox x:Name="NationalityList" BorderThickness="0"/>
+                        </DockPanel>
+                    </Border>
+                </Grid>
+
+                <!-- Messages (module non disponible) -->
+                <TextBlock x:Name="PlaceholderText" Grid.Row="3" Foreground="#8A8F99" FontSize="13"
+                           Margin="0,10,0,0" HorizontalAlignment="Center"/>
+            </Grid>
+        </Grid>
+    </DockPanel>
+</Window>

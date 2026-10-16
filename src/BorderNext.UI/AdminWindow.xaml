@@ -1,0 +1,526 @@
+<Window x:Class="BorderNext.UI.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:res="clr-namespace:BorderNext.UI.Resources"
+        Title="{res:Str Key=Admin_Title}"
+        Height="820" Width="1320"
+        WindowStartupLocation="CenterScreen">
+    <DockPanel>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <TextBlock x:Name="StatusText"/>
+            </StatusBarItem>
+        </StatusBar>
+
+        <TabControl x:Name="Tabs" Margin="6">
+
+            <!-- ======================= RÉFÉRENTIELS ======================= -->
+            <TabItem x:Name="TabReference" Header="{res:Str Key=Admin_Tab_Reference}">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="320"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <DockPanel Grid.Column="0" Margin="0,0,10,0">
+                        <TextBlock DockPanel.Dock="Top" Text="{res:Str Key=Admin_Tab_Reference}"
+                                   FontWeight="SemiBold" Margin="0,0,0,6"/>
+                        <ListBox x:Name="LookupTypesList" DisplayMemberPath="Display"
+                                 SelectionChanged="LookupType_SelectionChanged"/>
+                    </DockPanel>
+
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,6">
+                            <TextBox x:Name="LookupSearch" Width="240" Style="{StaticResource FieldBox}"
+                                     KeyDown="Search_KeyDown"/>
+                            <CheckBox x:Name="LookupShowRevoked" Content="{res:Str Key=Common_ShowRevoked}"
+                                      VerticalAlignment="Center" Margin="0,0,12,0"
+                                      Checked="LookupFilter_Changed" Unchecked="LookupFilter_Changed"/>
+                            <Button Content="{res:Str Key=Common_Search}" Style="{StaticResource ToolbarButton}"
+                                    Click="LookupSearch_Click"/>
+                        </StackPanel>
+
+                        <DataGrid x:Name="LookupItemsGrid" Grid.Row="1" SelectionChanged="LookupItem_SelectionChanged">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="{res:Str Key=Admin_Col_Code}" Binding="{Binding Code}" Width="120"/>
+                                <DataGridTextColumn Header="{res:Str Key=Admin_Col_NameFr}" Binding="{Binding Fr}" Width="*"/>
+                                <DataGridTextColumn Header="{res:Str Key=Admin_Col_NameEn}" Binding="{Binding En}" Width="*"/>
+                                <DataGridTextColumn Header="{res:Str Key=Admin_Col_SortOrder}" Binding="{Binding SortOrder}" Width="70"/>
+                                <DataGridCheckBoxColumn Header="{res:Str Key=Admin_Col_Revoked}" Binding="{Binding Revoke}" Width="80"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <Border Grid.Row="2" Background="{StaticResource ThemePanelBrush}"
+                                BorderBrush="{StaticResource ThemeBorderBrush}" BorderThickness="1"
+                                Padding="10" Margin="0,8,0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <TextBlock Text="{res:Str Key=Admin_Col_Code}" Style="{StaticResource FieldLabel}"/>
+                                    <TextBox x:Name="LookupCodeBox" Width="110" Style="{StaticResource FieldBox}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="{res:Str Key=Admin_Col_NameFr}" Style="{StaticResource FieldLabel}"/>
+                                    <TextBox x:Name="LookupFrBox" Width="260" Style="{StaticResource FieldBox}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="{res:Str Key=Admin_Col_NameEn}" Style="{StaticResource FieldLabel}"/>
+                                    <TextBox x:Name="LookupEnBox" Width="260" Style="{StaticResource FieldBox}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="{res:Str Key=Admin_Col_SortOrder}" Style="{StaticResource FieldLabel}"/>
+                                    <TextBox x:Name="LookupSortBox" Width="60" Style="{StaticResource FieldBox}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0,0,0,2">
+                                    <Button Content="{res:Str Key=Common_New}" Style="{StaticResource ToolbarButton}" Click="LookupNew_Click"/>
+                                    <Button Content="{res:Str Key=Common_Save}" Style="{StaticResource PrimaryButton}" Padding="14,6" Margin="0,0,6,0" Click="LookupSave_Click"/>
+                                    <Button x:Name="LookupRevokeBtn" Content="{res:Str Key=Common_Revoke}" Style="{StaticResource ToolbarButton}" Click="LookupRevoke_Click"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <!-- ==================== PAYS & GÉOGRAPHIE ==================== -->
+            <TabItem x:Name="TabGeo" Header="{res:Str Key=Admin_Tab_Geo}">
+                <TabControl Margin="6">
+                    <!-- Pays -->
+                    <TabItem Header="{res:Str Key=Admin_Geo_Countries}">
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,6">
+                                <TextBox x:Name="CountrySearch" Width="240" Style="{StaticResource FieldBox}" KeyDown="Search_KeyDown"/>
+                                <CheckBox x:Name="CountryShowRevoked" Content="{res:Str Key=Common_ShowRevoked}"
+                                          VerticalAlignment="Center" Margin="0,0,12,0" Checked="CountryFilter_Changed" Unchecked="CountryFilter_Changed"/>
+                                <Button Content="{res:Str Key=Common_Search}" Style="{StaticResource ToolbarButton}" Click="CountrySearch_Click"/>
+                            </StackPanel>
+                            <DataGrid x:Name="CountriesGrid" Grid.Row="1" SelectionChanged="Country_SelectionChanged">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="{res:Str Key=Admin_Col_Alpha2}" Binding="{Binding Alpha2}" Width="70"/>
+                                    <DataGridTextColumn Header="{res:Str Key=Admin_Col_Alpha3}" Binding="{Binding Alpha3}" Width="70"/>
+                                    <DataGridTextColumn Header="{res:Str Key=Admin_Col_NameFr}" Binding="{Binding Fr}" Width="*"/>
+                                    <DataGridTextColumn Header="{res:Str Key=Admin_Col_NameEn}" Binding="{Binding En}" Width="*"/>
+                                    <DataGridTextColumn Header="{res:Str Key=Admin_Col_Region}" Binding="{Binding RegionCode}" Width="80"/>
+                                    <DataGridTextColumn Header="{res:Str Key=Admin_Col_SortOrder}" Binding="{Binding SortOrder}" Width="70"/>
+                                    <DataGridCheckBoxColumn Header="{res:Str Key=Admin_Col_Revoked}" Binding="{Binding Revoke}" Width="80"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <Border Grid.Row="2" Background="{StaticResource ThemePanelBrush}" BorderBrush="{StaticResource ThemeBorderBrush}"
+                                    BorderThickness="1" Padding="10" Margin="0,8,0,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <StackPanel>
+                                        <TextBlock Text="{res:Str Key=Admin_Col_Alpha2}" Style="{StaticResource FieldLabel}"/>
+                                        <TextBox x:Name="CountryAlpha2Box" Width="60" Style="{StaticResource FieldBox}"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <TextBlock Text="{res:Str Key=Admin_Col_Alpha3}" Style="{StaticResource FieldLabel}"/>
+                                        <TextBox x:Name="CountryAlpha3Box" Width="70" Style="{StaticResource FieldBox}"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <TextBlock Text="{res:Str Key=Admin_Col_NameFr}" Style="{StaticResource FieldLabel}"/>
+                                        <TextBox x:Name="CountryFrBox" Width="240" Style="{StaticResource FieldBox}"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <TextBlock Text="{res:Str Key=Admin_Col_NameEn}" Style="{StaticResource FieldLabel}"/>
+                                        <TextBox x:Name="CountryEnBox" Width="240" Style="{StaticResource FieldBox}"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <TextBlock Text="{res:Str Key=Admin_Col_Region}" Style="{StaticResource FieldLabel}"/>
+                                        <ComboBox x:Name="CountryRegionCombo" Width="120" Style="{StaticResource FieldCombo}"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <TextBlock Text="{res:Str Key=Admin_Col_SortOrder}" Style="{StaticResource FieldLabel}"/>
+                                        <TextBox x:Name="CountrySortBox" Width="60" Style="{StaticResource FieldBox}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0,0,0,2">
+                                        <Button Content="{res:Str Key=Common_New}" Style="{StaticResource ToolbarButton}" Click="CountryNew_Click"/>
+                                        <Button Content="{res:Str Key=Common_Save}" Style="{StaticResource PrimaryButton}" Padding="14,6" Margin="0,0,6,0" Click="CountrySave_Click"/>
+                                        <Button x:Name="CountryRevokeBtn" Content="{res:Str Key=Common_Revoke}" Style="{StaticResource ToolbarButton}" Click="CountryRevoke_Click"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </TabItem>
+
+                    <!-- Provinces -->
+                    <TabItem Header="{res:Str Key=Admin_Geo_Provinces}">
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,6">
+                                <CheckBox x:Name="ProvinceShowRevoked" Content="{res:Str Key=Common_ShowRevoked}"
+                                          VerticalAlignment="Center" Checked="ProvinceFilter_Changed" Unchecked="ProvinceFilter_Changed"/>
+                            </StackPanel>
+                            <DataGrid x:Name="ProvincesGrid" Grid.Row="1" SelectionChanged="Province_SelectionChanged">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="{res:Str Key=Admin_Col_Country}" Binding="{Binding CountryFr}" Width="200"/>
+                                    <DataGridTextColumn Header="{res:Str Key=Admin_Col_Code}" Binding="{Binding Code}" Width="100"/>
+                                    <DataGridTextColumn Header="{res:Str Key=Admin_Col_NameFr}" Binding="{Binding Fr}" Width="*"/>
+                                    <DataGridTextColumn Header="{res:Str Key=Admin_Col_NameEn}" Binding="{Binding En}" Width="*"/>
+                                    <DataGridTextColumn Header="{res:Str Key=Admin_Col_Abbreviation}" Binding="{Binding Abbreviation}" Width="100"/>
+                                    <DataGridTextColumn Header="{res:Str Key=Admin_Col_SortOrder}" Binding="{Binding SortOrder}" Width="70"/>
+                                    <DataGridCheckBoxColumn Header="{res:Str Key=Admin_Col_Revoked}" Binding="{Binding Revoke}" Width="80"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <Border Grid.Row="2" Background="{StaticResource ThemePanelBrush}" BorderBrush="{StaticResource ThemeBorderBrush}"
+                                    BorderThickness="1" Padding="10" Margin="0,8,0,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <StackPanel>
+                                        <TextBlock Text="{res:Str Key=Admin_Col_Country}" Style="{StaticResource FieldLabel}"/>
+                                        <ComboBox x:Name="ProvinceCountryCombo" Width="200" Style="{StaticResource FieldCombo}"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <TextBlock Text="{res:Str Key=Admin_Col_Code}" Style="{StaticResource FieldLabel}"/>
+                                        <TextBox x:Name="ProvinceCodeBox" Width="90" Style="{StaticResource FieldBox}"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <TextBlock Text="{res:Str Key=Admin_Col_NameFr}" Style="{StaticResource FieldLabel}"/>
+                                        <TextBox x:Name="ProvinceFrBox" Width="220" Style="{StaticResource FieldBox}"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <TextBlock Text="{res:Str Key=Admin_Col_NameEn}" Style="{StaticResource FieldLabel}"/>
+                                        <TextBox x:Name="ProvinceEnBox" Width="220" Style="{StaticResource FieldBox}"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <TextBlock Text="{res:Str Key=Admin_Col_Abbreviation}" Style="{StaticResource FieldLabel}"/>
+                                        <TextBox x:Name="ProvinceAbbrBox" Width="90" Style="{StaticResource FieldBox}"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <TextBlock Text="{res:Str Key=Admin_Col_SortOrder}" Style="{StaticResource FieldLabel}"/>
+                                        <TextBox x:Name="ProvinceSortBox" Width="60" Style="{StaticResource FieldBox}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0,0,0,2">
+                                        <Button Content="{res:Str Key=Common_New}" Style="{StaticResource ToolbarButton}" Click="ProvinceNew_Click"/>
+                                        <Button Content="{res:Str Key=Common_Save}" Style="{StaticResource PrimaryButton}" Padding="14,6" Margin="0,0,6,0" Click="ProvinceSave_Click"/>
+                                        <Button x:Name="ProvinceRevokeBtn" Content="{res:Str Key=Common_Revoke}" Style="{StaticResource ToolbarButton}" Click="ProvinceRevoke_Click"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </TabItem>
+
+                    <!-- Villes -->
+                    <TabItem Header="{res:Str Key=Admin_Geo_Cities}">
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,6">
+                                <TextBox x:Name="CitySearch" Width="200" Style="{StaticResource FieldBox}" KeyDown="Search_KeyDown"/>
+                                <Button Content="{res:Str Key=Common_Search}" Style="{StaticResource ToolbarButton}" Click="CitySearch_Click"/>
+                                <CheckBox x:Name="CityShowRevoked" Content="{res:Str Key=Common_ShowRevoked}"
+                                          VerticalAlignment="Center" Margin="12,0,0,0" Checked="CityFilter_Changed" Unchecked="CityFilter_Changed"/>
+                            </StackPanel>
+                            <DataGrid x:Name="CitiesGrid" Grid.Row="1" SelectionChanged="City_SelectionChanged">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="{res:Str Key=Admin_Col_Country}" Binding="{Binding CountryFr}" Width="180"/>
+                                    <DataGridTextColumn Header="{res:Str Key=Admin_Col_Code}" Binding="{Binding Code}" Width="80"/>
+                                    <DataGridTextColumn Header="{res:Str Key=Admin_Col_NameFr}" Binding="{Binding Fr}" Width="*"/>
+                                    <DataGridTextColumn Header="{res:Str Key=Admin_Col_NameEn}" Binding="{Binding En}" Width="*"/>
+                                    <DataGridTextColumn Header="{res:Str Key=Admin_Col_Abbreviation}" Binding="{Binding Abbreviation}" Width="100"/>
+                                    <DataGridTextColumn Header="{res:Str Key=Admin_Col_SortOrder}" Binding="{Binding SortOrder}" Width="70"/>
+                                    <DataGridCheckBoxColumn Header="{res:Str Key=Admin_Col_Revoked}" Binding="{Binding Revoke}" Width="80"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <Border Grid.Row="2" Background="{StaticResource ThemePanelBrush}" BorderBrush="{StaticResource ThemeBorderBrush}"
+                                    BorderThickness="1" Padding="10" Margin="0,8,0,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <StackPanel>
+                                        <TextBlock Text="{res:Str Key=Admin_Col_Country}" Style="{StaticResource FieldLabel}"/>
+                                        <ComboBox x:Name="CityCountryCombo" Width="190" Style="{StaticResource FieldCombo}"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <TextBlock Text="{res:Str Key=Admin_Geo_Provinces}" Style="{StaticResource FieldLabel}"/>
+                                        <ComboBox x:Name="CityProvinceCombo" Width="170" Style="{StaticResource FieldCombo}"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <TextBlock Text="{res:Str Key=Admin_Col_Code}" Style="{StaticResource FieldLabel}"/>
+                                        <TextBox x:Name="CityCodeBox" Width="80" Style="{StaticResource FieldBox}"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <TextBlock Text="{res:Str Key=Admin_Col_NameFr}" Style="{StaticResource FieldLabel}"/>
+                                        <TextBox x:Name="CityFrBox" Width="200" Style="{StaticResource FieldBox}"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <TextBlock Text="{res:Str Key=Admin_Col_NameEn}" Style="{StaticResource FieldLabel}"/>
+                                        <TextBox x:Name="CityEnBox" Width="200" Style="{StaticResource FieldBox}"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <TextBlock Text="{res:Str Key=Admin_Col_Abbreviation}" Style="{StaticResource FieldLabel}"/>
+                                        <TextBox x:Name="CityAbbrBox" Width="80" Style="{StaticResource FieldBox}"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <TextBlock Text="{res:Str Key=Admin_Col_SortOrder}" Style="{StaticResource FieldLabel}"/>
+                                        <TextBox x:Name="CitySortBox" Width="55" Style="{StaticResource FieldBox}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0,0,0,2">
+                                        <Button Content="{res:Str Key=Common_New}" Style="{StaticResource ToolbarButton}" Click="CityNew_Click"/>
+                                        <Button Content="{res:Str Key=Common_Save}" Style="{StaticResource PrimaryButton}" Padding="14,6" Margin="0,0,6,0" Click="CitySave_Click"/>
+                                        <Button x:Name="CityRevokeBtn" Content="{res:Str Key=Common_Revoke}" Style="{StaticResource ToolbarButton}" Click="CityRevoke_Click"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+
+            <!-- ==================== POSTES FRONTIÈRES ==================== -->
+            <TabItem x:Name="TabBorderPoints" Header="{res:Str Key=Admin_Tab_BorderPoints}">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,6">
+                        <CheckBox x:Name="BorderPointShowRevoked" Content="{res:Str Key=Common_ShowRevoked}"
+                                  VerticalAlignment="Center" Checked="BorderPointFilter_Changed" Unchecked="BorderPointFilter_Changed"/>
+                    </StackPanel>
+                    <DataGrid x:Name="BorderPointsGrid" Grid.Row="1" SelectionChanged="BorderPoint_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_Code}" Binding="{Binding Code}" Width="100"/>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_NameFr}" Binding="{Binding Fr}" Width="*"/>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_NameEn}" Binding="{Binding En}" Width="*"/>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_RegionalSite}" Binding="{Binding RegionalSiteFr}" Width="160"/>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_SortOrder}" Binding="{Binding SortOrder}" Width="70"/>
+                            <DataGridCheckBoxColumn Header="{res:Str Key=Admin_Col_Revoked}" Binding="{Binding Revoke}" Width="80"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Border Grid.Row="2" Background="{StaticResource ThemePanelBrush}" BorderBrush="{StaticResource ThemeBorderBrush}"
+                            BorderThickness="1" Padding="10" Margin="0,8,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel>
+                                <TextBlock Text="{res:Str Key=Admin_Col_Code}" Style="{StaticResource FieldLabel}"/>
+                                <TextBox x:Name="BorderPointCodeBox" Width="100" Style="{StaticResource FieldBox}"/>
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Text="{res:Str Key=Admin_Col_NameFr}" Style="{StaticResource FieldLabel}"/>
+                                <TextBox x:Name="BorderPointFrBox" Width="200" Style="{StaticResource FieldBox}"/>
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Text="{res:Str Key=Admin_Col_NameEn}" Style="{StaticResource FieldLabel}"/>
+                                <TextBox x:Name="BorderPointEnBox" Width="200" Style="{StaticResource FieldBox}"/>
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Text="{res:Str Key=Admin_Col_RegionalSite}" Style="{StaticResource FieldLabel}"/>
+                                <TextBox x:Name="BorderPointSiteFrBox" Width="150" Style="{StaticResource FieldBox}"/>
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Text="{res:Str Key=Admin_Col_SortOrder}" Style="{StaticResource FieldLabel}"/>
+                                <TextBox x:Name="BorderPointSortBox" Width="60" Style="{StaticResource FieldBox}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0,0,0,2">
+                                <Button Content="{res:Str Key=Common_New}" Style="{StaticResource ToolbarButton}" Click="BorderPointNew_Click"/>
+                                <Button Content="{res:Str Key=Common_Save}" Style="{StaticResource PrimaryButton}" Padding="14,6" Margin="0,0,6,0" Click="BorderPointSave_Click"/>
+                                <Button x:Name="BorderPointRevokeBtn" Content="{res:Str Key=Common_Revoke}" Style="{StaticResource ToolbarButton}" Click="BorderPointRevoke_Click"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </TabItem>
+
+            <!-- ==================== UTILISATEURS & DROITS ==================== -->
+            <TabItem x:Name="TabUsers" Header="{res:Str Key=Admin_Tab_Users}">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="1.4*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,6">
+                        <TextBox x:Name="UserSearch" Width="240" Style="{StaticResource FieldBox}" KeyDown="Search_KeyDown"/>
+                        <CheckBox x:Name="UserShowRevoked" Content="{res:Str Key=Common_ShowRevoked}"
+                                  VerticalAlignment="Center" Margin="0,0,12,0" Checked="UserFilter_Changed" Unchecked="UserFilter_Changed"/>
+                        <Button Content="{res:Str Key=Common_Search}" Style="{StaticResource ToolbarButton}" Click="UserSearch_Click"/>
+                    </StackPanel>
+
+                    <DataGrid x:Name="UsersGrid" Grid.Row="1" SelectionChanged="User_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_UserId}" Binding="{Binding Id}" Width="90"/>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_UserName}" Binding="{Binding UserName}" Width="120"/>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_FirstName}" Binding="{Binding FirstName}" Width="140"/>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_LastName}" Binding="{Binding LastName}" Width="140"/>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_Role}" Binding="{Binding RoleCode}" Width="110"/>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_BorderPoint}" Binding="{Binding BorderPointCode}" Width="110"/>
+                            <DataGridCheckBoxColumn Header="{res:Str Key=Admin_Col_MustChange}" Binding="{Binding MustChangePassword}" Width="115"/>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_LastLogin}" Binding="{Binding LastLoginDate, StringFormat=dd/MM/yyyy HH:mm}" Width="140"/>
+                            <DataGridCheckBoxColumn Header="{res:Str Key=Admin_Col_Revoked}" Binding="{Binding Revoke}" Width="80"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Border Grid.Row="2" Background="{StaticResource ThemePanelBrush}" BorderBrush="{StaticResource ThemeBorderBrush}"
+                            BorderThickness="1" Padding="10" Margin="0,8,0,0">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <TextBlock Text="{res:Str Key=Admin_Col_UserId}" Style="{StaticResource FieldLabel}"/>
+                                    <TextBox x:Name="UserIdBox" Width="90" Style="{StaticResource FieldBox}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="{res:Str Key=Admin_Col_UserName}" Style="{StaticResource FieldLabel}"/>
+                                    <TextBox x:Name="UserNameBox" Width="130" Style="{StaticResource FieldBox}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="{res:Str Key=Admin_Col_FirstName}" Style="{StaticResource FieldLabel}"/>
+                                    <TextBox x:Name="UserFirstNameBox" Width="150" Style="{StaticResource FieldBox}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="{res:Str Key=Admin_Col_LastName}" Style="{StaticResource FieldLabel}"/>
+                                    <TextBox x:Name="UserLastNameBox" Width="150" Style="{StaticResource FieldBox}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="{res:Str Key=Admin_Col_Role}" Style="{StaticResource FieldLabel}"/>
+                                    <ComboBox x:Name="UserRoleCombo" Width="170" Style="{StaticResource FieldCombo}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="{res:Str Key=Admin_Col_BorderPoint}" Style="{StaticResource FieldLabel}"/>
+                                    <ComboBox x:Name="UserBorderPointCombo" Width="150" Style="{StaticResource FieldCombo}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                                <Button Content="{res:Str Key=Admin_Users_New}" Style="{StaticResource PrimaryButton}" Padding="12,6" Margin="0,0,6,0" Click="UserCreate_Click"/>
+                                <Button Content="{res:Str Key=Common_Save}" Style="{StaticResource ToolbarButton}" Click="UserSave_Click"/>
+                                <Button Content="{res:Str Key=Admin_Users_ResetPassword}" Style="{StaticResource ToolbarButton}" Click="UserResetPassword_Click"/>
+                                <Button x:Name="UserRevokeBtn" Content="{res:Str Key=Common_Revoke}" Style="{StaticResource ToolbarButton}" Click="UserRevoke_Click"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                                <TextBlock x:Name="UserBiometricsText" VerticalAlignment="Center" Margin="0,0,12,0" Foreground="#4A5568" FontSize="12"/>
+                                <Button x:Name="Enroll1Btn" Content="{res:Str Key=Bio_Enroll_Slot1}" Style="{StaticResource ToolbarButton}" Click="Enroll1_Click"/>
+                                <Button x:Name="Enroll2Btn" Content="{res:Str Key=Bio_Enroll_Slot2}" Style="{StaticResource ToolbarButton}" Click="Enroll2_Click"/>
+                                <Button x:Name="Clear1Btn" Content="{res:Str Key=Bio_Clear_Slot1}" Style="{StaticResource ToolbarButton}" Click="Clear1_Click"/>
+                                <Button x:Name="Clear2Btn" Content="{res:Str Key=Bio_Clear_Slot2}" Style="{StaticResource ToolbarButton}" Click="Clear2_Click"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <TextBlock Grid.Row="3" Text="{res:Str Key=Admin_Rights_Title}" FontWeight="SemiBold" Margin="0,12,0,6"/>
+
+                    <DataGrid x:Name="RightsGrid" Grid.Row="4" IsReadOnly="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_Code}" Binding="{Binding Code}" Width="180" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_NameFr}" Binding="{Binding Fr}" Width="*" IsReadOnly="True"/>
+                            <DataGridCheckBoxColumn Header="{res:Str Key=Admin_Col_Permission}" Binding="{Binding Permission, UpdateSourceTrigger=PropertyChanged}" Width="110"/>
+                            <DataGridCheckBoxColumn Header="{res:Str Key=Admin_Col_Visibility}" Binding="{Binding Visibility, UpdateSourceTrigger=PropertyChanged}" Width="110"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="0,8,0,0">
+                        <TextBlock Text="{res:Str Key=Admin_Rights_Role}" Style="{StaticResource FieldLabel}" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                        <ComboBox x:Name="RightsRoleCombo" Width="190" Style="{StaticResource FieldCombo}" SelectionChanged="RightsRole_SelectionChanged"/>
+                        <Button Content="{res:Str Key=Admin_Rights_Save}" Style="{StaticResource PrimaryButton}" Padding="14,6" Click="RightsSave_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- ==================== PARAMÈTRES ==================== -->
+            <TabItem x:Name="TabSettings" Header="{res:Str Key=Admin_Tab_Settings}">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,6">
+                        <TextBox x:Name="SettingSearch" Width="240" Style="{StaticResource FieldBox}" KeyDown="Search_KeyDown"/>
+                        <Button Content="{res:Str Key=Common_Search}" Style="{StaticResource ToolbarButton}" Click="SettingSearch_Click"/>
+                    </StackPanel>
+                    <DataGrid x:Name="SettingsGrid" Grid.Row="1" SelectionChanged="Setting_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_Type}" Binding="{Binding Type}" Width="220"/>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_Value}" Binding="{Binding Value}" Width="90"/>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_StringValue}" Binding="{Binding StringValue}" Width="180"/>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_Description}" Binding="{Binding Description}" Width="*"/>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_BorderPoint}" Binding="{Binding BorderPointCode}" Width="110"/>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_User}" Binding="{Binding UserId}" Width="100"/>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_Pc}" Binding="{Binding MachineName}" Width="140"/>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_Date}" Binding="{Binding UpdateDate, StringFormat=dd/MM/yyyy HH:mm}" Width="130"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Border Grid.Row="2" Background="{StaticResource ThemePanelBrush}" BorderBrush="{StaticResource ThemeBorderBrush}"
+                            BorderThickness="1" Padding="10" Margin="0,8,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel>
+                                <TextBlock Text="{res:Str Key=Admin_Col_Type}" Style="{StaticResource FieldLabel}"/>
+                                <TextBox x:Name="SettingTypeBox" Width="200" Style="{StaticResource FieldBox}"/>
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Text="{res:Str Key=Admin_Col_Value}" Style="{StaticResource FieldLabel}"/>
+                                <TextBox x:Name="SettingValueBox" Width="80" Style="{StaticResource FieldBox}"/>
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Text="{res:Str Key=Admin_Col_StringValue}" Style="{StaticResource FieldLabel}"/>
+                                <TextBox x:Name="SettingStringBox" Width="180" Style="{StaticResource FieldBox}"/>
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Text="{res:Str Key=Admin_Col_Description}" Style="{StaticResource FieldLabel}"/>
+                                <TextBox x:Name="SettingDescriptionBox" Width="240" Style="{StaticResource FieldBox}"/>
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Text="{res:Str Key=Admin_Col_BorderPoint}" Style="{StaticResource FieldLabel}"/>
+                                <ComboBox x:Name="SettingBorderPointCombo" Width="150" Style="{StaticResource FieldCombo}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0,0,0,2">
+                                <Button Content="{res:Str Key=Common_New}" Style="{StaticResource ToolbarButton}" Click="SettingNew_Click"/>
+                                <Button Content="{res:Str Key=Common_Save}" Style="{StaticResource PrimaryButton}" Padding="14,6" Margin="0,0,6,0" Click="SettingSave_Click"/>
+                                <Button Content="{res:Str Key=Common_Delete}" Style="{StaticResource ToolbarButton}" Click="SettingDelete_Click"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </TabItem>
+
+            <!-- ==================== JOURNAL D'AUDIT ==================== -->
+            <TabItem x:Name="TabAudit" Header="{res:Str Key=Admin_Tab_Audit}">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,6">
+                        <TextBlock Text="{res:Str Key=Admin_Audit_UserFilter}" Style="{StaticResource FieldLabel}" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                        <TextBox x:Name="AuditUserBox" Width="140" Style="{StaticResource FieldBox}" KeyDown="Search_KeyDown"/>
+                        <TextBlock Text="{res:Str Key=Admin_Audit_EventFilter}" Style="{StaticResource FieldLabel}" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                        <ComboBox x:Name="AuditEventCombo" Width="240" Style="{StaticResource FieldCombo}"/>
+                        <TextBlock Text="{res:Str Key=Admin_Audit_From}" Style="{StaticResource FieldLabel}" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                        <DatePicker x:Name="AuditFromPicker" Width="120" Margin="0,0,12,0"/>
+                        <TextBlock Text="{res:Str Key=Admin_Audit_To}" Style="{StaticResource FieldLabel}" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                        <DatePicker x:Name="AuditToPicker" Width="120" Margin="0,0,12,0"/>
+                        <Button Content="{res:Str Key=Common_Search}" Style="{StaticResource ToolbarButton}" Click="AuditSearch_Click"/>
+                        <Button Content="{res:Str Key=Admin_Audit_Export}" Style="{StaticResource SecondaryButton}" Padding="12,4" Click="AuditExport_Click"/>
+                    </StackPanel>
+                    <DataGrid x:Name="AuditGrid" Grid.Row="1">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_Date}" Binding="{Binding EventTime, StringFormat=dd/MM/yyyy HH:mm:ss}" Width="150"/>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_EventType}" Binding="{Binding EventType}" Width="220"/>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_User}" Binding="{Binding UserId}" Width="100"/>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_Pc}" Binding="{Binding PcNumber}" Width="90"/>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_Entity}" Binding="{Binding Entity}" Width="120"/>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_EntityId}" Binding="{Binding EntityId}" Width="90"/>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_Details}" Binding="{Binding Details}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>

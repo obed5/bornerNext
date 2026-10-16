@@ -1,0 +1,186 @@
+<Window x:Class="BorderNext.UI.VisaWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:res="clr-namespace:BorderNext.UI.Resources"
+        Title="{res:Str Key=Visa_Title}"
+        Height="820" Width="1180"
+        WindowStartupLocation="CenterOwner"
+        KeyDown="Window_KeyDown">
+    <DockPanel>
+        <Border DockPanel.Dock="Top" Background="{StaticResource ThemePanelBrush}" BorderBrush="{StaticResource ThemeBorderBrush}"
+                BorderThickness="0,0,0,1" Padding="10">
+            <StackPanel Orientation="Horizontal">
+                <Button Content="{res:Str Key=PAL_Search}" Style="{StaticResource ToolbarButton}" Padding="12,6" Click="SearchDocument_Click"/>
+                <Button Content="{res:Str Key=Visa_New}" Style="{StaticResource ToolbarButton}" Padding="12,6" Click="New_Click"/>
+                <Button Content="{res:Str Key=PAL_Save}" Style="{StaticResource PrimaryButton}" Padding="16,6" Margin="0,0,12,0" Click="Save_Click"/>
+                <Button x:Name="RevokeBtn" Content="{res:Str Key=Common_Revoke}" Style="{StaticResource ToolbarButton}" Click="Revoke_Click"/>
+                <TextBlock x:Name="StatusText" VerticalAlignment="Center" Margin="12,0,0,0" Foreground="#4A5568"/>
+            </StackPanel>
+        </Border>
+
+        <Border DockPanel.Dock="Bottom" Padding="10">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="{res:Str Key=PAL_Close}" Padding="16,8" Click="Close_Click"/>
+            </StackPanel>
+        </Border>
+
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.9*"/>
+                    <ColumnDefinition Width="1.6*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Document porteur -->
+                <GroupBox Grid.Column="0" Header="{res:Str Key=Visa_Section_Document}" Margin="0,0,8,8" Padding="8">
+                    <StackPanel>
+                        <TextBlock x:Name="HolderText" FontWeight="SemiBold" FontSize="14" TextWrapping="Wrap"/>
+                        <TextBlock x:Name="DocumentText" Foreground="#4A5568" Margin="0,6,0,0" TextWrapping="Wrap"/>
+                        <TextBlock x:Name="NationalityText" Foreground="#4A5568" Margin="0,2,0,0" TextWrapping="Wrap"/>
+                        <TextBlock x:Name="ExpiryText" Foreground="#4A5568" Margin="0,2,0,0" TextWrapping="Wrap"/>
+                        <TextBlock x:Name="DocumentMode" Foreground="#8A8F99" FontSize="12" Margin="0,10,0,0"
+                                   Text="{res:Str Key=Visa_NoDocument}"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Détails du visa -->
+                <GroupBox Grid.Column="1" Header="{res:Str Key=Visa_Section_Details}" Margin="0,0,0,8" Padding="8">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0">
+                            <TextBlock Text="{res:Str Key=Visa_Number}" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="NumberBox" Style="{StaticResource FieldBox}" ToolTip="{res:Str Key=Visa_Number}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="1">
+                            <TextBlock Text="{res:Str Key=Visa_Type}" Style="{StaticResource FieldLabel}"/>
+                            <ComboBox x:Name="TypeCombo" Style="{StaticResource FieldCombo}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="2">
+                            <TextBlock Text="{res:Str Key=Visa_Entry}" Style="{StaticResource FieldLabel}"/>
+                            <ComboBox x:Name="EntryCombo" Style="{StaticResource FieldCombo}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Grid.Column="0">
+                            <TextBlock Text="{res:Str Key=PAL_IssueDate}" Style="{StaticResource FieldLabel}"/>
+                            <DatePicker x:Name="IssuePicker" Margin="0,0,12,8"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="1">
+                            <TextBlock Text="{res:Str Key=PAL_ExpireDate}" Style="{StaticResource FieldLabel}"/>
+                            <DatePicker x:Name="ExpirePicker" Margin="0,0,12,8"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="2">
+                            <TextBlock Text="{res:Str Key=Visa_Duration}" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="DurationBox" Width="80" HorizontalAlignment="Left" Style="{StaticResource FieldBox}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Grid.Column="0">
+                            <TextBlock Text="{res:Str Key=Visa_Reference}" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="ReferenceBox" Style="{StaticResource FieldBox}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Grid.Column="1">
+                            <TextBlock Text="{res:Str Key=Visa_Receipt}" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="ReceiptBox" Style="{StaticResource FieldBox}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Grid.Column="2">
+                            <TextBlock Text="{res:Str Key=Visa_Voucher}" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="VoucherBox" Style="{StaticResource FieldBox}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="3" Grid.Column="0">
+                            <TextBlock Text="{res:Str Key=Visa_Employer}" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="EmployerBox" Style="{StaticResource FieldBox}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="3" Grid.Column="1">
+                            <TextBlock Text="{res:Str Key=Visa_InvitedBy}" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="InvitedByBox" Style="{StaticResource FieldBox}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="3" Grid.Column="2">
+                            <TextBlock Text="{res:Str Key=PAL_Occupation}" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="OccupationBox" Style="{StaticResource FieldBox}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="4" Grid.Column="0">
+                            <TextBlock Text="{res:Str Key=Visa_Address}" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="AddressBox" Style="{StaticResource FieldBox}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="4" Grid.Column="1">
+                            <TextBlock Text="{res:Str Key=Visa_Contact}" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="ContactBox" Style="{StaticResource FieldBox}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="4" Grid.Column="2">
+                            <TextBlock Text="{res:Str Key=PAL_Note}" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="NoteBox" Style="{StaticResource FieldBox}"/>
+                        </StackPanel>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+
+            <!-- Enfants -->
+            <GroupBox Grid.Row="1" Header="{res:Str Key=Visa_Section_Children}" Margin="0,0,0,8" Padding="8">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                        <StackPanel>
+                            <TextBlock Text="{res:Str Key=PAL_Surname}" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="ChildSurnameBox" Width="150" Style="{StaticResource FieldBox}"/>
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBlock Text="{res:Str Key=PAL_GivenName}" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="ChildGivenNameBox" Width="150" Style="{StaticResource FieldBox}"/>
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBlock Text="{res:Str Key=PAL_DateOfBirth}" Style="{StaticResource FieldLabel}"/>
+                            <DatePicker x:Name="ChildBirthPicker" Width="130" Margin="0,0,12,0"/>
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBlock Text="{res:Str Key=PAL_DocumentNumber}" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="ChildDocumentBox" Width="130" Style="{StaticResource FieldBox}"/>
+                        </StackPanel>
+                        <Button Content="{res:Str Key=Visa_AddChild}" Style="{StaticResource ToolbarButton}" Padding="12,6"
+                                VerticalAlignment="Bottom" Margin="0,0,6,2" Click="AddChild_Click"/>
+                        <Button Content="{res:Str Key=Visa_RemoveChild}" Style="{StaticResource ToolbarButton}" Padding="12,6"
+                                VerticalAlignment="Bottom" Margin="0,0,0,2" Click="RemoveChild_Click"/>
+                    </StackPanel>
+                    <DataGrid x:Name="ChildrenGrid" Height="120">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{res:Str Key=PAL_Surname}" Binding="{Binding Surname}" Width="160"/>
+                            <DataGridTextColumn Header="{res:Str Key=PAL_GivenName}" Binding="{Binding GivenName}" Width="160"/>
+                            <DataGridTextColumn Header="{res:Str Key=PAL_DateOfBirth}" Binding="{Binding DateOfBirth, StringFormat=dd/MM/yyyy}" Width="120"/>
+                            <DataGridTextColumn Header="{res:Str Key=PAL_DocumentNumber}" Binding="{Binding DocumentNumber}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </GroupBox>
+
+            <!-- Visas du document -->
+            <GroupBox Grid.Row="2" Header="{res:Str Key=Visa_Existing}" Padding="8">
+                <DataGrid x:Name="VisasGrid" MouseDoubleClick="Visas_MouseDoubleClick">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{res:Str Key=Visa_Col_Number}" Binding="{Binding Number}" Width="180"/>
+                        <DataGridTextColumn Header="{res:Str Key=Visa_Col_Type}" Binding="{Binding TypeFr}" Width="180"/>
+                        <DataGridTextColumn Header="{res:Str Key=Visa_Entry}" Binding="{Binding EntryFr}" Width="140"/>
+                        <DataGridTextColumn Header="{res:Str Key=Visa_Col_Issue}" Binding="{Binding IssueDate, StringFormat=dd/MM/yyyy}" Width="110"/>
+                        <DataGridTextColumn Header="{res:Str Key=Visa_Col_Expire}" Binding="{Binding ExpireDate, StringFormat=dd/MM/yyyy}" Width="110"/>
+                        <DataGridCheckBoxColumn Header="{res:Str Key=Visa_Col_Valid}" Binding="{Binding IsValid}" Width="80"/>
+                        <DataGridCheckBoxColumn Header="{res:Str Key=Admin_Col_Revoked}" Binding="{Binding Revoke}" Width="90"/>
+                        <DataGridTextColumn Header="{res:Str Key=PAL_Col_Holder}" Binding="{Binding HolderName}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </GroupBox>
+        </Grid>
+    </DockPanel>
+</Window>

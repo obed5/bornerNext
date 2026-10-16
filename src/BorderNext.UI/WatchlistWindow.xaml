@@ -1,0 +1,300 @@
+<Window x:Class="BorderNext.UI.WatchlistWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:res="clr-namespace:BorderNext.UI.Resources"
+        Title="{res:Str Key=WL_Title}"
+        Height="820" Width="1320"
+        WindowStartupLocation="CenterOwner">
+    <DockPanel>
+        <Border DockPanel.Dock="Bottom" Padding="10">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock x:Name="StatusText" VerticalAlignment="Center" Margin="0,0,12,0" Foreground="#4A5568"/>
+                <TextBlock x:Name="OpenDoubtsText" VerticalAlignment="Center" Margin="0,0,16,0" FontWeight="SemiBold" Foreground="#B7791F"/>
+                <Button Content="{res:Str Key=PAL_Close}" Padding="16,8" Click="Close_Click"/>
+            </StackPanel>
+        </Border>
+
+        <TabControl x:Name="Tabs" Margin="8">
+            <!-- ===================== PERSONNES ===================== -->
+            <TabItem Header="{res:Str Key=WL_Tab_Persons}">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,6">
+                        <TextBlock Text="{res:Str Key=WL_Col_Surname}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                        <TextBox x:Name="PersonSearchSurname" Width="130" Style="{StaticResource FieldBox}" Margin="0,0,8,0"/>
+                        <TextBlock Text="{res:Str Key=WL_Col_GivenName}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                        <TextBox x:Name="PersonSearchGivenName" Width="120" Style="{StaticResource FieldBox}" Margin="0,0,8,0"/>
+                        <TextBlock Text="{res:Str Key=WL_Col_Document}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                        <TextBox x:Name="PersonSearchDocument" Width="110" Style="{StaticResource FieldBox}" Margin="0,0,8,0"/>
+                        <TextBlock Text="{res:Str Key=WL_Col_Source}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                        <ComboBox x:Name="PersonSearchSource" Width="130" Style="{StaticResource FieldCombo}" Margin="0,0,8,0"/>
+                        <CheckBox x:Name="PersonShowCancelled" Content="{res:Str Key=WL_ShowCancelled}" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <Button Content="{res:Str Key=Common_Search}" Style="{StaticResource ToolbarButton}" Padding="10,4" Margin="0,0,8,0" Click="SearchPersons_Click"/>
+                        <Button x:Name="NewPersonBtn" Content="{res:Str Key=WL_NewEntry}" Style="{StaticResource PrimaryButton}" Padding="12,4" Click="NewPerson_Click"/>
+                    </StackPanel>
+
+                    <DataGrid x:Name="PersonsGrid" Grid.Row="1" SelectionChanged="Person_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_Surname}" Binding="{Binding Surname}" Width="150"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_GivenName}" Binding="{Binding GivenName}" Width="150"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_BirthDate}" Binding="{Binding DateOfBirth, StringFormat=dd/MM/yyyy}" Width="95"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_Citizenship}" Binding="{Binding CitizenshipName}" Width="170"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_Document}" Binding="{Binding DocumentNumber}" Width="120"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_PersonalNumber}" Binding="{Binding PersonalNumber}" Width="110"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_Action}" Binding="{Binding MatchInStopListAction.Code}" Width="70"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_SetUpDate}" Binding="{Binding SetUpDate, StringFormat=dd/MM/yyyy}" Width="95"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_CancelDate}" Binding="{Binding CancelDate, StringFormat=dd/MM/yyyy}" Width="95"/>
+                            <DataGridCheckBoxColumn Header="{res:Str Key=WL_Col_Authorized}" Binding="{Binding IsAuthorized}" Width="80"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Border Grid.Row="2" Background="{StaticResource ThemePanelBrush}" BorderBrush="{StaticResource ThemeBorderBrush}"
+                            BorderThickness="1" Padding="10" Margin="0,8,0,0">
+                        <StackPanel>
+                            <WrapPanel>
+                                <TextBlock Text="{res:Str Key=WL_Col_Surname}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <TextBox x:Name="PersonSurnameEdit" Width="140" Style="{StaticResource FieldBox}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_Col_GivenName}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <TextBox x:Name="PersonGivenNameEdit" Width="140" Style="{StaticResource FieldBox}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_Col_FathersName}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <TextBox x:Name="PersonFathersNameEdit" Width="120" Style="{StaticResource FieldBox}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_Col_BirthDate}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <DatePicker x:Name="PersonBirthDateEdit" Width="120" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_Col_Sex}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <ComboBox x:Name="PersonSexCombo" Width="90" Style="{StaticResource FieldCombo}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_Col_Citizenship}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <ComboBox x:Name="PersonCitizenshipCombo" Width="170" Style="{StaticResource FieldCombo}"/>
+                            </WrapPanel>
+                            <WrapPanel Margin="0,6,0,0">
+                                <TextBlock Text="{res:Str Key=WL_SurnameAlt}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <TextBox x:Name="PersonSurnameAltEdit" Width="130" Style="{StaticResource FieldBox}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_GivenNameAlt}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <TextBox x:Name="PersonGivenNameAltEdit" Width="130" Style="{StaticResource FieldBox}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_Col_DocumentType}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <ComboBox x:Name="PersonDocumentTypeCombo" Width="120" Style="{StaticResource FieldCombo}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_Col_Document}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <TextBox x:Name="PersonDocumentNumberEdit" Width="110" Style="{StaticResource FieldBox}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_Col_PersonalNumber}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <TextBox x:Name="PersonPersonalNumberEdit" Width="100" Style="{StaticResource FieldBox}"/>
+                            </WrapPanel>
+                            <WrapPanel Margin="0,6,0,0">
+                                <TextBlock Text="{res:Str Key=WL_Col_Source}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <ComboBox x:Name="PersonSourceCombo" Width="130" Style="{StaticResource FieldCombo}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_SourceDocument}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <TextBox x:Name="PersonSourceDocumentEdit" Width="150" Style="{StaticResource FieldBox}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_Col_Action}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <ComboBox x:Name="PersonActionCombo" Width="110" Style="{StaticResource FieldCombo}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_ActionRequired}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <TextBox x:Name="PersonActionRequiredEdit" Width="220" Style="{StaticResource FieldBox}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_Col_Info}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <TextBox x:Name="PersonInfoEdit" Width="220" Style="{StaticResource FieldBox}"/>
+                            </WrapPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                                <Button x:Name="SavePersonBtn" Content="{res:Str Key=Common_Save}" Style="{StaticResource PrimaryButton}" Padding="14,6" Margin="0,0,6,0" Click="SavePerson_Click"/>
+                                <Button x:Name="CancelPersonBtn" Content="{res:Str Key=WL_CancelAlert}" Style="{StaticResource ToolbarButton}" Padding="12,6" Margin="0,0,6,0" Click="CancelPerson_Click"/>
+                                <Button x:Name="AuthorizePersonBtn" Content="{res:Str Key=WL_ToggleAuthorized}" Style="{StaticResource ToolbarButton}" Padding="12,6" Margin="0,0,6,0" Click="ToggleAuthorized_Click"/>
+                                <Button x:Name="CapturePrintBtn" Content="{res:Str Key=WL_CaptureFingerprint}" Style="{StaticResource ToolbarButton}" Padding="12,6" Margin="0,0,6,0" Click="CaptureFingerprint_Click"/>
+                                <Button x:Name="IdentifyPrintBtn" Content="{res:Str Key=WL_IdentifyFingerprint}" Style="{StaticResource ToolbarButton}" Padding="12,6" Margin="0,0,6,0" Click="IdentifyFingerprint_Click"/>
+                                <Button x:Name="ReverseCheckBtn" Content="{res:Str Key=WL_ReverseCheck}" Style="{StaticResource ToolbarButton}" Padding="12,6" Click="ReverseCheck_Click"/>
+                                <TextBlock x:Name="PersonPrintsText" VerticalAlignment="Center" Margin="12,0,0,0" Foreground="#4A5568"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </TabItem>
+
+            <!-- ===================== DOCUMENTS ===================== -->
+            <TabItem Header="{res:Str Key=WL_Tab_Documents}">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,6">
+                        <TextBlock Text="{res:Str Key=WL_Col_Document}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                        <TextBox x:Name="DocSearchNumber" Width="130" Style="{StaticResource FieldBox}" Margin="0,0,8,0"/>
+                        <TextBlock Text="{res:Str Key=WL_Col_Surname}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                        <TextBox x:Name="DocSearchSurname" Width="130" Style="{StaticResource FieldBox}" Margin="0,0,8,0"/>
+                        <TextBlock Text="{res:Str Key=WL_Col_Country}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                        <ComboBox x:Name="DocSearchCountry" Width="150" Style="{StaticResource FieldCombo}" Margin="0,0,8,0"/>
+                        <CheckBox x:Name="DocShowCancelled" Content="{res:Str Key=WL_ShowCancelled}" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <Button Content="{res:Str Key=Common_Search}" Style="{StaticResource ToolbarButton}" Padding="10,4" Margin="0,0,8,0" Click="SearchDocuments_Click"/>
+                        <Button x:Name="NewDocumentBtn" Content="{res:Str Key=WL_NewEntry}" Style="{StaticResource PrimaryButton}" Padding="12,4" Click="NewDocument_Click"/>
+                    </StackPanel>
+
+                    <DataGrid x:Name="DocumentsGrid" Grid.Row="1" SelectionChanged="Document_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_Document}" Binding="{Binding DocumentNumber}" Width="140"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_DocumentType}" Binding="{Binding DocumentTypeId}" Width="60"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_Country}" Binding="{Binding CountryName}" Width="170"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_Surname}" Binding="{Binding Surname}" Width="150"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_GivenName}" Binding="{Binding GivenName}" Width="150"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_BirthDate}" Binding="{Binding DateOfBirth, StringFormat=dd/MM/yyyy}" Width="95"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_PersonalNumber}" Binding="{Binding PersonalNumber}" Width="110"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_Action}" Binding="{Binding MatchInStopListAction.Code}" Width="70"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_SetUpDate}" Binding="{Binding SetUpDate, StringFormat=dd/MM/yyyy}" Width="95"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_CancelDate}" Binding="{Binding CancelDate, StringFormat=dd/MM/yyyy}" Width="95"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Border Grid.Row="2" Background="{StaticResource ThemePanelBrush}" BorderBrush="{StaticResource ThemeBorderBrush}"
+                            BorderThickness="1" Padding="10" Margin="0,8,0,0">
+                        <StackPanel>
+                            <WrapPanel>
+                                <TextBlock Text="{res:Str Key=WL_Col_DocumentType}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <ComboBox x:Name="DocTypeEdit" Width="120" Style="{StaticResource FieldCombo}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_Col_Document}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <TextBox x:Name="DocNumberEdit" Width="120" Style="{StaticResource FieldBox}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_Col_PersonalNumber}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <TextBox x:Name="DocPersonalNumberEdit" Width="100" Style="{StaticResource FieldBox}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_Col_Country}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <ComboBox x:Name="DocCountryEdit" Width="170" Style="{StaticResource FieldCombo}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_Col_Surname}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <TextBox x:Name="DocSurnameEdit" Width="140" Style="{StaticResource FieldBox}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_Col_GivenName}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <TextBox x:Name="DocGivenNameEdit" Width="140" Style="{StaticResource FieldBox}"/>
+                            </WrapPanel>
+                            <WrapPanel Margin="0,6,0,0">
+                                <TextBlock Text="{res:Str Key=WL_Col_BirthDate}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <DatePicker x:Name="DocBirthDateEdit" Width="120" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_Col_Source}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <ComboBox x:Name="DocSourceCombo" Width="130" Style="{StaticResource FieldCombo}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_SourceDocument}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <TextBox x:Name="DocSourceDocumentEdit" Width="150" Style="{StaticResource FieldBox}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_Col_Action}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <ComboBox x:Name="DocActionCombo" Width="110" Style="{StaticResource FieldCombo}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_ActionRequired}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <TextBox x:Name="DocActionRequiredEdit" Width="220" Style="{StaticResource FieldBox}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_Col_Info}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <TextBox x:Name="DocInfoEdit" Width="200" Style="{StaticResource FieldBox}"/>
+                            </WrapPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                                <Button x:Name="SaveDocumentBtn" Content="{res:Str Key=Common_Save}" Style="{StaticResource PrimaryButton}" Padding="14,6" Margin="0,0,6,0" Click="SaveDocument_Click"/>
+                                <Button x:Name="CancelDocumentBtn" Content="{res:Str Key=WL_CancelAlert}" Style="{StaticResource ToolbarButton}" Padding="12,6" Click="CancelDocument_Click"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </TabItem>
+
+            <!-- ===================== DOUTEUX ===================== -->
+            <TabItem Header="{res:Str Key=WL_Tab_Doubtful}">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,6">
+                        <TextBlock Text="{res:Str Key=WL_Col_WorkflowStatus}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                        <ComboBox x:Name="DoubtStatusCombo" Width="140" Style="{StaticResource FieldCombo}" Margin="0,0,10,0"/>
+                        <TextBlock Text="{res:Str Key=Admin_Audit_From}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                        <DatePicker x:Name="DoubtFromPicker" Width="120" Margin="0,0,10,0"/>
+                        <TextBlock Text="{res:Str Key=Admin_Audit_To}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                        <DatePicker x:Name="DoubtToPicker" Width="120" Margin="0,0,10,0"/>
+                        <Button Content="{res:Str Key=Common_Search}" Style="{StaticResource ToolbarButton}" Padding="10,4" Margin="0,0,8,0" Click="SearchDoubts_Click"/>
+                        <Button x:Name="PendingDoubtsBtn" Content="{res:Str Key=WL_OnlyPending}" Style="{StaticResource ToolbarButton}" Padding="10,4" Click="PendingDoubts_Click"/>
+                    </StackPanel>
+
+                    <DataGrid x:Name="DoubtsGrid" Grid.Row="1" SelectionChanged="Doubt_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_Date}" Binding="{Binding CreateDate, StringFormat=dd/MM/yyyy HH:mm}" Width="130"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_WorkflowStatus}" Binding="{Binding WorkflowStatus}" Width="60"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_TravelDate}" Binding="{Binding TravelDate, StringFormat=dd/MM/yyyy}" Width="90"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_Document}" Binding="{Binding DocumentNumber}" Width="120"/>
+                            <DataGridTextColumn Header="{res:Str Key=PAL_Col_Holder}" Binding="{Binding HolderName}" Width="*"/>
+                            <DataGridTextColumn Header="{res:Str Key=PAL_Col_Direction}" Binding="{Binding DirectionFr}" Width="90"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_CheckingReason}" Binding="{Binding CheckingReasonFr}" Width="190"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_StopListEntry}" Binding="{Binding PersonStopListId}" Width="70"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_Supervisor}" Binding="{Binding Supervisor}" Width="110"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_SecondInspection}" Binding="{Binding SupervisorRegistrationTime, StringFormat=dd/MM HH:mm}" Width="110"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_PerformedAction}" Binding="{Binding PerformedActionFr}" Width="110"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Border Grid.Row="2" Background="{StaticResource ThemePanelBrush}" BorderBrush="{StaticResource ThemeBorderBrush}"
+                            BorderThickness="1" Padding="10" Margin="0,8,0,0">
+                        <StackPanel>
+                            <WrapPanel>
+                                <TextBlock Text="{res:Str Key=WL_Col_CheckingReason}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <ComboBox x:Name="DoubtReasonCombo" Width="200" Style="{StaticResource FieldCombo}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_Col_PerformedAction}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <ComboBox x:Name="DoubtActionCombo" Width="140" Style="{StaticResource FieldCombo}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_SupervisorNote}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <TextBox x:Name="SupervisorNoteBox" Width="300" Style="{StaticResource FieldBox}"/>
+                            </WrapPanel>
+                            <WrapPanel Margin="0,6,0,0">
+                                <TextBlock Text="{res:Str Key=WL_RefusalOfficer}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <TextBox x:Name="RefusalOfficerBox" Width="150" Style="{StaticResource FieldBox}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_RefusalRank}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <TextBox x:Name="RefusalRankBox" Width="110" Style="{StaticResource FieldBox}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_RefusalDocNumber}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <TextBox x:Name="RefusalDocBox" Width="110" Style="{StaticResource FieldBox}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=ENF_Justification}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <ComboBox x:Name="DoubtJustificationCombo" Width="230" Style="{StaticResource FieldCombo}"/>
+                            </WrapPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                                <Button x:Name="ProcessDoubtBtn" Content="{res:Str Key=WL_Process}" Style="{StaticResource PrimaryButton}" Padding="14,6" Margin="0,0,6,0" Click="ProcessDoubt_Click"/>
+                                <Button x:Name="CancelDoubtBtn" Content="{res:Str Key=WL_CancelDoubt}" Style="{StaticResource ToolbarButton}" Padding="12,6" Margin="0,0,14,0" Click="CancelDoubt_Click"/>
+                                <CheckBox x:Name="AutoCheckBox" Content="{res:Str Key=WL_AutoCheck}" VerticalAlignment="Center"
+                                          Checked="AutoCheck_Changed" Unchecked="AutoCheck_Changed"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </TabItem>
+
+            <!-- ===================== SIMULATEUR ===================== -->
+            <TabItem Header="{res:Str Key=WL_Tab_Simulator}">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/><RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Background="{StaticResource ThemePanelBrush}" BorderBrush="{StaticResource ThemeBorderBrush}"
+                            BorderThickness="1" Padding="10">
+                        <StackPanel>
+                            <WrapPanel>
+                                <TextBlock Text="{res:Str Key=WL_SimulatorList}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <ComboBox x:Name="SimKindCombo" Width="150" Style="{StaticResource FieldCombo}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_SimulatorType}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <ComboBox x:Name="SimTypeCombo" Width="330" Style="{StaticResource FieldCombo}"/>
+                            </WrapPanel>
+                            <WrapPanel Margin="0,6,0,0">
+                                <TextBlock Text="{res:Str Key=WL_Col_Surname}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <TextBox x:Name="SimSurname" Width="140" Style="{StaticResource FieldBox}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_Col_GivenName}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <TextBox x:Name="SimGivenName" Width="140" Style="{StaticResource FieldBox}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_Col_BirthDate}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <DatePicker x:Name="SimBirthDate" Width="120" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_Col_Citizenship}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <ComboBox x:Name="SimCitizenship" Width="170" Style="{StaticResource FieldCombo}"/>
+                            </WrapPanel>
+                            <WrapPanel Margin="0,6,0,0">
+                                <TextBlock Text="{res:Str Key=WL_Col_Document}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <TextBox x:Name="SimDocument" Width="130" Style="{StaticResource FieldBox}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=WL_Col_PersonalNumber}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                                <TextBox x:Name="SimPersonalNumber" Width="110" Style="{StaticResource FieldBox}" Margin="0,0,14,0"/>
+                                <Button x:Name="SimulateBtn" Content="{res:Str Key=WL_Simulate}" Style="{StaticResource PrimaryButton}" Padding="14,6" Click="Simulate_Click"/>
+                            </WrapPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <DataGrid x:Name="SimResultsGrid" Grid.Row="1" Margin="0,8,0,0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_Surname}" Binding="{Binding Surname}" Width="150"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_GivenName}" Binding="{Binding GivenName}" Width="150"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_BirthDate}" Binding="{Binding DateOfBirth, StringFormat=dd/MM/yyyy}" Width="95"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_Document}" Binding="{Binding DocumentNumber}" Width="130"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_PersonalNumber}" Binding="{Binding PersonalNumber}" Width="110"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_Action}" Binding="{Binding MatchInStopListAction.Code}" Width="70"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_Info}" Binding="{Binding Info}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>

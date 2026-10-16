@@ -1,0 +1,37 @@
+<Window x:Class="BorderNext.UI.FingerprintScanDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:res="clr-namespace:BorderNext.UI.Resources"
+        Title="{res:Str Key=Bio_Scan_Title}"
+        Width="460" SizeToContent="Height"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
+    <StackPanel Margin="14">
+        <TextBlock x:Name="InfoText" TextWrapping="Wrap" Margin="0,0,0,8"/>
+        <TextBlock x:Name="DeviceText" Foreground="#4A5568" FontSize="12" Margin="0,0,0,8" TextWrapping="Wrap"/>
+
+        <StackPanel x:Name="IdentityPanel">
+            <TextBlock Text="{res:Str Key=Bio_SimulatedIdentity}" Style="{StaticResource FieldLabel}"/>
+            <ComboBox x:Name="IdentityCombo" Margin="0,0,0,10"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <Border BorderBrush="{StaticResource ThemeBorderBrush}" BorderThickness="1" Width="150" Height="150" Background="White">
+                <Image x:Name="Preview" Stretch="Uniform"/>
+            </Border>
+            <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
+                <Button x:Name="CaptureBtn" Content="{res:Str Key=Bio_Capture}" Style="{StaticResource PrimaryButton}"
+                        Padding="18,8" Margin="0,0,0,10" Click="Capture_Click"/>
+                <TextBlock x:Name="ResultText" TextWrapping="Wrap" FontWeight="SemiBold"/>
+            </StackPanel>
+        </StackPanel>
+
+        <TextBlock x:Name="ErrorText" Foreground="#C0392B" TextWrapping="Wrap" Visibility="Collapsed" Margin="0,10,0,0"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+            <Button x:Name="OkBtn" Content="{res:Str Key=PAL_Select}" Style="{StaticResource PrimaryButton}" Padding="16,8"
+                    Margin="0,0,8,0" IsEnabled="False" Click="Ok_Click"/>
+            <Button Content="{res:Str Key=PAL_Close}" Padding="16,8" Click="Cancel_Click"/>
+        </StackPanel>
+    </StackPanel>
+</Window>
