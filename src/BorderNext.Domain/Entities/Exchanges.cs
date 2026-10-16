@@ -68,8 +68,8 @@ public class ApisMessage
     }
 }
 
-/// <summary>Statuts d'un message APIS — reconstruction : la table d'origine n'était pas
-/// documentée par des données, la valeur initiale héritée est 0.</summary>
+/// <summary>Statuts d'un message APIS — la table d'origine n'était pas documentée par
+/// des données ; la valeur initiale héritée est 0.</summary>
 public static class ApisMessageStatus
 {
     public const int Received = 0;     // reçu / importé
@@ -162,7 +162,7 @@ public class ApisPassenger
     public string FullName => string.Join(' ', new[] { Surname, GivenName }.Where(p => !string.IsNullOrWhiteSpace(p)));
 }
 
-/// <summary>Statuts d'un passager APIS — reconstruction : valeur initiale héritée 0.</summary>
+/// <summary>Statuts d'un passager APIS — valeur initiale héritée 0.</summary>
 public static class ApisPassengerStatus
 {
     public const int Received = 0;    // reçu
