@@ -9,7 +9,7 @@ namespace BorderNext.Infrastructure.Persistence.Seeding;
 /// <summary>
 /// Alimentation des référentiels depuis <c>reference-data.json</c> (ressource
 /// embarquée). Les données proviennent des nomenclatures réelles du système
-/// d'origine (aucune donnée personnelle).
+/// du poste (aucune donnée personnelle) — nomenclatures et référentiels uniquement.
 /// Idempotent : chaque section n'est semée que si sa table est vide.
 /// </summary>
 public static class ReferenceDataSeeder

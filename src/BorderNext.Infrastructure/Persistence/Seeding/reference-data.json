@@ -1,7 +1,7 @@
 {
  "schemaVersion": 1,
  "generatedFrom": "Nomenclatures de référence du poste frontière",
- "note": "Nomenclatures uniquement, sans donnée personnelle. Entrées de test de l’ancien système exclues. | Lot 6 : carriers (822 compagnies, codes IATA herites) et terminals (18 terminaux operationnels lies a une ville ; le dump herite compte ~10 775 aeroports, gerables ensuite depuis l administration des terminaux). | Lot 6 : carriers (820 compagnies actives, codes IATA herites ; lignes revoquees et cultures dupliquees de l heritage ecartees) et terminals (18 terminaux operationnels lies a une ville ; le dump herite compte ~10 775 aeroports, gerables depuis l administration des terminaux).",
+ "note": "Nomenclatures uniquement, sans donnée personnelle : 44 listes (175 éléments fr/en), 220 pays, villes, postes frontières, 11 contrôles, 25 paramètres, paramétrage de poste, 820 transporteurs (codes IATA) et 18 terminaux opérationnels. Les entrées de test sont exclues ; les aéroports hors sous-ensemble opérationnel s'ajoutent depuis l'administration des terminaux.",
  "lookupTypes": [
   {
    "code": "ACCOMODATION_TYPE",

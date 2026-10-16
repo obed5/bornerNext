@@ -55,7 +55,7 @@ public sealed record StopListHit(
 
 /// <summary>
 /// Moteur de correspondance des listes d'alerte, reconstruit depuis les fonctions
-/// héritées (fonctions du système précédent) :
+/// du poste (fonctions de correspondance des listes de surveillance) :
 ///  - contrôle « personne » : 7 critères ordonnés, retour au premier critère satisfait,
 ///    boucle héritée parties × parties (SplitName), priorité interne par code d'action
 ///    (ORDER BY ExternalID ASC, valeurs nulles d'abord) ;
