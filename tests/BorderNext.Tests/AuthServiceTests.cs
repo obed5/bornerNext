@@ -1,4 +1,4 @@
-using BorderNext.Application.Services;
+﻿using BorderNext.Application.Services;
 using BorderNext.Domain.Entities;
 using BorderNext.Infrastructure.Persistence;
 using BorderNext.Infrastructure.Security;
@@ -66,7 +66,7 @@ public class AuthServiceTests : IDisposable
         var result = await _auth.LoginAsync("jdoe", "WrongPass");
 
         Assert.False(result.Success);
-        Assert.Equal("Login_InvalidCredentials", result.ErrorCode);
+        Assert.Equal("Login_Error_InvalidCredentials", result.ErrorCode);
         Assert.False(_currentUser.IsAuthenticated);
         Assert.Contains(_db.AuditLogs, a => a.EventType == AuditEventTypes.UserLogin && a.Details!.Contains("invalide"));
     }
@@ -77,7 +77,7 @@ public class AuthServiceTests : IDisposable
         var result = await _auth.LoginAsync("ghost", "Secret!2026");
 
         Assert.False(result.Success);
-        Assert.Equal("Login_InvalidCredentials", result.ErrorCode);
+        Assert.Equal("Login_Error_InvalidCredentials", result.ErrorCode);
     }
 
     [Fact]
@@ -86,14 +86,14 @@ public class AuthServiceTests : IDisposable
         var result = await _auth.LoginAsync("revoked", "Secret!2026");
 
         Assert.False(result.Success);
-        Assert.Equal("Login_AccountRevoked", result.ErrorCode);
+        Assert.Equal("Login_Error_AccountRevoked", result.ErrorCode);
     }
 
     [Fact]
     public async Task Login_EmptyInputs_FailWithSpecificErrors()
     {
-        Assert.Equal("Login_UserNameRequired", (await _auth.LoginAsync("", "x")).ErrorCode);
-        Assert.Equal("Login_PasswordRequired", (await _auth.LoginAsync("jdoe", "")).ErrorCode);
+        Assert.Equal("Login_Error_UserNameRequired", (await _auth.LoginAsync("", "x")).ErrorCode);
+        Assert.Equal("Login_Error_PasswordRequired", (await _auth.LoginAsync("jdoe", "")).ErrorCode);
     }
 
     [Fact]

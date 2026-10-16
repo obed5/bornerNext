@@ -42,8 +42,43 @@ public static class ReferenceDataSeeder
         await RemapCountrySettingsAsync(db, seed, ct);
         // Lot 7 — tâches d'échange et réglages des connecteurs externes.
         await EnsureExchangeTasksAsync(db, ct);
+        // Lot 9 — durcissement : seuils de sécurité et rétention des fichiers.
+        await EnsureSecuritySettingsAsync(db, ct);
         // Lot 8 — types de questions, fiche sanitaire, coordonnées cartographiques.
         await HealthDataSeeder.SeedAsync(db, ct);
+    }
+
+    /// <summary>
+    /// Réglages de durcissement (Lot 9) : seuil d'échecs avant verrouillage, durée du
+    /// verrouillage, rétention des fichiers d'échange. Idempotent : les installations
+    /// existantes reçoivent les réglages manquants, sans écraser les valeurs en place.
+    /// </summary>
+    private static async Task EnsureSecuritySettingsAsync(BorderNextDbContext db, CancellationToken ct)
+    {
+        var defaults = new (string Type, int Value, string Description)[]
+        {
+            ("Security_MaxFailedAttempts", 5,
+                "Échecs de connexion consécutifs avant verrouillage temporaire du compte."),
+            ("Security_LockoutMinutes", 15,
+                "Durée du verrouillage temporaire du compte après dépassement du seuil (minutes)."),
+            (ExchangeFileStore.RetentionSetting, 0,
+                "Conservation des fichiers d'échange (jours ; 0 = conservation illimitée)."),
+        };
+
+        foreach (var setting in defaults)
+        {
+            if (await db.Settings.AnyAsync(s => s.Type == setting.Type, ct)) continue;
+            db.Settings.Add(new Setting
+            {
+                Type = setting.Type,
+                Value = setting.Value,
+                Description = setting.Description,
+                UpdateDate = DateTime.Now,
+                UpdateUser = "seed",
+            });
+        }
+
+        await db.SaveChangesAsync(ct);
     }
 
     private static SeedFile LoadSeed()

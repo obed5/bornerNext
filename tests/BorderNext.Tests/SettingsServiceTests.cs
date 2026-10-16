@@ -1,4 +1,4 @@
-using BorderNext.Application.Services;
+﻿using BorderNext.Application.Services;
 using BorderNext.Domain.Entities;
 using BorderNext.Infrastructure.Persistence;
 using BorderNext.Infrastructure.Services;
@@ -17,7 +17,9 @@ public class SettingsServiceTests : IDisposable
         _db = new BorderNextDbContext(new DbContextOptionsBuilder<BorderNextDbContext>()
             .UseInMemoryDatabase($"settings-{Guid.NewGuid()}")
             .Options);
-        _settings = new SettingsService(_db, _currentUser, new SystemClock(), new AuditWriter(_db, _currentUser, new SystemClock()));
+        _settings = new SettingsService(_db, _currentUser, new SystemClock(),
+            new AuditWriter(_db, _currentUser, new SystemClock()),
+            new BorderNext.Infrastructure.Security.DpapiSecretProtector());
     }
 
     [Fact]

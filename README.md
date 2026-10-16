@@ -1,4 +1,4 @@
-# BorderNext
+﻿# BorderNext
 
 Application de gestion d'un poste frontière : enregistrement des voyageurs et de leurs
 documents (passeports, visas), biométrie, opérations de transport (vols, navires, trains),
@@ -47,7 +47,7 @@ la matrice des droits.
 
 ```bash
 dotnet build                          # compilation
-dotnet test                           # tests (355 actuellement)
+dotnet test                           # tests (384 actuellement)
 dotnet run --project src/BorderNext.UI
 ```
 
@@ -73,11 +73,20 @@ simulé.
 ## Sécurité
 
 - Mots de passe hachés PBKDF2-HMAC-SHA256 (210 000 itérations, sel aléatoire) — jamais en clair.
-- Requêtes exclusivement paramétrées (EF Core) — aucune concaténation SQL.
-- Journal d'audit par événements (`AUDIT_LOG_*`).
-- Aucun mot de passe maître ni backdoor.
-- Le mot de passe d'amorçage est un défaut de développement ; son déplacement vers un
-  secret protégé fait partie des travaux de durcissement à venir.
+- **Verrouillage temporaire** après échecs de connexion répétés (5 par défaut, 15 minutes),
+  compteurs audités ; changement de mot de passe imposé à la première connexion.
+- Requêtes exclusivement paramétrées (EF Core) — aucune concaténation SQL, y compris dans
+  l'outil de reprise d'historique.
+- **Secrets protégés** : aucun mot de passe en configuration. Le mot de passe d'amorçage
+  vient de la variable d'environnement `BORDERNEXT_BOOTSTRAP_PASSWORD` ou d'un fichier
+  protégé DPAPI (généré aléatoirement au premier démarrage à défaut) ; la chaîne de
+  connexion peut venir de `BORDERNEXT_CONNECTION_STRING` ; les jetons des partenaires sont
+  chiffrés au repos et jamais réaffichés.
+- Journal d'audit par événements (`AUDIT_LOG_*`) ; journal des échanges par exécution.
+- Aucun mot de passe maître ni backdoor : l'accès de secours passe par
+  `BorderNext.Migration reset-password`, opération tracée.
+- Rétention et purge des fichiers échangés ; modèle de menace et revue dans
+  [docs/securite.md](docs/securite.md).
 
 ## Feuille de route
 
@@ -109,8 +118,24 @@ simulé.
       carte des nationalités du jour, questionnaires de santé (réponses, questions de suivi,
       validité, message de fin) et antécédents médicaux des permis, titulaires et personnes
       à charge.
-- [ ] **Lot 9 — Migration des données et durcissement** : reprise des données historiques,
-      secrets protégés, revue de sécurité.
+- [x] **Lot 9 — Migration de l'historique, durcissement et documentation** : reprise des
+      dossiers du système précédent (personnes, documents, mouvements, visas, permis, listes
+      de surveillance, dossiers douteux) par lots et rejouable, jeu de démonstration
+      synthétique, mesure des temps de réponse (toutes les mesures sous la seconde sur la
+      volumétrie de référence), verrouillage des comptes, secrets protégés (DPAPI), purge des
+      fichiers, documentation complète (installation, exploitation, sécurité, migration,
+      matrice de couverture, guides par module).
+
+## Documentation
+
+| Document | Contenu |
+|---|---|
+| [docs/installation.md](docs/installation.md) | Prérequis, base, secrets, premier démarrage, publication |
+| [docs/exploitation.md](docs/exploitation.md) | Sauvegardes, journaux, maintenance, purge, incidents |
+| [docs/securite.md](docs/securite.md) | Modèle de menace et revue de sécurité |
+| [docs/migration.md](docs/migration.md) | Reprise de l'historique du système précédent |
+| [docs/couverture.md](docs/couverture.md) | Matrice fonctionnalité → écran → tests → état |
+| [docs/guide/](docs/guide) | Guides utilisateur par module |
 
 ## Tests
 
@@ -121,8 +146,10 @@ dotnet test --filter PasswordHasher   # une classe
 
 Scénarios de bout en bout (pilotage de l'application réelle par automatisation UI, avec
 captures) : `tools/test-login-flow.ps1`, `test-admin-flow.ps1`, puis un scénario par lot
-(`tools/test-lot2-flow.ps1` … `tools/test-lot8-flow.ps1`) et
-`tools/test-dashboard-flow.ps1` (contrôle croisé écran/base).
+(`tools/test-lot2-flow.ps1` … `tools/test-lot9-flow.ps1`) et
+`tools/test-dashboard-flow.ps1` (contrôle croisé écran/base). L'outil d'exploitation
+(`src/BorderNext.Migration`) porte la reprise d'historique, le jeu de démonstration, la
+mesure des temps de réponse, la purge et la réinitialisation de mot de passe.
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File tools/test-login-flow.ps1

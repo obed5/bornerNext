@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
   <resheader name="version"><value>2.0</value></resheader>
@@ -979,4 +979,21 @@ Consultez la surveillance : l'entrée doit être vérifiée par le superviseur (
   <data name="PV_Error_DependantNotFound" xml:space="preserve"><value>Personne à charge introuvable pour ce permis.</value></data>
   <data name="DB_NationalitiesMap" xml:space="preserve"><value>Carte des nationalités (jour)</value></data>
   <data name="DB_MapEmpty" xml:space="preserve"><value>Aucune nationalité localisée aujourd'hui.</value></data>
+  <data name="Login_Error_AccountLocked" xml:space="preserve"><value>Compte temporairement verrouillé après plusieurs échecs. Réessayez plus tard ou contactez un administrateur.</value></data>
+
+  <data name="EX_Connector_Secret" xml:space="preserve"><value>Jeton d'authentification</value></data>
+  <data name="EX_Connector_SecretSave" xml:space="preserve"><value>Enregistrer le jeton</value></data>
+  <data name="EX_Connector_SecretClear" xml:space="preserve"><value>Effacer</value></data>
+  <data name="EX_Connector_SecretSet" xml:space="preserve"><value>Jeton défini (chiffré au repos)</value></data>
+  <data name="EX_Connector_SecretUnset" xml:space="preserve"><value>Aucun jeton défini</value></data>
+  <data name="EX_Connector_SecretEmpty" xml:space="preserve"><value>Saisissez le jeton à enregistrer.</value></data>
+  <data name="EX_Connector_SecretSaved" xml:space="preserve"><value>Jeton du partenaire enregistré (chiffré).</value></data>
+  <data name="EX_Connector_SecretCleared" xml:space="preserve"><value>Jeton du partenaire effacé.</value></data>
+  <data name="EX_PurgeUnlimited" xml:space="preserve"><value>Conservation des fichiers : illimitée (réglage Exchange_MessageRetentionDays).</value></data>
+  <data name="EX_PurgeRetention" xml:space="preserve"><value>Conservation des fichiers : selon le réglage du poste.</value></data>
+  <data name="EX_PurgePreview" xml:space="preserve"><value>Aperçu de la purge</value></data>
+  <data name="EX_PurgeFiles" xml:space="preserve"><value>Purger les fichiers anciens</value></data>
+  <data name="EX_PurgeDisabled" xml:space="preserve"><value>Aucune durée de conservation configurée : rien à purger.</value></data>
+  <data name="EX_PurgePreviewResult" xml:space="preserve"><value>Aperçu : {0} fichier(s) seraient supprimés ({1} Ko).</value></data>
+  <data name="EX_PurgeResult" xml:space="preserve"><value>Purge terminée : {0} fichier(s) supprimé(s) ({1} Ko).</value></data>
 </root>

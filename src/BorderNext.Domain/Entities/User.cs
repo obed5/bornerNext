@@ -56,6 +56,12 @@ public class User
     public DateTime? UpdateDate { get; set; }
     public string? UpdateUser { get; set; }
 
+    /// <summary>Échecs de connexion consécutifs (remis à zéro à la connexion réussie).</summary>
+    public int FailedAttemptCount { get; set; }
+
+    /// <summary>Fin du verrouillage temporaire du compte (dépassement du seuil d'échecs).</summary>
+    public DateTime? LockoutUntil { get; set; }
+
     // Biométrie opérateur (héritage : Users.FirstFingerPrint / SecondFingerPrint
     // + gabarits) — deux doigts enrôlés par utilisateur, contrôle à la connexion
     // (héritage : UserLoginForm.CheckFingerAgainstUsers).

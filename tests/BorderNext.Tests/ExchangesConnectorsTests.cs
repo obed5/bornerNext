@@ -1,4 +1,4 @@
-using BorderNext.Application.Abstractions;
+﻿using BorderNext.Application.Abstractions;
 using BorderNext.Application.Services;
 using BorderNext.Domain.Entities;
 using BorderNext.Infrastructure.Persistence;
@@ -29,7 +29,7 @@ public class ExternalCheckServiceTests : IDisposable
             new SimiecConnector(clientFactory),
             new BelizeConnector(clientFactory),
             new AirConnector(_db, clientFactory),
-        });
+        }, new BorderNext.Infrastructure.Security.DpapiSecretProtector());
 
         _currentUser.Set(new User { Id = "U001", UserName = "jdoe", UserRoleId = 4, BorderPointId = 2 }, "ALERT_OFF");
         _currentUser.SetPcNumber("A01");

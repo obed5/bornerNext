@@ -218,13 +218,31 @@
 
                     <Border Grid.Row="1" Background="{StaticResource ThemePanelBrush}" BorderBrush="{StaticResource ThemeBorderBrush}"
                             BorderThickness="1" Padding="10" Margin="0,8,0,0">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{res:Str Key=EX_Col_Endpoint}" VerticalAlignment="Center" Margin="0,0,6,0"/>
-                            <TextBox x:Name="EndpointBox" Width="330" Style="{StaticResource FieldBox}" Margin="0,0,10,0"/>
-                            <TextBlock Text="{res:Str Key=EX_Col_Mode}" VerticalAlignment="Center" Margin="0,0,6,0"/>
-                            <ComboBox x:Name="ModeCombo" Width="130" Style="{StaticResource FieldCombo}" Margin="0,0,10,0"/>
-                            <CheckBox x:Name="ActiveCheck" Content="{res:Str Key=EX_Col_Active}" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                            <Button x:Name="SaveConnectorBtn" Content="{res:Str Key=Common_Save}" Style="{StaticResource PrimaryButton}" Padding="14,6" Click="SaveConnector_Click"/>
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{res:Str Key=EX_Col_Endpoint}" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                <TextBox x:Name="EndpointBox" Width="330" Style="{StaticResource FieldBox}" Margin="0,0,10,0"/>
+                                <TextBlock Text="{res:Str Key=EX_Col_Mode}" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                <ComboBox x:Name="ModeCombo" Width="130" Style="{StaticResource FieldCombo}" Margin="0,0,10,0"/>
+                                <CheckBox x:Name="ActiveCheck" Content="{res:Str Key=EX_Col_Active}" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                <Button x:Name="SaveConnectorBtn" Content="{res:Str Key=Common_Save}" Style="{StaticResource PrimaryButton}" Padding="14,6" Click="SaveConnector_Click"/>
+                            </StackPanel>
+
+                            <!-- Jeton du partenaire : chiffré au repos, jamais réaffiché en clair. -->
+                            <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                                <TextBlock Text="{res:Str Key=EX_Connector_Secret}" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                <PasswordBox x:Name="SecretBox" Width="240" Padding="8,5" Margin="0,0,10,0"/>
+                                <Button x:Name="SaveSecretBtn" Content="{res:Str Key=EX_Connector_SecretSave}" Style="{StaticResource ToolbarButton}" Padding="12,6" Margin="0,0,6,0" Click="SaveSecret_Click"/>
+                                <Button x:Name="ClearSecretBtn" Content="{res:Str Key=EX_Connector_SecretClear}" Style="{StaticResource ToolbarButton}" Padding="12,6" Margin="0,0,10,0" Click="ClearSecret_Click"/>
+                                <TextBlock x:Name="SecretStatusText" VerticalAlignment="Center" Foreground="#8A8F99"/>
+                            </StackPanel>
+
+                            <!-- Rétention : purge des fichiers d'échange anciens (réglage Exchange_MessageRetentionDays). -->
+                            <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                                <TextBlock x:Name="RetentionText" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="#8A8F99"/>
+                                <Button x:Name="PurgePreviewBtn" Content="{res:Str Key=EX_PurgePreview}" Style="{StaticResource ToolbarButton}" Padding="12,6" Margin="0,0,6,0" Click="PurgePreview_Click"/>
+                                <Button x:Name="PurgeFilesBtn" Content="{res:Str Key=EX_PurgeFiles}" Style="{StaticResource ToolbarButton}" Padding="12,6" Click="PurgeFiles_Click"/>
+                            </StackPanel>
                         </StackPanel>
                     </Border>
                 </Grid>

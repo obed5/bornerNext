@@ -1,4 +1,4 @@
-## .NET / Visual Studio
+﻿## .NET / Visual Studio
 bin/
 obj/
 *.user
@@ -6,6 +6,10 @@ obj/
 *.userosscache
 *.sln.docstates
 .vs/
+
+## Publications
+# Sortie de tools/publish.ps1 (jamais versionnée)
+dist/
 
 ## Build results
 [Dd]ebug/

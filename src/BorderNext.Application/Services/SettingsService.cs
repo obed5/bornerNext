@@ -1,4 +1,4 @@
-using BorderNext.Application.Abstractions;
+﻿using BorderNext.Application.Abstractions;
 using BorderNext.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,13 +14,16 @@ public class SettingsService
     private readonly ICurrentUser _currentUser;
     private readonly IClock _clock;
     private readonly IAuditWriter _audit;
+    private readonly BorderNext.Application.Abstractions.ISecretProtector _protector;
 
-    public SettingsService(DbContext db, ICurrentUser currentUser, IClock clock, IAuditWriter audit)
+    public SettingsService(DbContext db, ICurrentUser currentUser, IClock clock, IAuditWriter audit,
+        BorderNext.Application.Abstractions.ISecretProtector protector)
     {
         _db = db;
         _currentUser = currentUser;
         _clock = clock;
         _audit = audit;
+        _protector = protector;
     }
 
     public async Task<int?> GetIntAsync(string type, short? borderPointId = null, CancellationToken ct = default)
@@ -62,6 +65,54 @@ public class SettingsService
         UpdateDate = _clock.Now,
         UpdateUser = _currentUser.UserId
     };
+
+    // ---- Secrets de configuration (durcissement) ------------------------------
+
+    /// <summary>
+    /// Vrai si la clé de réglage désigne un secret (mot de passe, jeton, clé d'API) :
+    /// ces valeurs ne sont jamais stockées en clair ni affichées par l'administration.
+    /// </summary>
+    public static bool IsSecretKey(string type)
+    {
+        var key = type ?? string.Empty;
+        return key.EndsWith("Secret", StringComparison.OrdinalIgnoreCase)
+            || key.EndsWith("Password", StringComparison.OrdinalIgnoreCase)
+            || key.EndsWith("Token", StringComparison.OrdinalIgnoreCase)
+            || key.EndsWith("ApiKey", StringComparison.OrdinalIgnoreCase);
+    }
+
+    /// <summary>Vrai si un secret est enregistré pour cette clé (valeur jamais retournée en clair).</summary>
+    public async Task<bool> HasSecretAsync(string type, short? borderPointId = null, CancellationToken ct = default)
+        => (await FindAsync(type, borderPointId, ct))?.EncryptedValue is { Length: > 0 };
+
+    /// <summary>Enregistre un secret (chiffré par le protecteur du poste).</summary>
+    public async Task SetSecretAsync(string type, string secret, short? borderPointId = null, CancellationToken ct = default)
+    {
+        var setting = await FindAsync(type, borderPointId, ct);
+        if (setting is null)
+        {
+            setting = NewSetting(type, borderPointId);
+            _db.Set<Setting>().Add(setting);
+        }
+
+        setting.EncryptedValue = string.IsNullOrEmpty(secret) ? null : _protector.Protect(secret);
+        setting.StringValue = null;
+        setting.UpdateDate = _clock.Now;
+        setting.UpdateUser = _currentUser.UserId;
+        await _db.SaveChangesAsync(ct);
+        await _audit.WriteAsync(AuditEventTypes.RowUpdated, nameof(Setting), setting.Id.ToString(),
+            $"{type} — secret {(string.IsNullOrEmpty(secret) ? "effacé" : "enregistré")}", ct);
+    }
+
+    /// <summary>
+    /// Déchiffre un secret pour un usage interne (appel d'un connecteur). Jamais exposé
+    /// par l'administration, qui n'affiche que « défini / non défini ».
+    /// </summary>
+    public async Task<string?> GetSecretAsync(string type, short? borderPointId = null, CancellationToken ct = default)
+    {
+        var bytes = (await FindAsync(type, borderPointId, ct))?.EncryptedValue;
+        return bytes is { Length: > 0 } ? _protector.Unprotect(bytes) : null;
+    }
 
     private Task<Setting?> FindAsync(string type, short? borderPointId, CancellationToken ct)
         => _db.Set<Setting>()

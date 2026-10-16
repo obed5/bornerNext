@@ -3235,6 +3235,9 @@ namespace BorderNext.Infrastructure.Persistence.Migrations
                     b.Property<short?>("BorderPointId")
                         .HasColumnType("smallint");
 
+                    b.Property<int>("FailedAttemptCount")
+                        .HasColumnType("int");
+
                     b.Property<byte[]>("FirstFingerprint")
                         .HasColumnType("varbinary(max)");
 
@@ -3251,6 +3254,9 @@ namespace BorderNext.Infrastructure.Persistence.Migrations
                     b.Property<string>("LastName")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime?>("LockoutUntil")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("MustChangePassword")
                         .ValueGeneratedOnAdd()

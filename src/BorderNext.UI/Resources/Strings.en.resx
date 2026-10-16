@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
   <resheader name="version"><value>2.0</value></resheader>
@@ -979,4 +979,21 @@ Open the watchlist: the entry must be reviewed by the supervisor (second inspect
   <data name="PV_Error_DependantNotFound" xml:space="preserve"><value>Dependant not found for this permit.</value></data>
   <data name="DB_NationalitiesMap" xml:space="preserve"><value>Nationality map (today)</value></data>
   <data name="DB_MapEmpty" xml:space="preserve"><value>No nationality located today.</value></data>
+  <data name="Login_Error_AccountLocked" xml:space="preserve"><value>Account temporarily locked after several failed attempts. Try again later or contact an administrator.</value></data>
+
+  <data name="EX_Connector_Secret" xml:space="preserve"><value>Authentication token</value></data>
+  <data name="EX_Connector_SecretSave" xml:space="preserve"><value>Save token</value></data>
+  <data name="EX_Connector_SecretClear" xml:space="preserve"><value>Clear</value></data>
+  <data name="EX_Connector_SecretSet" xml:space="preserve"><value>Token set (encrypted at rest)</value></data>
+  <data name="EX_Connector_SecretUnset" xml:space="preserve"><value>No token set</value></data>
+  <data name="EX_Connector_SecretEmpty" xml:space="preserve"><value>Enter the token to save.</value></data>
+  <data name="EX_Connector_SecretSaved" xml:space="preserve"><value>Partner token saved (encrypted).</value></data>
+  <data name="EX_Connector_SecretCleared" xml:space="preserve"><value>Partner token cleared.</value></data>
+  <data name="EX_PurgeUnlimited" xml:space="preserve"><value>File retention: unlimited (setting Exchange_MessageRetentionDays).</value></data>
+  <data name="EX_PurgeRetention" xml:space="preserve"><value>File retention: per station setting.</value></data>
+  <data name="EX_PurgePreview" xml:space="preserve"><value>Preview purge</value></data>
+  <data name="EX_PurgeFiles" xml:space="preserve"><value>Purge old files</value></data>
+  <data name="EX_PurgeDisabled" xml:space="preserve"><value>No retention period configured: nothing to purge.</value></data>
+  <data name="EX_PurgePreviewResult" xml:space="preserve"><value>Preview: {0} file(s) would be deleted ({1} KB).</value></data>
+  <data name="EX_PurgeResult" xml:space="preserve"><value>Purge complete: {0} file(s) deleted ({1} KB).</value></data>
 </root>

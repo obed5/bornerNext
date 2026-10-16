@@ -76,6 +76,10 @@ public static class DependencyInjection
         services.AddScoped<ReportService>();
         services.AddScoped<QuestionnaireService>();
         services.AddSingleton<IReportWriter, QuestPdfReportWriter>();
+        // Lot 9 — durcissement : protection des secrets (DPAPI) et rétention des fichiers.
+        services.AddSingleton<ISecretProtector, DpapiSecretProtector>();
+        services.AddSingleton<IBootstrapSecretStore, BootstrapSecretStore>();
+        services.AddScoped<FileRetentionService>();
         // Tableau de bord du poste (héritage : schéma dashboard).
         services.AddScoped<DashboardService>();
 
@@ -84,6 +88,18 @@ public static class DependencyInjection
 
     /// <summary>Client HTTP des connecteurs externes (mode direct).</summary>
     private static HttpClient CreateHttpClient() => new() { Timeout = TimeSpan.FromSeconds(15) };
+
+    /// <summary>
+    /// Vrai si la base ne contient encore aucun compte : première installation, donc
+    /// mot de passe d'amorçage requis (le secret n'est produit qu'à ce moment-là).
+    /// </summary>
+    public static async Task<bool> NeedsBootstrapAsync(this IServiceProvider provider, CancellationToken ct = default)
+    {
+        using var scope = provider.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<BorderNextDbContext>();
+        await db.Database.MigrateAsync(ct);
+        return !await db.Users.AnyAsync(ct);
+    }
 
     /// <summary>
     /// Initialisation de la base : applique les migrations, crée un administrateur

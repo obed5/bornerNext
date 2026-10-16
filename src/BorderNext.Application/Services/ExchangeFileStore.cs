@@ -14,6 +14,9 @@ public class ExchangeFileStore
     /// <summary>Réglage du répertoire racine des échanges (StringValue).</summary>
     public const string DirectorySetting = "Exchange_MessageDirectory";
 
+    /// <summary>Réglage de conservation des fichiers d'échange en jours (Value ; 0 = illimitée).</summary>
+    public const string RetentionSetting = "Exchange_MessageRetentionDays";
+
     private readonly DbContext _db;
     private readonly Abstractions.IClock _clock;
 

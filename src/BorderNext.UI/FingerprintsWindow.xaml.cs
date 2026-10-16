@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -109,15 +109,25 @@ public partial class FingerprintsWindow : Window
 
     private void Close_Click(object sender, RoutedEventArgs e) => Close();
 
-    private static BitmapImage ToImage(byte[] bytes)
+    /// <summary>Voir PassportWindow.ToImage : une donnée illisible ne bloque pas l'écran.</summary>
+    private static BitmapImage? ToImage(byte[]? bytes)
     {
-        var image = new BitmapImage();
-        image.BeginInit();
-        image.CacheOption = BitmapCacheOption.OnLoad;
-        image.StreamSource = new MemoryStream(bytes);
-        image.EndInit();
-        image.Freeze();
-        return image;
+        if (bytes is not { Length: > 0 }) return null;
+
+        try
+        {
+            var image = new BitmapImage();
+            image.BeginInit();
+            image.CacheOption = BitmapCacheOption.OnLoad;
+            image.StreamSource = new MemoryStream(bytes);
+            image.EndInit();
+            image.Freeze();
+            return image;
+        }
+        catch (Exception)
+        {
+            return null;
+        }
     }
 
     private static void ShowError(Exception ex)

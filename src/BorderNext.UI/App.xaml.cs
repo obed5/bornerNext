@@ -32,8 +32,14 @@ public partial class App : System.Windows.Application
             .CreateLogger();
         builder.Logging.AddSerilog(Log.Logger, dispose: true);
 
-        var connectionString = builder.Configuration.GetConnectionString("BorderNext")
-            ?? "Server=.\\SQLEXPRESS;Database=BorderNext;Trusted_Connection=True;TrustServerCertificate=True";
+        // Chaîne de connexion : variable d'environnement prioritaire (déploiement sans secret
+        // en fichier), puis fichier de configuration de l'application.
+        var connectionString = Environment.GetEnvironmentVariable("BORDERNEXT_CONNECTION_STRING");
+        if (string.IsNullOrWhiteSpace(connectionString))
+        {
+            connectionString = builder.Configuration.GetConnectionString("BorderNext")
+                ?? "Server=.\\SQLEXPRESS;Database=BorderNext;Trusted_Connection=True;TrustServerCertificate=True";
+        }
         builder.Services.AddBorderNextInfrastructure(connectionString);
         builder.Services.AddBorderNextWindows();
 
@@ -41,10 +47,19 @@ public partial class App : System.Windows.Application
         await _host.StartAsync();
 
         // Initialisation de la base : migrations + admin initial (mot de passe à changer à la 1re connexion).
-        var bootstrapPassword = builder.Configuration["Bootstrap:AdminPassword"] ?? "ChangeMe!2026";
+        // Le mot de passe d'amorçage n'est jamais stocké en clair : variable d'environnement,
+        // fichier protégé DPAPI, ou génération aléatoire au premier démarrage (durcissement).
+        // Il n'est produit que si la base ne contient encore aucun compte.
+        string? bootstrapPassword = null;
         try
         {
-            await _host.Services.InitializeDatabaseAsync(bootstrapPassword);
+            if (await _host.Services.NeedsBootstrapAsync())
+            {
+                var bootstrapStore = _host.Services
+                    .GetRequiredService<BorderNext.Application.Abstractions.IBootstrapSecretStore>();
+                bootstrapPassword = bootstrapStore.Resolve(builder.Configuration["Bootstrap:AdminPassword"]);
+            }
+            await _host.Services.InitializeDatabaseAsync(bootstrapPassword ?? string.Empty);
         }
         catch (Exception ex)
         {

@@ -1,4 +1,4 @@
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using BorderNext.Application.Abstractions;
 using BorderNext.Application.Services;
@@ -22,6 +22,7 @@ public partial class ExchangesWindow : Window
     private readonly ExchangeJournal _journal;
     private readonly SettingsService _settings;
     private readonly ReferenceDataService _referenceData;
+    private readonly FileRetentionService _retention;
 
     private bool _loadingAutoCheck;
     private ApisDoubtfulPerson? _doubt;
@@ -32,13 +33,14 @@ public partial class ExchangesWindow : Window
     private readonly List<OutcomeVm> _checkResults = new();
 
     public ExchangesWindow(ApisMessageService apis, ExternalCheckService checks, ExchangeJournal journal,
-        SettingsService settings, ReferenceDataService referenceData)
+        SettingsService settings, ReferenceDataService referenceData, FileRetentionService retention)
     {
         _apis = apis;
         _checks = checks;
         _journal = journal;
         _settings = settings;
         _referenceData = referenceData;
+        _retention = retention;
         InitializeComponent();
         Loaded += async (_, _) => await LoadAllAsync();
     }
@@ -344,6 +346,7 @@ public partial class ExchangesWindow : Window
     {
         var connectors = await _checks.GetConnectorsAsync();
         ConnectorsGrid.ItemsSource = connectors.Select(c => new ConnectorVm(c)).ToList();
+        await RefreshRetentionAsync();
     }
 
     private void Connector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -355,6 +358,8 @@ public partial class ExchangesWindow : Window
         EndpointBox.Text = _connector.Endpoint ?? string.Empty;
         ModeCombo.SelectedIndex = settings.IsMock ? 0 : 1;
         ActiveCheck.IsChecked = _connector.IsActive;
+        SecretBox.Clear();
+        _ = RefreshSecretStatusAsync();
     }
 
     private async void SaveConnector_Click(object sender, RoutedEventArgs e) => await GuardAsync(async () =>
@@ -371,6 +376,76 @@ public partial class ExchangesWindow : Window
         await RefreshConnectorsAsync();
         StatusText.Text = Strings.Get("EX_ConnectorSaved");
     });
+
+    /// <summary>Enregistre le jeton du partenaire (chiffré par le protecteur du poste).</summary>
+    private async void SaveSecret_Click(object sender, RoutedEventArgs e) => await GuardAsync(async () =>
+    {
+        if (_connector is null)
+        {
+            MessageBox.Show(this, Strings.Get("EX_Error_SelectConnector"), Strings.Get("Common_Error"),
+                MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+        if (string.IsNullOrWhiteSpace(SecretBox.Password))
+        {
+            MessageBox.Show(this, Strings.Get("EX_Connector_SecretEmpty"), Strings.Get("Common_Error"),
+                MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+
+        await _settings.SetSecretAsync(ConnectorSettings.SecretSettingKey(_connector.Channel), SecretBox.Password);
+        SecretBox.Clear();
+        await RefreshSecretStatusAsync();
+        StatusText.Text = Strings.Get("EX_Connector_SecretSaved");
+    });
+
+    private async void ClearSecret_Click(object sender, RoutedEventArgs e) => await GuardAsync(async () =>
+    {
+        if (_connector is null) return;
+        await _settings.SetSecretAsync(ConnectorSettings.SecretSettingKey(_connector.Channel), string.Empty);
+        SecretBox.Clear();
+        await RefreshSecretStatusAsync();
+        StatusText.Text = Strings.Get("EX_Connector_SecretCleared");
+    });
+
+    private async void PurgePreview_Click(object sender, RoutedEventArgs e) => await GuardAsync(async () =>
+    {
+        var reports = await _retention.PurgeAllAsync(dryRun: true);
+        StatusText.Text = PurgeSummary(reports, preview: true);
+    });
+
+    private async void PurgeFiles_Click(object sender, RoutedEventArgs e) => await GuardAsync(async () =>
+    {
+        var reports = await _retention.PurgeAllAsync();
+        StatusText.Text = PurgeSummary(reports, preview: false);
+    });
+
+    private static string PurgeSummary(IReadOnlyDictionary<string, PurgeReport> reports, bool preview)
+    {
+        if (reports.Count == 0) return Strings.Get("EX_PurgeDisabled");
+        var files = reports.Values.Sum(r => r.FileCount);
+        var kilobytes = reports.Values.Sum(r => r.BytesFreed) / 1024;
+        return Strings.Format(preview ? "EX_PurgePreviewResult" : "EX_PurgeResult", files, kilobytes);
+    }
+
+    /// <summary>État du jeton : « défini » ou « non défini » — la valeur n'est jamais réaffichée.</summary>
+    private async Task RefreshSecretStatusAsync()
+    {
+        if (_connector is null)
+        {
+            SecretStatusText.Text = string.Empty;
+            return;
+        }
+
+        var hasSecret = await _settings.HasSecretAsync(ConnectorSettings.SecretSettingKey(_connector.Channel));
+        SecretStatusText.Text = Strings.Get(hasSecret ? "EX_Connector_SecretSet" : "EX_Connector_SecretUnset");
+    }
+
+    private async Task RefreshRetentionAsync()
+    {
+        var days = await _retention.GetRetentionDaysAsync();
+        RetentionText.Text = Strings.Get(days == 0 ? "EX_PurgeUnlimited" : "EX_PurgeRetention");
+    }
 
     // -----------------------------------------------------------------------
     // Infrastructure d'écran

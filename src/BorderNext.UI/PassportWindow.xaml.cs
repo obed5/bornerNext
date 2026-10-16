@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -501,15 +501,30 @@ public partial class PassportWindow : Window
 
     // ---- Aides ---------------------------------------------------------------
 
-    private static BitmapImage ToImage(byte[] bytes)
+    /// <summary>
+    /// Conversion d'une image enregistrée. Une donnée illisible (image reprise d'un système
+    /// antérieur, fichier tronqué, format inconnu) ne doit jamais bloquer l'écran : la
+    /// vignette est alors simplement absente, le dossier reste consultable.
+    /// </summary>
+    private static BitmapImage? ToImage(byte[]? bytes)
     {
-        var image = new BitmapImage();
-        image.BeginInit();
-        image.CacheOption = BitmapCacheOption.OnLoad;
-        image.StreamSource = new MemoryStream(bytes);
-        image.EndInit();
-        image.Freeze();
-        return image;
+        if (bytes is not { Length: > 0 }) return null;
+
+        try
+        {
+            var image = new BitmapImage();
+            image.BeginInit();
+            image.CacheOption = BitmapCacheOption.OnLoad;
+            image.StreamSource = new MemoryStream(bytes);
+            image.EndInit();
+            image.Freeze();
+            return image;
+        }
+        catch (Exception)
+        {
+            // Format non pris en charge ou flux corrompu : l'image est ignorée.
+            return null;
+        }
     }
 
     private static int ParseInt(string? value) => int.TryParse(value, out var result) ? result : 0;

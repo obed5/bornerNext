@@ -1,0 +1,537 @@
+{
+  "generatedAt": "2026-10-16T11:07:56.2095389+02:00",
+  "dryRun": false,
+  "totals": {
+    "written": 21,
+    "skipped": 12,
+    "rejected": 1
+  },
+  "tables": [
+    {
+      "Table": "ACCOMODATION_TYPE",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "ACTION",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "AGE_CATEGORY",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "BLOOD_TYPE",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "BorderPoints",
+      "Read": 2,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "CHECKING_REASON",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "Children",
+      "Read": 1,
+      "Written": 1,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "Countries",
+      "Read": 3,
+      "Written": 0,
+      "Skipped": 3,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "COURSE_OF_STUDY",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "CURRENCY",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "DEPORTATION_REASON",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "Documents",
+      "Read": 3,
+      "Written": 3,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "DocumentsStopList",
+      "Read": 1,
+      "Written": 1,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "DOCUMENT_TYPE",
+      "Read": 3,
+      "Written": 1,
+      "Skipped": 2,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "DoubtablePersons",
+      "Read": 1,
+      "Written": 1,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "EMPLOYEE_RANGE",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "ENTRY_DOCUMENT_TYPE",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "ETHNIC_GROUP",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "INDUSTRY",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "LANGUAGE",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "LOCAL_AREA",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "MARITAL_STATUS",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "MATCH_STOPLIST_ACTION",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "MOVEMENT_DIRECTION",
+      "Read": 2,
+      "Written": 0,
+      "Skipped": 2,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "NATIONALITY_CATEGORY",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "OCCUPATION",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "PassportRegistrationData",
+      "Read": 5,
+      "Written": 4,
+      "Skipped": 0,
+      "Rejected": 1,
+      "reasons": {
+        "document absent de la cible": 1
+      },
+      "rejectedIds": [
+        "R000000005"
+      ]
+    },
+    {
+      "Table": "PENALTY_TICKET_REASON",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "PERIOD_TYPE",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "Permit",
+      "Read": 1,
+      "Written": 1,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "PermitMedicalHistory",
+      "Read": 1,
+      "Written": 1,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "PERMIT_CLASSIFICATION",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "PERMIT_CONDITION",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "PERMIT_STATUS",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "PERMIT_TYPE",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "Persons",
+      "Read": 3,
+      "Written": 3,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "PersonsStopList",
+      "Read": 1,
+      "Written": 1,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "Photos",
+      "Read": 1,
+      "Written": 1,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "PLACE_OF_RESIDENCE_TYPE",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "QUALIFICATION",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "RANK",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "REFUSAL_JUSTIFICATION",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "REGION",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "RELATION",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "REMOVAL_ORDER_TYPE",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "SEX",
+      "Read": 2,
+      "Written": 0,
+      "Skipped": 2,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "STOP_LIST_SOURCE",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "TITLE",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "TRADE_TYPE",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "TRANSPORT_TYPE",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "TRAVEL_REASON",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "UNIVERSITY",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "VESSEL_TYPE",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "Visa",
+      "Read": 1,
+      "Written": 1,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "VisaChildren",
+      "Read": 1,
+      "Written": 1,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "VISA_ENTRY",
+      "Read": 2,
+      "Written": 0,
+      "Skipped": 2,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "VISA_NECESSITY",
+      "Read": 0,
+      "Written": 0,
+      "Skipped": 0,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    },
+    {
+      "Table": "VISA_TYPE",
+      "Read": 2,
+      "Written": 1,
+      "Skipped": 1,
+      "Rejected": 0,
+      "reasons": {},
+      "rejectedIds": []
+    }
+  ]
+}

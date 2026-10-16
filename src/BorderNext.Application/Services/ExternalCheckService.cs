@@ -17,9 +17,10 @@ public class ExternalCheckService
     private readonly IAuditWriter _audit;
     private readonly ExchangeJournal _journal;
     private readonly IReadOnlyList<IExternalCheckConnector> _connectors;
+    private readonly ISecretProtector _protector;
 
     public ExternalCheckService(DbContext db, ICurrentUser currentUser, IClock clock, IAuditWriter audit,
-        ExchangeJournal journal, IEnumerable<IExternalCheckConnector> connectors)
+        ExchangeJournal journal, IEnumerable<IExternalCheckConnector> connectors, ISecretProtector protector)
     {
         _db = db;
         _currentUser = currentUser;
@@ -27,6 +28,7 @@ public class ExternalCheckService
         _audit = audit;
         _journal = journal;
         _connectors = connectors.ToList();
+        _protector = protector;
     }
 
     /// <summary>Définitions des connecteurs de contrôle (tâches d'échange direction CHECK).</summary>
@@ -36,7 +38,7 @@ public class ExternalCheckService
             .OrderBy(t => t.Priority).ThenBy(t => t.Name)
             .ToListAsync(ct);
 
-    /// <summary>Paramètres effectifs d'un connecteur (mode simulé par défaut).</summary>
+    /// <summary>Paramètres effectifs d'un connecteur (mode simulé par défaut ; secret déchiffré à l'usage).</summary>
     public async Task<ConnectorSettings> GetSettingsAsync(string channel, CancellationToken ct = default)
     {
         var task = await _db.Set<ExchangeTask>().AsNoTracking()
@@ -44,7 +46,15 @@ public class ExternalCheckService
             .OrderBy(t => t.Priority).ThenBy(t => t.Id)
             .FirstOrDefaultAsync(ct);
 
-        return SettingsFrom(task);
+        var settings = SettingsFrom(task);
+        if (settings.Channel.Length == 0) return settings;
+
+        var secret = await _db.Set<Setting>().AsNoTracking()
+            .Where(s => s.Type == ConnectorSettings.SecretSettingKey(channel) && s.EncryptedValue != null)
+            .Select(s => s.EncryptedValue)
+            .FirstOrDefaultAsync(ct);
+
+        return secret is { Length: > 0 } ? settings with { Secret = _protector.Unprotect(secret) } : settings;
     }
 
     /// <summary>Contrôle un partenaire : connecteur actif requis, résultat journalisé.</summary>

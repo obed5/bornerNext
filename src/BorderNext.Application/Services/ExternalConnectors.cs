@@ -46,7 +46,16 @@ public sealed record ConnectorSettings(string Channel, string Name, bool IsActiv
     public const string ModeMock = "MOCK";
     public const string ModeLive = "LIVE";
 
+    /// <summary>
+    /// Secret d'authentification du partenaire (jeton porteur), lu du réglage protégé
+    /// <c>Exchange_Connector_{canal}_Secret</c> — jamais journalisé ni affiché en clair.
+    /// </summary>
+    public string? Secret { get; init; }
+
     public bool IsMock => !string.Equals(Mode, ModeLive, StringComparison.OrdinalIgnoreCase);
+
+    /// <summary>Clé de réglage du secret d'un canal (valeur chiffrée par le protecteur du poste).</summary>
+    public static string SecretSettingKey(string channel) => $"Exchange_Connector_{channel}_Secret";
 }
 
 /// <summary>Contrat d'un connecteur de contrôle externe (SIMIEC, Belize, système aérien).</summary>
@@ -254,6 +263,14 @@ public abstract class ExternalCheckConnectorBase : IExternalCheckConnector
         {
             using var client = _httpClientFactory();
             using var content = new StringContent(BuildPayload(request), Encoding.UTF8, "application/json");
+
+            // Authentification du partenaire : jeton porteur issu du réglage protégé (durcissement).
+            if (!string.IsNullOrWhiteSpace(settings.Secret))
+            {
+                client.DefaultRequestHeaders.Authorization =
+                    new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", settings.Secret);
+            }
+
             using var response = await client.PostAsync(settings.Endpoint, content, ct);
             var body = await response.Content.ReadAsStringAsync(ct);
 

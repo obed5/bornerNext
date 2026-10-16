@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\BorderNext.Infrastructure\BorderNext.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\BorderNext.Migration\BorderNext.Migration.csproj" />
     <ProjectReference Include="..\..\src\BorderNext.Application\BorderNext.Application.csproj" />
     <ProjectReference Include="..\..\src\BorderNext.Domain\BorderNext.Domain.csproj" />
   </ItemGroup>
