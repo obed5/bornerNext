@@ -39,6 +39,47 @@ public sealed record DependantRequest(string? Surname, string? GivenName, string
     DateTime? DateOfBirth, int? CountryOfBirthId, int? RelationId, int? DocumentTypeId, string? DocumentNumber,
     int? CitizenshipId, int? SexId, string? PhoneNumber);
 
+/// <summary>Antécédents médicaux du permis (héritage : PermitMedicalHistory).</summary>
+public sealed record PermitMedicalRequest(
+    int? PermitDependantId = null,
+    string? CurrentIllness = null,
+    string? CurrentMedication = null,
+    bool MalariaSuffered = false,
+    bool YellowFeverSuffered = false,
+    bool TuberculosisSuffered = false,
+    bool MeaslesSuffered = false,
+    bool CholeraSuffered = false,
+    bool TyphoidSuffered = false,
+    bool JaundiceSuffered = false,
+    bool ChronicCoughSuffered = false,
+    string? OtherSuffered = null,
+    bool YellowFeverVaccinated = false,
+    bool MMRVaccinated = false,
+    bool DiphtheriaVaccinated = false,
+    bool PolioVaccinated = false,
+    bool HealthCentreVisited = false,
+    bool ChronicDisease = false,
+    bool InfectiousDisease = false,
+    bool IsPublicHealthCentre = false);
+
+/// <summary>Antécédents médicaux enregistrés (lecture pour l'écran et les éditions).</summary>
+public sealed record PermitMedicalDto(int Id, int? PermitDependantId, string? CurrentIllness,
+    string? CurrentMedication, bool MalariaSuffered, bool YellowFeverSuffered, bool TuberculosisSuffered,
+    bool MeaslesSuffered, bool CholeraSuffered, bool TyphoidSuffered, bool JaundiceSuffered,
+    bool ChronicCoughSuffered, string? OtherSuffered, bool YellowFeverVaccinated, bool MMRVaccinated,
+    bool DiphtheriaVaccinated, bool PolioVaccinated, bool HealthCentreVisited, bool ChronicDisease,
+    bool InfectiousDisease, bool IsPublicHealthCentre, DateTime? UpdateDate, string? UpdateUser)
+{
+    public static PermitMedicalDto From(PermitMedicalHistory history) => new(
+        history.Id, history.PermitDependantId, history.CurrentIllness, history.CurrentMedication,
+        history.MalariaSuffered, history.YellowFeverSuffered, history.TuberculosisSuffered,
+        history.MeaslesSuffered, history.CholeraSuffered, history.TyphoidSuffered, history.JaundiceSuffered,
+        history.ChronicCoughSuffered, history.OtherSuffered, history.YellowFeverVaccinated,
+        history.MMRVaccinated, history.DiphtheriaVaccinated, history.PolioVaccinated,
+        history.HealthCentreVisited, history.ChronicDisease, history.InfectiousDisease,
+        history.IsPublicHealthCentre, history.UpdateDate, history.UpdateUser);
+}
+
 /// <summary>Agrégat complet d'un permis pour l'écran de saisie.</summary>
 public sealed record PermitDetailDto(PermitListItem Header, int DocumentId, int? VisaId, int? PermitTypeId,
     int? StatusId, int? MaritalStatusId, int? OccupationId, string? OccupationOther, int? QualificationId,
@@ -356,7 +397,75 @@ public class PermitService
     }
 
     public async Task RemoveDependantAsync(int dependantId, CancellationToken ct = default)
-        => await RemoveChildAsync<PermitDependant>(dependantId, ct);
+    {
+        // Le dossier médical de la personne à charge est supprimé avec elle.
+        var histories = await _db.Set<PermitMedicalHistory>()
+            .Where(h => h.PermitDependantId == dependantId).ToListAsync(ct);
+        if (histories.Count > 0) _db.Set<PermitMedicalHistory>().RemoveRange(histories);
+        await RemoveChildAsync<PermitDependant>(dependantId, ct);
+    }
+
+    /// <summary>Antécédents médicaux du permis (héritage : PermitMedicalHistory) —
+    /// un dossier par permis, ou par personne à charge.</summary>
+    public async Task<PermitMedicalDto?> GetMedicalHistoryAsync(int permitId, int? dependantId = null,
+        CancellationToken ct = default)
+    {
+        var history = await _db.Set<PermitMedicalHistory>().AsNoTracking()
+            .Where(h => h.PermitId == permitId && h.PermitDependantId == dependantId)
+            .OrderByDescending(h => h.UpdateDate ?? DateTime.MinValue)
+            .FirstOrDefaultAsync(ct);
+
+        return history is null ? null : PermitMedicalDto.From(history);
+    }
+
+    /// <summary>Enregistre les antécédents médicaux (création ou mise à jour).</summary>
+    public async Task SaveMedicalHistoryAsync(int permitId, PermitMedicalRequest request,
+        CancellationToken ct = default)
+    {
+        if (!await _db.Set<Permit>().AnyAsync(p => p.Id == permitId, ct))
+            throw new DomainValidationException("PV_Error_PermitNotFound");
+
+        if (request.PermitDependantId is { } dependantId
+            && !await _db.Set<PermitDependant>().AnyAsync(d => d.Id == dependantId && d.PermitId == permitId, ct))
+            throw new DomainValidationException("PV_Error_DependantNotFound");
+
+        var history = await _db.Set<PermitMedicalHistory>()
+            .FirstOrDefaultAsync(h => h.PermitId == permitId && h.PermitDependantId == request.PermitDependantId, ct);
+        var created = history is null;
+        if (history is null)
+        {
+            history = new PermitMedicalHistory { PermitId = permitId, PermitDependantId = request.PermitDependantId };
+            _db.Set<PermitMedicalHistory>().Add(history);
+        }
+
+        history.CurrentIllness = Clean(request.CurrentIllness);
+        history.CurrentMedication = Clean(request.CurrentMedication);
+        history.MalariaSuffered = request.MalariaSuffered;
+        history.YellowFeverSuffered = request.YellowFeverSuffered;
+        history.TuberculosisSuffered = request.TuberculosisSuffered;
+        history.MeaslesSuffered = request.MeaslesSuffered;
+        history.CholeraSuffered = request.CholeraSuffered;
+        history.TyphoidSuffered = request.TyphoidSuffered;
+        history.JaundiceSuffered = request.JaundiceSuffered;
+        history.ChronicCoughSuffered = request.ChronicCoughSuffered;
+        history.OtherSuffered = Clean(request.OtherSuffered);
+        history.YellowFeverVaccinated = request.YellowFeverVaccinated;
+        history.MMRVaccinated = request.MMRVaccinated;
+        history.DiphtheriaVaccinated = request.DiphtheriaVaccinated;
+        history.PolioVaccinated = request.PolioVaccinated;
+        history.HealthCentreVisited = request.HealthCentreVisited;
+        history.ChronicDisease = request.ChronicDisease;
+        history.InfectiousDisease = request.InfectiousDisease;
+        history.IsPublicHealthCentre = request.IsPublicHealthCentre;
+        history.UpdateDate = _clock.Now;
+        history.UpdateUser = _currentUser.UserName;
+
+        await _db.SaveChangesAsync(ct);
+        await _audit.WriteAsync(created ? AuditEventTypes.RowAdded : AuditEventTypes.RowUpdated,
+            nameof(PermitMedicalHistory), history.Id.ToString(),
+            $"Permis {permitId}{(request.PermitDependantId is { } id ? $", personne à charge {id}" : string.Empty)}",
+            ct);
+    }
 
     // ---- Aides ---------------------------------------------------------------
 

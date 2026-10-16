@@ -42,6 +42,8 @@ public static class ReferenceDataSeeder
         await RemapCountrySettingsAsync(db, seed, ct);
         // Lot 7 — tâches d'échange et réglages des connecteurs externes.
         await EnsureExchangeTasksAsync(db, ct);
+        // Lot 8 — types de questions, fiche sanitaire, coordonnées cartographiques.
+        await HealthDataSeeder.SeedAsync(db, ct);
     }
 
     private static SeedFile LoadSeed()

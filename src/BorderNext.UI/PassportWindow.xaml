@@ -217,6 +217,7 @@
                     <StackPanel Margin="18,0,0,0" VerticalAlignment="Center">
                         <Button x:Name="ReadDocumentBtn" Content="{res:Str Key=PAL_ReadDocument}" Style="{StaticResource ToolbarButton}" Padding="12,6" Margin="0,0,0,6" Click="ReadDocument_Click"/>
                         <Button x:Name="FingerprintsBtn" Content="{res:Str Key=PAL_Fingerprints}" Style="{StaticResource ToolbarButton}" Padding="12,6" Margin="0,0,0,6" Click="Fingerprints_Click"/>
+                        <Button x:Name="HealthFormBtn" Content="{res:Str Key=HE_OpenForm}" Style="{StaticResource ToolbarButton}" Padding="12,6" Margin="0,0,0,6" Click="HealthForm_Click"/>
                         <TextBlock x:Name="DeviceStatus" Foreground="#8A8F99" FontSize="11" TextWrapping="Wrap" MaxWidth="360"/>
                     </StackPanel>
                 </StackPanel>

@@ -293,6 +293,53 @@ namespace BorderNext.Infrastructure.Persistence.Migrations
                     b.ToTable("ApisPassengers", (string)null);
                 });
 
+            modelBuilder.Entity("BorderNext.Domain.Entities.AppliedQuestionnaire", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AppliedByUserId")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("AppliedDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<short?>("BorderPointId")
+                        .HasColumnType("smallint");
+
+                    b.Property<int?>("DocumentId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ExpiresAt")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("LegacyId")
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<int?>("MovementId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuestionnaireId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppliedDate");
+
+                    b.HasIndex("DocumentId");
+
+                    b.HasIndex("MovementId");
+
+                    b.HasIndex("QuestionnaireId");
+
+                    b.ToTable("AppliedQuestionnaires", (string)null);
+                });
+
             modelBuilder.Entity("BorderNext.Domain.Entities.AuditLog", b =>
                 {
                     b.Property<long>("Id")
@@ -554,6 +601,36 @@ namespace BorderNext.Infrastructure.Persistence.Migrations
                     b.ToTable("CityCultures", (string)null);
                 });
 
+            modelBuilder.Entity("BorderNext.Domain.Entities.ConditionalQuestion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("LegacyId")
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<int>("QuestionAnswerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Revoke")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionAnswerId");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("ConditionalQuestions", (string)null);
+                });
+
             modelBuilder.Entity("BorderNext.Domain.Entities.Control", b =>
                 {
                     b.Property<int>("Id")
@@ -742,6 +819,40 @@ namespace BorderNext.Infrastructure.Persistence.Migrations
                         .IsUnique();
 
                     b.ToTable("CountryCultures", (string)null);
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.CountryGeoPoint", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Iso2")
+                        .HasMaxLength(2)
+                        .HasColumnType("nvarchar(2)");
+
+                    b.Property<string>("Iso3")
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)");
+
+                    b.Property<decimal>("Latitude")
+                        .HasColumnType("decimal(9,6)");
+
+                    b.Property<decimal>("Longitude")
+                        .HasColumnType("decimal(9,6)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Iso3");
+
+                    b.ToTable("CountryGeoPoints", (string)null);
                 });
 
             modelBuilder.Entity("BorderNext.Domain.Entities.DocumentImage", b =>
@@ -1970,6 +2081,100 @@ namespace BorderNext.Infrastructure.Persistence.Migrations
                     b.ToTable("PermitDriverLicenses", (string)null);
                 });
 
+            modelBuilder.Entity("BorderNext.Domain.Entities.PermitMedicalHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("CholeraSuffered")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ChronicCoughSuffered")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ChronicDisease")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("CurrentIllness")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("CurrentMedication")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<bool>("DiphtheriaVaccinated")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HealthCentreVisited")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("InfectiousDisease")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPublicHealthCentre")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("JaundiceSuffered")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LegacyId")
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<bool>("MMRVaccinated")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("MalariaSuffered")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("MeaslesSuffered")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("OtherSuffered")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<int?>("PermitDependantId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PermitId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("PolioVaccinated")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("TuberculosisSuffered")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("TyphoidSuffered")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("UpdateUser")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("YellowFeverSuffered")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("YellowFeverVaccinated")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PermitDependantId");
+
+                    b.HasIndex("PermitId");
+
+                    b.ToTable("PermitMedicalHistories", (string)null);
+                });
+
             modelBuilder.Entity("BorderNext.Domain.Entities.PermitSecurityRecord", b =>
                 {
                     b.Property<int>("Id")
@@ -2323,6 +2528,240 @@ namespace BorderNext.Infrastructure.Persistence.Migrations
                         .IsUnique();
 
                     b.ToTable("ProvinceCultures", (string)null);
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.Question", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsFollowUpQuestion")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsInitialQuestion")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LegacyId")
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<string>("QuestionTag")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("QuestionTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Revoke")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionTypeId");
+
+                    b.ToTable("Questions", (string)null);
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.QuestionAnswer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Answer")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("LegacyId")
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Revoke")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("QuestionAnswers", (string)null);
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.QuestionAnswerQuestionnaireEnding", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("LegacyId")
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<int>("QuestionAnswerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuestionnaireEndingMessageId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionAnswerId");
+
+                    b.HasIndex("QuestionnaireEndingMessageId");
+
+                    b.ToTable("QuestionAnswerQuestionnaireEndings", (string)null);
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.Questionnaire", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("ExpireDays")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LegacyId")
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<bool>("Revoke")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("UpdateUser")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Questionnaires", (string)null);
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.QuestionnaireEndingMessage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("LegacyId")
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<string>("MessageBody")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("Revoke")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("QuestionnaireEndingMessages", (string)null);
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.QuestionnaireQuestion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("LegacyId")
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuestionOrder")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuestionnaireId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Revoke")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.HasIndex("QuestionnaireId", "QuestionOrder");
+
+                    b.ToTable("QuestionnaireQuestions", (string)null);
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.QuestionnaireResult", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("AnsweredAt")
+                        .HasColumnType("datetime");
+
+                    b.Property<int>("AppliedQuestionnaireId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LegacyId")
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<string>("OtherAnswer")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<int>("QuestionAnswerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppliedQuestionnaireId");
+
+                    b.HasIndex("QuestionAnswerId");
+
+                    b.ToTable("QuestionnaireResults", (string)null);
                 });
 
             modelBuilder.Entity("BorderNext.Domain.Entities.RemovalOrder", b =>
@@ -3409,6 +3848,31 @@ namespace BorderNext.Infrastructure.Persistence.Migrations
                     b.Navigation("MatchedMovement");
                 });
 
+            modelBuilder.Entity("BorderNext.Domain.Entities.AppliedQuestionnaire", b =>
+                {
+                    b.HasOne("BorderNext.Domain.Entities.TravelDocument", "Document")
+                        .WithMany()
+                        .HasForeignKey("DocumentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("BorderNext.Domain.Entities.Movement", "Movement")
+                        .WithMany()
+                        .HasForeignKey("MovementId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("BorderNext.Domain.Entities.Questionnaire", "Questionnaire")
+                        .WithMany("Applications")
+                        .HasForeignKey("QuestionnaireId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Document");
+
+                    b.Navigation("Movement");
+
+                    b.Navigation("Questionnaire");
+                });
+
             modelBuilder.Entity("BorderNext.Domain.Entities.BorderPointCulture", b =>
                 {
                     b.HasOne("BorderNext.Domain.Entities.BorderPoint", "Owner")
@@ -3473,6 +3937,25 @@ namespace BorderNext.Infrastructure.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.ConditionalQuestion", b =>
+                {
+                    b.HasOne("BorderNext.Domain.Entities.QuestionAnswer", "QuestionAnswer")
+                        .WithMany()
+                        .HasForeignKey("QuestionAnswerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BorderNext.Domain.Entities.Question", "Question")
+                        .WithMany()
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Question");
+
+                    b.Navigation("QuestionAnswer");
                 });
 
             modelBuilder.Entity("BorderNext.Domain.Entities.ControlCulture", b =>
@@ -3947,6 +4430,24 @@ namespace BorderNext.Infrastructure.Persistence.Migrations
                     b.Navigation("Permit");
                 });
 
+            modelBuilder.Entity("BorderNext.Domain.Entities.PermitMedicalHistory", b =>
+                {
+                    b.HasOne("BorderNext.Domain.Entities.PermitDependant", "PermitDependant")
+                        .WithMany()
+                        .HasForeignKey("PermitDependantId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("BorderNext.Domain.Entities.Permit", "Permit")
+                        .WithMany()
+                        .HasForeignKey("PermitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Permit");
+
+                    b.Navigation("PermitDependant");
+                });
+
             modelBuilder.Entity("BorderNext.Domain.Entities.PermitSecurityRecord", b =>
                 {
                     b.HasOne("BorderNext.Domain.Entities.Permit", "Permit")
@@ -4081,6 +4582,85 @@ namespace BorderNext.Infrastructure.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.Question", b =>
+                {
+                    b.HasOne("BorderNext.Domain.Entities.Lookup", "QuestionType")
+                        .WithMany()
+                        .HasForeignKey("QuestionTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("QuestionType");
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.QuestionAnswer", b =>
+                {
+                    b.HasOne("BorderNext.Domain.Entities.Question", "Question")
+                        .WithMany("Answers")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Question");
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.QuestionAnswerQuestionnaireEnding", b =>
+                {
+                    b.HasOne("BorderNext.Domain.Entities.QuestionAnswer", "QuestionAnswer")
+                        .WithMany()
+                        .HasForeignKey("QuestionAnswerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BorderNext.Domain.Entities.QuestionnaireEndingMessage", "EndingMessage")
+                        .WithMany()
+                        .HasForeignKey("QuestionnaireEndingMessageId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("EndingMessage");
+
+                    b.Navigation("QuestionAnswer");
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.QuestionnaireQuestion", b =>
+                {
+                    b.HasOne("BorderNext.Domain.Entities.Question", "Question")
+                        .WithMany()
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("BorderNext.Domain.Entities.Questionnaire", "Questionnaire")
+                        .WithMany("Questions")
+                        .HasForeignKey("QuestionnaireId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Question");
+
+                    b.Navigation("Questionnaire");
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.QuestionnaireResult", b =>
+                {
+                    b.HasOne("BorderNext.Domain.Entities.AppliedQuestionnaire", "AppliedQuestionnaire")
+                        .WithMany("Results")
+                        .HasForeignKey("AppliedQuestionnaireId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BorderNext.Domain.Entities.QuestionAnswer", "QuestionAnswer")
+                        .WithMany()
+                        .HasForeignKey("QuestionAnswerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("AppliedQuestionnaire");
+
+                    b.Navigation("QuestionAnswer");
                 });
 
             modelBuilder.Entity("BorderNext.Domain.Entities.RemovalOrder", b =>
@@ -4426,6 +5006,11 @@ namespace BorderNext.Infrastructure.Persistence.Migrations
                     b.Navigation("DoubtfulRecords");
                 });
 
+            modelBuilder.Entity("BorderNext.Domain.Entities.AppliedQuestionnaire", b =>
+                {
+                    b.Navigation("Results");
+                });
+
             modelBuilder.Entity("BorderNext.Domain.Entities.BorderPoint", b =>
                 {
                     b.Navigation("Cultures");
@@ -4509,6 +5094,18 @@ namespace BorderNext.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("BorderNext.Domain.Entities.Province", b =>
                 {
                     b.Navigation("Cultures");
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.Question", b =>
+                {
+                    b.Navigation("Answers");
+                });
+
+            modelBuilder.Entity("BorderNext.Domain.Entities.Questionnaire", b =>
+                {
+                    b.Navigation("Applications");
+
+                    b.Navigation("Questions");
                 });
 
             modelBuilder.Entity("BorderNext.Domain.Entities.Terminal", b =>

@@ -1,0 +1,106 @@
+<Window x:Class="BorderNext.UI.HealthQuestionnaireWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:res="clr-namespace:BorderNext.UI.Resources"
+        Title="{res:Str Key=HE_Title}"
+        Height="820" Width="1240"
+        WindowStartupLocation="CenterOwner">
+    <DockPanel>
+        <Border DockPanel.Dock="Bottom" Padding="10">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock x:Name="StatusText" VerticalAlignment="Center" Margin="0,0,12,0" Foreground="#4A5568"/>
+                <Button Content="{res:Str Key=PAL_Close}" Padding="16,8" Click="Close_Click"/>
+            </StackPanel>
+        </Border>
+
+        <Grid Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="360"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Sélection du dossier -->
+            <Border Grid.Row="0" Grid.Column="0" Background="{StaticResource ThemePanelBrush}"
+                    BorderBrush="{StaticResource ThemeBorderBrush}" BorderThickness="1" Padding="10" Margin="0,0,10,8">
+                <StackPanel>
+                    <TextBlock Text="{res:Str Key=HE_FindDossier}" FontWeight="SemiBold" Margin="0,0,0,6"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox x:Name="DocumentBox" Width="180" Style="{StaticResource FieldBox}" Margin="0,0,8,0"/>
+                        <Button x:Name="SearchDocumentBtn" Content="{res:Str Key=Common_Search}" Style="{StaticResource ToolbarButton}"
+                                Padding="10,4" Click="SearchDocument_Click"/>
+                    </StackPanel>
+                    <DataGrid x:Name="DocumentsGrid" Height="140" Margin="0,8,0,0" AutoGenerateColumns="False" IsReadOnly="True"
+                              SelectionChanged="Document_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_Document}" Binding="{Binding DocumentNumber}" Width="120"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_Surname}" Binding="{Binding Surname}" Width="*"/>
+                            <DataGridTextColumn Header="{res:Str Key=WL_Col_GivenName}" Binding="{Binding GivenName}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <TextBlock x:Name="DocumentDetailText" Margin="0,6,0,0" TextWrapping="Wrap" Foreground="#4A5568"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource ThemePanelBrush}"
+                    BorderBrush="{StaticResource ThemeBorderBrush}" BorderThickness="1" Padding="10" Margin="0,0,10,0">
+                <StackPanel>
+                    <TextBlock Text="{res:Str Key=HE_Applications}" FontWeight="SemiBold" Margin="0,0,0,6"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                        <ComboBox x:Name="QuestionnaireCombo" Width="200" Style="{StaticResource FieldCombo}" Margin="0,0,8,0"/>
+                        <Button x:Name="ApplyBtn" Content="{res:Str Key=HE_Apply}" Style="{StaticResource PrimaryButton}"
+                                Padding="12,4" Click="Apply_Click"/>
+                    </StackPanel>
+                    <DataGrid x:Name="ApplicationsGrid" Height="240" AutoGenerateColumns="False" IsReadOnly="True"
+                              SelectionChanged="Application_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{res:Str Key=Admin_Col_Date}" Binding="{Binding AppliedFr}" Width="110"/>
+                            <DataGridTextColumn Header="{res:Str Key=RP_Col_Questionnaire}" Binding="{Binding Questionnaire}" Width="*"/>
+                            <DataGridTextColumn Header="{res:Str Key=RP_Col_Expired}" Binding="{Binding StateFr}" Width="90"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button x:Name="PrintBlankBtn" Content="{res:Str Key=HE_PrintBlank}" Style="{StaticResource ToolbarButton}"
+                            Padding="12,6" Margin="0,8,0,0" Click="PrintBlank_Click"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Questions et résultat -->
+            <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Background="{StaticResource ThemePanelBrush}" BorderBrush="{StaticResource ThemeBorderBrush}"
+                        BorderThickness="1" Padding="8" Margin="0,0,0,6">
+                    <StackPanel>
+                        <TextBlock x:Name="HeaderText" FontWeight="SemiBold" FontSize="14"/>
+                        <TextBlock x:Name="ValidityText" Foreground="#4A5568" Margin="0,2,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <StackPanel x:Name="QuestionsPanel" Margin="2"/>
+                </ScrollViewer>
+
+                <Border Grid.Row="2" Background="{StaticResource ThemePanelBrush}" BorderBrush="{StaticResource ThemeBorderBrush}"
+                        BorderThickness="1" Padding="10" Margin="0,6,0,0">
+                    <StackPanel>
+                        <TextBlock x:Name="EndingTitleText" FontWeight="SemiBold"/>
+                        <TextBlock x:Name="EndingMessageText" TextWrapping="Wrap" Margin="0,2,0,0"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                            <Button x:Name="SaveAnswersBtn" Content="{res:Str Key=HE_SaveAnswers}" Style="{StaticResource PrimaryButton}"
+                                    Padding="14,6" Margin="0,0,8,0" Click="SaveAnswers_Click"/>
+                            <Button x:Name="ValidateBtn" Content="{res:Str Key=HE_Validate}" Style="{StaticResource ToolbarButton}"
+                                    Padding="14,6" Click="Validate_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
+    </DockPanel>
+</Window>

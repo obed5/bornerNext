@@ -74,6 +74,8 @@ public partial class MainWindow : Window
             NationalityList.ItemsSource = summary.TopNationalities
                 .Select(n => $"{n.NameFr} ({n.Alpha3}) — {n.Count}")
                 .ToList();
+
+            await RenderNationalityMapAsync();
         }
         catch (Exception)
         {
@@ -81,10 +83,136 @@ public partial class MainWindow : Window
         }
     }
 
+    /// <summary>Trace le planisphère schématique des nationalités du jour : projection
+    /// équirectangulaire, points dimensionnés selon le volume, libellés des principales.
+    /// </summary>
+    private async Task RenderNationalityMapAsync()
+    {
+        var points = await _dashboard.GetNationalityMapAsync();
+        NationalityMap.Children.Clear();
+
+        var width = NationalityMap.ActualWidth > 0 ? NationalityMap.ActualWidth : 380;
+        var height = NationalityMap.ActualHeight > 0 ? NationalityMap.ActualHeight : 200;
+        if (width < 40 || height < 40) return;
+
+        // Graticule léger (méridiens tous les 30°, parallèles tous les 30°).
+        var gridBrush = new System.Windows.Media.SolidColorBrush(
+            System.Windows.Media.Color.FromRgb(0xDD, 0xE2, 0xE8));
+        for (var lon = -180; lon <= 180; lon += 30)
+        {
+            var x = (lon + 180) / 360.0 * width;
+            NationalityMap.Children.Add(new System.Windows.Shapes.Line
+            {
+                X1 = x, X2 = x, Y1 = 0, Y2 = height, Stroke = gridBrush, StrokeThickness = 0.5,
+            });
+        }
+        for (var lat = -90; lat <= 90; lat += 30)
+        {
+            var y = (90 - lat) / 180.0 * height;
+            NationalityMap.Children.Add(new System.Windows.Shapes.Line
+            {
+                X1 = 0, X2 = width, Y1 = y, Y2 = y, Stroke = gridBrush, StrokeThickness = 0.5,
+            });
+        }
+
+        if (points.Count == 0)
+        {
+            NationalityMap.Children.Add(new System.Windows.Controls.TextBlock
+            {
+                Text = Strings.Get("DB_MapEmpty"),
+                Foreground = System.Windows.Media.Brushes.Gray,
+                Margin = new Thickness(8),
+            });
+            return;
+        }
+
+        var max = points.Max(p => p.Count);
+        var color = System.Windows.Media.Color.FromRgb(0x2E, 0x75, 0xB6);
+        foreach (var point in points)
+        {
+            var x = (double)(point.Longitude + 180) / 360.0 * width;
+            var y = (90 - (double)point.Latitude) / 180.0 * height;
+            var radius = 4 + 10 * Math.Sqrt((double)point.Count / max);
+
+            var marker = new System.Windows.Shapes.Ellipse
+            {
+                Width = radius * 2,
+                Height = radius * 2,
+                Fill = new System.Windows.Media.SolidColorBrush(color) { Opacity = 0.55 },
+                Stroke = new System.Windows.Media.SolidColorBrush(color),
+                StrokeThickness = 1,
+                ToolTip = $"{point.Name} — {point.Count}",
+            };
+            System.Windows.Controls.Canvas.SetLeft(marker,
+                Math.Max(0, Math.Min(x - radius, width - radius * 2)));
+            System.Windows.Controls.Canvas.SetTop(marker,
+                Math.Max(0, Math.Min(y - radius, height - radius * 2)));
+            NationalityMap.Children.Add(marker);
+        }
+
+        // Libellé du pays le plus représenté de la carte.
+        var top = points.First();
+        var topX = (double)(top.Longitude + 180) / 360.0 * width;
+        var topY = (90 - (double)top.Latitude) / 180.0 * height;
+        var topRadius = 4 + 10 * Math.Sqrt((double)top.Count / max);
+
+        // Les libellés de pays hérités sont longs : on raccourcit le nom pour que le
+        // volume reste lisible, plutôt que de laisser le texte sortir du canevas.
+        var name = top.Name;
+        var text = $"{name} — {top.Count}";
+        while (name.Length > 4 && EstimateLabelWidth(text) > width - 12)
+        {
+            name = name[..^1];
+            text = $"{name}… — {top.Count}";
+        }
+
+        var label = new System.Windows.Controls.TextBlock
+        {
+            Text = text,
+            FontSize = 11,
+            FontWeight = System.Windows.FontWeights.SemiBold,
+            Foreground = new System.Windows.Media.SolidColorBrush(
+                System.Windows.Media.Color.FromRgb(0x1F, 0x4E, 0x79)),
+        };
+        var estimated = EstimateLabelWidth(text);
+
+        // À droite du point, ou à gauche s'il déborderait ; le décalage tient compte du
+        // rayon du point pour que le volume ne recouvre pas la fin du libellé.
+        var left = topX + topRadius + 6;
+        if (left + estimated > width - 4) left = Math.Max(4, topX - topRadius - estimated - 6);
+        System.Windows.Controls.Canvas.SetLeft(label, left);
+        System.Windows.Controls.Canvas.SetTop(label, Math.Max(topY - 8, 0));
+        NationalityMap.Children.Add(label);
+    }
+
+    /// <summary>Largeur approchée d'un libellé de carte (mesure, avec marge de sécurité).</summary>
+    private static double EstimateLabelWidth(string text)
+    {
+        try
+        {
+            var formatted = new System.Windows.Media.FormattedText(
+                text,
+                System.Globalization.CultureInfo.CurrentUICulture,
+                System.Windows.FlowDirection.LeftToRight,
+                new System.Windows.Media.Typeface(
+                    new System.Windows.Media.FontFamily("Segoe UI"),
+                    System.Windows.FontStyles.Normal,
+                    System.Windows.FontWeights.SemiBold,
+                    System.Windows.FontStretches.Normal),
+                11,
+                System.Windows.Media.Brushes.Black,
+                96);
+            return formatted.Width * 1.06 + 12;
+        }
+        catch (Exception)
+        {
+            return text.Length * 7.4 + 40;
+        }
+    }
+
     private void Module_Click(object sender, RoutedEventArgs e)
     {
         var module = (sender as System.Windows.Controls.MenuItem)?.Tag as string ?? "?";
-
         switch (module)
         {
             case "Passport":
@@ -134,6 +262,20 @@ public partial class MainWindow : Window
                 var exchanges = _scopes.Current.GetRequiredService<ExchangesWindow>();
                 exchanges.Owner = this;
                 exchanges.Show();
+                return;
+            }
+            case "Reports":
+            {
+                var reports = _scopes.Current.GetRequiredService<ReportsWindow>();
+                reports.Owner = this;
+                reports.Show();
+                return;
+            }
+            case "Health":
+            {
+                var health = _scopes.Current.GetRequiredService<HealthQuestionnaireWindow>();
+                health.Owner = this;
+                health.Show();
                 return;
             }
             case "Admin":

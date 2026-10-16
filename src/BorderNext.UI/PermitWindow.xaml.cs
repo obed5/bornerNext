@@ -2,6 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using BorderNext.Application.Abstractions;
+using BorderNext.Application.Reporting;
 using BorderNext.Application.Services;
 using BorderNext.Domain.Entities;
 using BorderNext.UI.Resources;
@@ -20,18 +21,23 @@ public partial class PermitWindow : Window
     private readonly VisaService _visas;
     private readonly ReferenceDataService _referenceData;
     private readonly GeoService _geo;
+    private readonly ReportService _reports;
+    private readonly IReportWriter _reportWriter;
 
     private int _documentId;
     private int _permitId;
+    private bool _loadingMedical;
 
     public PermitWindow(PermitService permits, DocumentService documents, VisaService visas,
-        ReferenceDataService referenceData, GeoService geo)
+        ReferenceDataService referenceData, GeoService geo, ReportService reports, IReportWriter reportWriter)
     {
         _permits = permits;
         _documents = documents;
         _visas = visas;
         _referenceData = referenceData;
         _geo = geo;
+        _reports = reports;
+        _reportWriter = reportWriter;
         InitializeComponent();
         Loaded += async (_, _) => await LoadAllAsync();
     }
@@ -191,6 +197,7 @@ public partial class PermitWindow : Window
         RecordsGrid.ItemsSource = detail.SecurityRecords;
         DependantsGrid.ItemsSource = detail.Dependants;
         SetRowSelected(DependantsGrid);
+        await ReloadMedicalAsync();
 
         // Détails : préremplissage si déjà saisis.
         if (detail.Details is { } d)
@@ -373,6 +380,120 @@ public partial class PermitWindow : Window
         DepBirthPicker.SelectedDate = null;
         DepRelationCombo.SelectedIndex = 0;
     }
+
+    // ---- Antécédents médicaux (héritage : PermitMedicalHistory) --------------
+
+    /// <summary>Charge les antécédents du permis (et des personnes à charge) dans l'onglet.</summary>
+    private async Task ReloadMedicalAsync()
+    {
+        if (_permitId == 0) return;
+
+        // L'aide « enregistrez d'abord le permis » n'a plus lieu d'être une fois le permis créé.
+        MedicalHint.Visibility = Visibility.Collapsed;
+
+        // Repeupler la liste des personnes concernées déclenche SelectionChanged :
+        // sans ce verrou, un second chargement démarrerait sur le même contexte EF.
+        _loadingMedical = true;
+        try
+        {
+            await LoadMedicalAsync();
+        }
+        finally
+        {
+            _loadingMedical = false;
+        }
+    }
+
+    private async Task LoadMedicalAsync()
+    {
+        var dependantItems = new List<object> { new IdVm(null, Strings.Get("PM_Holder")) };
+        foreach (var dependant in DependantsGrid.ItemsSource as IEnumerable<PermitDependant> ?? Enumerable.Empty<PermitDependant>())
+            dependantItems.Add(new IdVm(dependant.Id, $"{dependant.Surname} {dependant.GivenName}".Trim()));
+        var previous = (MedicalDependantCombo.SelectedItem as IdVm)?.Id;
+        MedicalDependantCombo.ItemsSource = dependantItems;
+        MedicalDependantCombo.SelectedIndex =
+            dependantItems.FindIndex(v => (v as IdVm)?.Id == previous);
+        if (MedicalDependantCombo.SelectedIndex < 0) MedicalDependantCombo.SelectedIndex = 0;
+
+        var dependantId = (MedicalDependantCombo.SelectedItem as IdVm)?.Id;
+        var history = await _permits.GetMedicalHistoryAsync(_permitId, dependantId);
+
+        MedicalIllnessBox.Text = history?.CurrentIllness ?? string.Empty;
+        MedicalMedicationBox.Text = history?.CurrentMedication ?? string.Empty;
+        MedMalaria.IsChecked = history?.MalariaSuffered ?? false;
+        MedYellowFever.IsChecked = history?.YellowFeverSuffered ?? false;
+        MedTuberculosis.IsChecked = history?.TuberculosisSuffered ?? false;
+        MedMeasles.IsChecked = history?.MeaslesSuffered ?? false;
+        MedCholera.IsChecked = history?.CholeraSuffered ?? false;
+        MedTyphoid.IsChecked = history?.TyphoidSuffered ?? false;
+        MedJaundice.IsChecked = history?.JaundiceSuffered ?? false;
+        MedChronicCough.IsChecked = history?.ChronicCoughSuffered ?? false;
+        MedOtherSufferedBox.Text = history?.OtherSuffered ?? string.Empty;
+        MedVaccinatedYellowFever.IsChecked = history?.YellowFeverVaccinated ?? false;
+        MedVaccinatedMMR.IsChecked = history?.MMRVaccinated ?? false;
+        MedVaccinatedDiphtheria.IsChecked = history?.DiphtheriaVaccinated ?? false;
+        MedVaccinatedPolio.IsChecked = history?.PolioVaccinated ?? false;
+        MedChronicDisease.IsChecked = history?.ChronicDisease ?? false;
+        MedInfectiousDisease.IsChecked = history?.InfectiousDisease ?? false;
+        MedHealthCentre.IsChecked = history?.HealthCentreVisited ?? false;
+        MedPublicHealthCentre.IsChecked = history?.IsPublicHealthCentre ?? false;
+        MedicalUpdatedText.Text = history?.UpdateDate is { } updated
+            ? Strings.Format("PM_UpdatedOn", updated.ToString("dd/MM/yyyy HH:mm"), history.UpdateUser ?? "—")
+            : string.Empty;
+    }
+
+    private async void MedicalDependant_Changed(object sender, SelectionChangedEventArgs e)
+    {
+        if (_loadingMedical || !IsLoaded || _permitId == 0) return;
+        await GuardAsync(ReloadMedicalAsync);
+    }
+
+    private async void SaveMedical_Click(object sender, RoutedEventArgs e) => await GuardAsync(async () =>
+    {
+        if (!RequirePermit()) return;
+
+        await _permits.SaveMedicalHistoryAsync(_permitId, new PermitMedicalRequest(
+            PermitDependantId: (MedicalDependantCombo.SelectedItem as IdVm)?.Id,
+            CurrentIllness: MedicalIllnessBox.Text,
+            CurrentMedication: MedicalMedicationBox.Text,
+            MalariaSuffered: MedMalaria.IsChecked == true,
+            YellowFeverSuffered: MedYellowFever.IsChecked == true,
+            TuberculosisSuffered: MedTuberculosis.IsChecked == true,
+            MeaslesSuffered: MedMeasles.IsChecked == true,
+            CholeraSuffered: MedCholera.IsChecked == true,
+            TyphoidSuffered: MedTyphoid.IsChecked == true,
+            JaundiceSuffered: MedJaundice.IsChecked == true,
+            ChronicCoughSuffered: MedChronicCough.IsChecked == true,
+            OtherSuffered: MedOtherSufferedBox.Text,
+            YellowFeverVaccinated: MedVaccinatedYellowFever.IsChecked == true,
+            MMRVaccinated: MedVaccinatedMMR.IsChecked == true,
+            DiphtheriaVaccinated: MedVaccinatedDiphtheria.IsChecked == true,
+            PolioVaccinated: MedVaccinatedPolio.IsChecked == true,
+            HealthCentreVisited: MedHealthCentre.IsChecked == true,
+            ChronicDisease: MedChronicDisease.IsChecked == true,
+            InfectiousDisease: MedInfectiousDisease.IsChecked == true,
+            IsPublicHealthCentre: MedPublicHealthCentre.IsChecked == true));
+
+        await ReloadMedicalAsync();
+        MessageBox.Show(this, Strings.Get("PM_Saved"), Strings.Get("Common_Information"),
+            MessageBoxButton.OK, MessageBoxImage.Information);
+    });
+
+    /// <summary>Impression de la fiche d'antécédents médicaux (édition PDF).</summary>
+    private async void PrintMedical_Click(object sender, RoutedEventArgs e) => await GuardAsync(async () =>
+    {
+        if (!RequirePermit()) return;
+        var detail = await _permits.GetDetailAsync(_permitId);
+        var number = detail?.Header.Number ?? string.Empty;
+
+        var template = await _reports.BuildAsync(ReportCatalog.MedicalHistoryForm,
+            new ReportParameters(DocumentNumber: number));
+        var localized = ReportLocalizer.Localize(template, Strings.Get);
+        var path = System.IO.Path.Combine(System.IO.Path.GetTempPath(),
+            $"BorderNext_AntecedentsMedicaux_{DateTime.Now:HHmmss}.pdf");
+        await System.IO.File.WriteAllBytesAsync(path, _reportWriter.RenderPdf(localized));
+        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(path) { UseShellExecute = true });
+    });
 
     // ---- Aides ---------------------------------------------------------------
 

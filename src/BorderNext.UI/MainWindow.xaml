@@ -49,6 +49,7 @@
                 <MenuItem Header="{x:Static res:Strings.Shell_Menu_Watchlist}" Click="Module_Click" Tag="Watchlist"/>
                 <MenuItem Header="{res:Str Key=Shell_Menu_Exchanges}" Click="Module_Click" Tag="Exchanges"/>
                 <MenuItem Header="{x:Static res:Strings.Shell_Menu_Reports}" Click="Module_Click" Tag="Reports"/>
+                <MenuItem Header="{res:Str Key=HE_Menu_Health}" Click="Module_Click" Tag="Health"/>
                 <Separator/>
                 <MenuItem Header="{x:Static res:Strings.Shell_Menu_Admin}" Click="Module_Click" Tag="Admin"/>
             </MenuItem>
@@ -165,6 +166,14 @@
                     <Border Grid.Column="1" Background="White" BorderBrush="{StaticResource ThemeBorderBrush}"
                             BorderThickness="1" CornerRadius="6" Padding="10">
                         <DockPanel>
+                            <TextBlock DockPanel.Dock="Top" Text="{res:Str Key=DB_NationalitiesMap}" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                            <!-- Planisphère schématique (projection équirectangulaire) : un point
+                                 par nationalité du jour, taille selon le volume (héritage : carte
+                                 des nationalités du tableau de bord). -->
+                            <Border DockPanel.Dock="Top" Height="210" Background="#F7F9FC" BorderBrush="{StaticResource ThemeBorderBrush}"
+                                    BorderThickness="1" Margin="0,0,0,8">
+                                <Canvas x:Name="NationalityMap" ClipToBounds="True"/>
+                            </Border>
                             <TextBlock DockPanel.Dock="Top" Text="{res:Str Key=DB_Nationalities}" FontWeight="SemiBold" Margin="0,0,0,6"/>
                             <ListBox x:Name="NationalityList" BorderThickness="0"/>
                         </DockPanel>

@@ -18,6 +18,10 @@ public sealed record BorderPointTransactions(
 /// rpt.DashboardCountryGPSCoordinates — représentée ici par un classement).</summary>
 public sealed record NationalityCount(string Alpha3, string NameFr, int Count);
 
+/// <summary>Point de la carte des nationalités du jour (coordonnées de référence des pays).</summary>
+public sealed record NationalityMapPoint(string Name, string? Iso2, string? Iso3, decimal Latitude,
+    decimal Longitude, int Count);
+
 /// <summary>Synthèse du tableau de bord.</summary>
 public sealed record DashboardSummary(
     DateTime Date,
@@ -189,6 +193,41 @@ public class DashboardService
             .OrderByDescending(n => n.Count)
             .ThenBy(n => n.NameFr)
             .Take(10)
+            .ToList();
+    }
+
+    /// <summary>Nationalités du jour localisées, pour la carte du tableau de bord
+    /// (héritage : carte des nationalités, coordonnées rpt.DashboardCountryGPSCoordinates).</summary>
+    public async Task<IReadOnlyList<NationalityMapPoint>> GetNationalityMapAsync(CancellationToken ct = default)
+    {
+        var date = _clock.Now.Date;
+        var next = date.AddDays(1);
+
+        var movements = await _db.Set<Movement>().AsNoTracking()
+            .Where(m => m.TravelDate >= date && m.TravelDate < next && m.Document!.CitizenshipId != null)
+            .Select(m => new { m.Document!.CitizenshipId, m.Document.Citizenship!.Alpha2, m.Document.Citizenship.Alpha3,
+                m.Document.Citizenship.Cultures })
+            .ToListAsync(ct);
+
+        var points = await _db.Set<CountryGeoPoint>().AsNoTracking().ToListAsync(ct);
+        var byIso3 = points.Where(p => !string.IsNullOrEmpty(p.Iso3))
+            .GroupBy(p => p.Iso3!).ToDictionary(g => g.Key, g => g.First());
+
+        return movements
+            .GroupBy(m => m.CitizenshipId)
+            .Select(g =>
+            {
+                var sample = g.First();
+                if (sample.Alpha3 is not { } alpha3 || !byIso3.TryGetValue(alpha3, out var point)) return null;
+                var name = NameOf(sample.Cultures);
+                return new NationalityMapPoint(
+                    string.IsNullOrWhiteSpace(name) ? alpha3 : name,
+                    sample.Alpha2, alpha3, point.Latitude, point.Longitude, g.Count());
+            })
+            .Where(p => p is not null)
+            .Select(p => p!)
+            .OrderByDescending(p => p.Count)
+            .ThenBy(p => p.Name)
             .ToList();
     }
 

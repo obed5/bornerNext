@@ -11,15 +11,17 @@ par un tableau de bord — interface WPF en français/anglais, données SQL Serv
 
 | Module | Fonctions |
 |---|---|
-| **Tableau de bord** (écran d'accueil) | Transactions du jour avec comparaison sur trois ans, arrivées/départs, inspecteurs actifs, personnes douteuses en attente, voyages ouverts et vols du jour, refus et amendes, ventilation par poste frontière, nationalités les plus représentées. Rafraîchissement automatique. |
+| **Tableau de bord** (écran d'accueil) | Transactions du jour avec comparaison sur trois ans, arrivées/départs, inspecteurs actifs, personnes douteuses en attente, voyages ouverts et vols du jour, refus et amendes, ventilation par poste frontière, nationalités les plus représentées avec carte schématique du jour. Rafraîchissement automatique. |
 | **Enregistrement passeport (F5)** | Personnes et documents de voyage (photo, scan), mouvements entrée/sortie avec les contrôles d'admission (complétude du document, validité à la date de voyage, visa), rattachement à un voyage en salle d'enregistrement ouverte, historique des passages, alarme immédiate si la personne ou le document figure sur une liste de surveillance. |
 | **Visas** | Délivrance et suivi des visas (numérotation propre, période, tarifs, droits), rattachement au document, enfants rattachés, recherche. |
 | **Biométrie** | Empreintes des voyageurs (10 doigts, contrôle de doublon avant enrôlement), enrôlement biométrique des opérateurs et connexion par empreinte. Abstractions matériel (caméra, lecteur d'empreintes, lecteur de documents MRTD) fournies avec des simulateurs de démonstration (images synthétiques, MRZ TD3 conforme ICAO 9303) ; un pilote réel se branche derrière les mêmes interfaces. |
 | **Voyages et transports** | Vols, navires et trains : création d'un voyage et de son passage, ouverture/fermeture de la salle d'enregistrement, suppression, personnes rattachées et réaffectation sur un autre voyage, registre des navires, référentiels des transporteurs et terminaux. |
-| **Permis** | Permis de séjour : résidence, contacts, permis de conduire, antécédents, voyage et activité, indépendants, personnes à charge, statuts et révocations. |
+| **Permis** | Permis de séjour : résidence, contacts, permis de conduire, antécédents, voyage et activité, indépendants, personnes à charge, statuts et révocations. Antécédents médicaux du titulaire et de ses personnes à charge (maladies contractées, vaccinations, état de santé), imprimables. |
 | **Refus et sanctions** | Refus d'entrée avec base légale imprimable, ordres de reconduite et avis d'inadmissibilité, amendes (copies document/titulaire/visa au moment des faits) avec encaissement et reçu. |
 | **Surveillance** | Listes de surveillance personnes et documents (sources, variantes orthographiques, action à mener, annulation motivée, autorisation de lever), moteur de correspondance flou (distance d'édition, découpage des noms, noms inversés, seuil renforcé pour les nationaux), empreintes de liste d'alerte, personnes douteuses en seconde inspection (décision du superviseur), simulateur de correspondance et contrôle inverse contre le registre. |
 | **Échanges** | Listes de passagers EDIFACT PAXLST : import depuis les compagnies (enveloppes UNB/UNH/UNT/UNZ, libérations, messages multiples), conservation du fichier d'origine, rapprochement des passagers avec les dossiers locaux et inscription en seconde inspection des passagers douteux ; export PAXLST (régénération des messages reçus ou déclaration des mouvements du poste) et export XML inter-postes ; contrôles externes SIMIEC (immigration), Belize (cartes et permis) et système aérien (liste noire, dernier mouvement) en mode simulé ou direct ; journal des échanges (statuts, comptages, erreurs unitaires) et configuration des connecteurs. |
+| **Éditions et rapports** | Catalogue de 47 éditions en 8 familles (impressions individuelles, mouvements, secondes inspections, nationalités, profils et permis, transport, échanges, santé) : fiches d'enregistrement, de visa, de permis, de refus, d'amende, d'ordre de reconduite et d'antécédents médicaux ; synthèses, mouvements journaliers/hebdomadaires/mensuels, registres de passages, statistiques par nationalité, sens, type de document, motif de voyage, tranches d'âge et poste frontière, statistiques par vol, doutes et décisions, nationalités cartographiées. Aperçu à l'écran (tableaux et synthèses), export PDF (QuestPDF) et impression ; critères par période, poste, sens, pays, type de document, visa, vol, inspecteur et état civil. |
+| **Fiche sanitaire** | Questionnaires de santé configurés (questions à choix, dates, texte libre, questions de suivi conditionnelles), application à un dossier de voyageur avec validité paramétrable, saisie et enregistrement des réponses, validation produisant le message de fin (libre pratique, orientation médicale, surveillance) et impression de la fiche vierge. |
 | **Administration** | 6 onglets : nomenclatures (44 types, 175 éléments fr/en), pays et géographie (220 pays), postes frontières, utilisateurs et droits (`ControlsToRoles`), paramètres, journal d'audit avec export CSV. |
 
 Transversal : authentification et rôles (ADMIN, SUPERUSER, officiers), journal d'audit
@@ -45,7 +47,7 @@ la matrice des droits.
 
 ```bash
 dotnet build                          # compilation
-dotnet test                           # tests (240 actuellement)
+dotnet test                           # tests (355 actuellement)
 dotnet run --project src/BorderNext.UI
 ```
 
@@ -102,7 +104,11 @@ simulé.
       externes (SIMIEC, Belize, système aérien) en mode simulé ou direct, journal des
       échanges et configuration des connecteurs.
 - [x] **Tableau de bord du poste** : écran d'accueil décrit ci-dessus.
-- [ ] **Lot 8 — Rapports** : éditions (QuestPDF), manifestes, résultats et questionnaires.
+- [x] **Lot 8 — Éditions, questionnaires santé et antécédents médicaux** : catalogue de
+      47 éditions (fiches individuelles et analyses) avec aperçu, export PDF et impression,
+      carte des nationalités du jour, questionnaires de santé (réponses, questions de suivi,
+      validité, message de fin) et antécédents médicaux des permis, titulaires et personnes
+      à charge.
 - [ ] **Lot 9 — Migration des données et durcissement** : reprise des données historiques,
       secrets protégés, revue de sécurité.
 
@@ -115,7 +121,7 @@ dotnet test --filter PasswordHasher   # une classe
 
 Scénarios de bout en bout (pilotage de l'application réelle par automatisation UI, avec
 captures) : `tools/test-login-flow.ps1`, `test-admin-flow.ps1`, puis un scénario par lot
-(`tools/test-lot2-flow.ps1` … `tools/test-lot7-flow.ps1`) et
+(`tools/test-lot2-flow.ps1` … `tools/test-lot8-flow.ps1`) et
 `tools/test-dashboard-flow.ps1` (contrôle croisé écran/base).
 
 ```powershell

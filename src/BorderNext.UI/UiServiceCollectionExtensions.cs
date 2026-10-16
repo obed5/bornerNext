@@ -30,6 +30,9 @@ public static class UiServiceCollectionExtensions
         services.AddTransient<BorderOpsWindow>();
         // Lot 7 — échanges frontaliers (messages APIS, connecteurs, journal).
         services.AddTransient<ExchangesWindow>();
+        // Lot 8 — éditions et questionnaires santé.
+        services.AddTransient<ReportsWindow>();
+        services.AddTransient<HealthQuestionnaireWindow>();
         return services;
     }
 }

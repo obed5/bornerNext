@@ -3,6 +3,7 @@ using BorderNext.Application.Services;
 using BorderNext.Infrastructure.Devices;
 using BorderNext.Infrastructure.Persistence;
 using BorderNext.Infrastructure.Persistence.Seeding;
+using BorderNext.Infrastructure.Reporting;
 using BorderNext.Infrastructure.Security;
 using BorderNext.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
@@ -71,6 +72,10 @@ public static class DependencyInjection
         services.AddScoped<IExternalCheckConnector, SimiecConnector>();
         services.AddScoped<IExternalCheckConnector, BelizeConnector>();
         services.AddScoped<IExternalCheckConnector, AirConnector>();
+        // Lot 8 — éditions (QuestPDF) et questionnaires santé.
+        services.AddScoped<ReportService>();
+        services.AddScoped<QuestionnaireService>();
+        services.AddSingleton<IReportWriter, QuestPdfReportWriter>();
         // Tableau de bord du poste (héritage : schéma dashboard).
         services.AddScoped<DashboardService>();
 

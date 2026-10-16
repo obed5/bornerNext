@@ -31,6 +31,9 @@ public partial class PassportWindow : Window
     private readonly StopListMatcher _stopListMatcher;
     private readonly DoubtablePersonService _doubtfulPersons;
     private readonly TripService _trips;
+    private readonly QuestionnaireService _questionnaires;
+    private readonly ReportService _reports;
+    private readonly IReportWriter _reportWriter;
 
     private int _documentId;                 // 0 = nouveau document
     private byte[]? _pendingPhoto;           // photo chargée à enregistrer avec le mouvement
@@ -40,7 +43,8 @@ public partial class PassportWindow : Window
         ReferenceDataService referenceData, GeoService geo, ICurrentUser currentUser,
         IDocumentReader documentReader, ICameraDevice camera, IDeviceRegistry devices,
         BiometricService biometrics, IFingerprintScanner fingerprintScanner,
-        StopListMatcher stopListMatcher, DoubtablePersonService doubtfulPersons, TripService trips)
+        StopListMatcher stopListMatcher, DoubtablePersonService doubtfulPersons, TripService trips,
+        QuestionnaireService questionnaires, ReportService reports, IReportWriter reportWriter)
     {
         _documents = documents;
         _movements = movements;
@@ -56,6 +60,9 @@ public partial class PassportWindow : Window
         _stopListMatcher = stopListMatcher;
         _doubtfulPersons = doubtfulPersons;
         _trips = trips;
+        _questionnaires = questionnaires;
+        _reports = reports;
+        _reportWriter = reportWriter;
         InitializeComponent();
         Loaded += async (_, _) => await LoadAllAsync();
     }
@@ -283,6 +290,19 @@ public partial class PassportWindow : Window
         {
             ShowError(ex);
         }
+    }
+
+    /// <summary>Fiche sanitaire du voyageur (questionnaires) : ouverte sur le document
+    /// enregistré, sans quitter l'enregistrement passeport.</summary>
+    private void HealthForm_Click(object sender, RoutedEventArgs e)
+    {
+        var window = new HealthQuestionnaireWindow(_questionnaires, _documents, _reports, _reportWriter)
+        {
+            Owner = this,
+        };
+        if (_documentId != 0)
+            window.PreselectDocument(_documentId, $"{SurnameBox.Text} {GivenNameBox.Text} — {DocNumberBox.Text}".Trim());
+        window.Show();
     }
 
     private void Close_Click(object sender, RoutedEventArgs e) => Close();

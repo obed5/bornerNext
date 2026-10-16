@@ -78,6 +78,19 @@ public class BorderNextDbContext : DbContext
     public DbSet<ExchangeRun> ExchangeRuns => Set<ExchangeRun>();
     public DbSet<ExchangeError> ExchangeErrors => Set<ExchangeError>();
 
+    // Lot 8 — questionnaires santé, antécédents médicaux des permis, cartographie.
+    public DbSet<Questionnaire> Questionnaires => Set<Questionnaire>();
+    public DbSet<Question> Questions => Set<Question>();
+    public DbSet<QuestionAnswer> QuestionAnswers => Set<QuestionAnswer>();
+    public DbSet<QuestionnaireQuestion> QuestionnaireQuestions => Set<QuestionnaireQuestion>();
+    public DbSet<ConditionalQuestion> ConditionalQuestions => Set<ConditionalQuestion>();
+    public DbSet<AppliedQuestionnaire> AppliedQuestionnaires => Set<AppliedQuestionnaire>();
+    public DbSet<QuestionnaireResult> QuestionnaireResults => Set<QuestionnaireResult>();
+    public DbSet<QuestionnaireEndingMessage> QuestionnaireEndingMessages => Set<QuestionnaireEndingMessage>();
+    public DbSet<QuestionAnswerQuestionnaireEnding> QuestionAnswerQuestionnaireEndings => Set<QuestionAnswerQuestionnaireEnding>();
+    public DbSet<PermitMedicalHistory> PermitMedicalHistories => Set<PermitMedicalHistory>();
+    public DbSet<CountryGeoPoint> CountryGeoPoints => Set<CountryGeoPoint>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<UserRole>(e =>
@@ -1055,6 +1068,152 @@ public class BorderNextDbContext : DbContext
             e.HasIndex(x => x.ExchangeRunId);
             e.HasOne(x => x.ExchangeRun).WithMany(r => r.Errors).HasForeignKey(x => x.ExchangeRunId)
                 .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        // -------------------------------------------------------------------
+        // Lot 8 — questionnaires santé, antécédents médicaux des permis,
+        // cartographie (héritage : Questionnaires et ses tables liées,
+        // PermitMedicalHistory, rpt.DashboardCountryGPSCoordinates).
+        // -------------------------------------------------------------------
+
+        modelBuilder.Entity<Questionnaire>(e =>
+        {
+            e.ToTable("Questionnaires");
+            e.HasKey(x => x.Id);
+            e.Property(x => x.LegacyId).HasMaxLength(40);
+            e.Property(x => x.Description).HasMaxLength(200).IsRequired();
+            e.Property(x => x.UpdateDate).HasColumnType("datetime");
+            e.Property(x => x.UpdateUser).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<Question>(e =>
+        {
+            e.ToTable("Questions");
+            e.HasKey(x => x.Id);
+            e.Property(x => x.LegacyId).HasMaxLength(40);
+            e.Property(x => x.Title).HasMaxLength(300).IsRequired();
+            e.Property(x => x.QuestionTag).HasMaxLength(50);
+            e.Property(x => x.UpdateDate).HasColumnType("datetime");
+            e.HasOne(x => x.QuestionType).WithMany().HasForeignKey(x => x.QuestionTypeId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<QuestionAnswer>(e =>
+        {
+            e.ToTable("QuestionAnswers");
+            e.HasKey(x => x.Id);
+            e.Property(x => x.LegacyId).HasMaxLength(40);
+            e.Property(x => x.Answer).HasMaxLength(300).IsRequired();
+            e.HasOne(x => x.Question).WithMany(q => q.Answers).HasForeignKey(x => x.QuestionId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<QuestionnaireQuestion>(e =>
+        {
+            e.ToTable("QuestionnaireQuestions");
+            e.HasKey(x => x.Id);
+            e.Property(x => x.LegacyId).HasMaxLength(40);
+            e.HasIndex(x => new { x.QuestionnaireId, x.QuestionOrder });
+            e.HasOne(x => x.Questionnaire).WithMany(q => q.Questions).HasForeignKey(x => x.QuestionnaireId)
+                .OnDelete(DeleteBehavior.Cascade);
+            e.HasOne(x => x.Question).WithMany().HasForeignKey(x => x.QuestionId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<ConditionalQuestion>(e =>
+        {
+            e.ToTable("ConditionalQuestions");
+            e.HasKey(x => x.Id);
+            e.Property(x => x.LegacyId).HasMaxLength(40);
+            e.HasOne(x => x.QuestionAnswer).WithMany().HasForeignKey(x => x.QuestionAnswerId)
+                .OnDelete(DeleteBehavior.Cascade);
+            e.HasOne(x => x.Question).WithMany().HasForeignKey(x => x.QuestionId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<AppliedQuestionnaire>(e =>
+        {
+            e.ToTable("AppliedQuestionnaires");
+            e.HasKey(x => x.Id);
+            e.Property(x => x.LegacyId).HasMaxLength(40);
+            e.Property(x => x.AppliedDate).HasColumnType("datetime");
+            e.Property(x => x.ExpiresAt).HasColumnType("datetime");
+            e.Property(x => x.BorderPointId).HasColumnType("smallint");
+            e.Property(x => x.AppliedByUserId).HasMaxLength(50);
+            e.HasIndex(x => x.AppliedDate);
+            e.HasIndex(x => x.DocumentId);
+            e.HasOne(x => x.Questionnaire).WithMany(q => q.Applications).HasForeignKey(x => x.QuestionnaireId)
+                .OnDelete(DeleteBehavior.Restrict);
+            e.HasOne(x => x.Document).WithMany().HasForeignKey(x => x.DocumentId)
+                .OnDelete(DeleteBehavior.Restrict);
+            e.HasOne(x => x.Movement).WithMany().HasForeignKey(x => x.MovementId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<QuestionnaireResult>(e =>
+        {
+            e.ToTable("QuestionnaireResults");
+            e.HasKey(x => x.Id);
+            e.Property(x => x.LegacyId).HasMaxLength(40);
+            e.Property(x => x.OtherAnswer).HasMaxLength(300);
+            e.Property(x => x.AnsweredAt).HasColumnType("datetime");
+            e.HasIndex(x => x.AppliedQuestionnaireId);
+            e.HasOne(x => x.AppliedQuestionnaire).WithMany(a => a.Results)
+                .HasForeignKey(x => x.AppliedQuestionnaireId).OnDelete(DeleteBehavior.Cascade);
+            e.HasOne(x => x.QuestionAnswer).WithMany().HasForeignKey(x => x.QuestionAnswerId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<QuestionnaireEndingMessage>(e =>
+        {
+            e.ToTable("QuestionnaireEndingMessages");
+            e.HasKey(x => x.Id);
+            e.Property(x => x.LegacyId).HasMaxLength(40);
+            e.Property(x => x.Name).HasMaxLength(100);
+            e.Property(x => x.Title).HasMaxLength(200);
+            e.Property(x => x.MessageBody).HasMaxLength(1000);
+        });
+
+        modelBuilder.Entity<QuestionAnswerQuestionnaireEnding>(e =>
+        {
+            e.ToTable("QuestionAnswerQuestionnaireEndings");
+            e.HasKey(x => x.Id);
+            e.Property(x => x.LegacyId).HasMaxLength(40);
+            e.HasOne(x => x.QuestionAnswer).WithMany().HasForeignKey(x => x.QuestionAnswerId)
+                .OnDelete(DeleteBehavior.Cascade);
+            e.HasOne(x => x.EndingMessage).WithMany().HasForeignKey(x => x.QuestionnaireEndingMessageId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<PermitMedicalHistory>(e =>
+        {
+            e.ToTable("PermitMedicalHistories");
+            e.HasKey(x => x.Id);
+            e.Property(x => x.LegacyId).HasMaxLength(40);
+            e.Property(x => x.CurrentIllness).HasMaxLength(300);
+            e.Property(x => x.CurrentMedication).HasMaxLength(300);
+            e.Property(x => x.OtherSuffered).HasMaxLength(300);
+            e.Property(x => x.UpdateDate).HasColumnType("datetime");
+            e.Property(x => x.UpdateUser).HasMaxLength(50);
+            e.HasIndex(x => x.PermitId);
+            e.HasOne(x => x.Permit).WithMany().HasForeignKey(x => x.PermitId)
+                .OnDelete(DeleteBehavior.Cascade);
+            // Suppression d'une personne à charge gérée par le service (dossier médical inclus) :
+            // éviter les chemins de cascade multiples du côté « personne à charge ».
+            e.HasOne(x => x.PermitDependant).WithMany().HasForeignKey(x => x.PermitDependantId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<CountryGeoPoint>(e =>
+        {
+            e.ToTable("CountryGeoPoints");
+            e.HasKey(x => x.Id);
+            e.Property(x => x.Iso2).HasMaxLength(2);
+            e.Property(x => x.Iso3).HasMaxLength(3);
+            e.Property(x => x.Name).HasMaxLength(100).IsRequired();
+            e.Property(x => x.Latitude).HasColumnType("decimal(9,6)");
+            e.Property(x => x.Longitude).HasColumnType("decimal(9,6)");
+            e.HasIndex(x => x.Iso3);
         });
 
         // Référentiels de base (Lot 0 minimal pour un premier démarrage).

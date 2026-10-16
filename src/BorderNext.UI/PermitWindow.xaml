@@ -385,6 +385,76 @@
                                Text="{res:Str Key=Permit_RequiresSaved}" Margin="0,6,0,0"/>
                 </Grid>
             </TabItem>
+
+            <!-- ===================== ANTÉCÉDENTS MÉDICAUX ===================== -->
+            <TabItem Header="{res:Str Key=RP_Section_MedicalHistory}">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <WrapPanel Grid.Row="0">
+                        <TextBlock Text="{res:Str Key=PM_Dependant}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                        <ComboBox x:Name="MedicalDependantCombo" Width="220" Style="{StaticResource FieldCombo}" Margin="0,0,12,0"
+                                  SelectionChanged="MedicalDependant_Changed"/>
+                        <TextBlock Text="{res:Str Key=PM_CurrentIllness}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                        <TextBox x:Name="MedicalIllnessBox" Width="220" Style="{StaticResource FieldBox}" Margin="0,0,12,0"/>
+                        <TextBlock Text="{res:Str Key=PM_CurrentMedication}" VerticalAlignment="Center" Margin="0,4,4,0"/>
+                        <TextBox x:Name="MedicalMedicationBox" Width="200" Style="{StaticResource FieldBox}"/>
+                    </WrapPanel>
+
+                    <Border Grid.Row="1" Background="{StaticResource ThemePanelBrush}" BorderBrush="{StaticResource ThemeBorderBrush}"
+                            BorderThickness="1" Padding="10" Margin="0,8,0,8">
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="SaveMedicalBtn" Content="{res:Str Key=Common_Save}" Style="{StaticResource PrimaryButton}"
+                                    Padding="14,6" Margin="0,0,8,0" Click="SaveMedical_Click"/>
+                            <Button x:Name="PrintMedicalBtn" Content="{res:Str Key=RP_Report_MedicalHistory}" Style="{StaticResource ToolbarButton}"
+                                    Padding="14,6" Margin="0,0,8,0" Click="PrintMedical_Click"/>
+                            <TextBlock x:Name="MedicalHint" Text="{res:Str Key=PM_RequiresSaved}" VerticalAlignment="Center" Foreground="#8A8F99"/>
+                        </StackPanel>
+                    </Border>
+
+                    <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                        <WrapPanel>
+                            <GroupBox Header="{res:Str Key=RP_Section_Suffered}" Width="330" Margin="0,0,10,8">
+                                <StackPanel Margin="6">
+                                    <CheckBox x:Name="MedMalaria" Content="{res:Str Key=PM_Malaria}" Margin="0,2"/>
+                                    <CheckBox x:Name="MedYellowFever" Content="{res:Str Key=PM_YellowFever}" Margin="0,2"/>
+                                    <CheckBox x:Name="MedTuberculosis" Content="{res:Str Key=PM_Tuberculosis}" Margin="0,2"/>
+                                    <CheckBox x:Name="MedMeasles" Content="{res:Str Key=PM_Measles}" Margin="0,2"/>
+                                    <CheckBox x:Name="MedCholera" Content="{res:Str Key=PM_Cholera}" Margin="0,2"/>
+                                    <CheckBox x:Name="MedTyphoid" Content="{res:Str Key=PM_Typhoid}" Margin="0,2"/>
+                                    <CheckBox x:Name="MedJaundice" Content="{res:Str Key=PM_Jaundice}" Margin="0,2"/>
+                                    <CheckBox x:Name="MedChronicCough" Content="{res:Str Key=PM_ChronicCough}" Margin="0,2"/>
+                                    <TextBlock Text="{res:Str Key=PM_OtherSuffered}" Margin="0,6,0,2"/>
+                                    <TextBox x:Name="MedOtherSufferedBox" Style="{StaticResource FieldBox}"/>
+                                </StackPanel>
+                            </GroupBox>
+
+                            <GroupBox Header="{res:Str Key=RP_Section_Vaccinated}" Width="330" Margin="0,0,10,8">
+                                <StackPanel Margin="6">
+                                    <CheckBox x:Name="MedVaccinatedYellowFever" Content="{res:Str Key=PM_YellowFever}" Margin="0,2"/>
+                                    <CheckBox x:Name="MedVaccinatedMMR" Content="{res:Str Key=PM_MMR}" Margin="0,2"/>
+                                    <CheckBox x:Name="MedVaccinatedDiphtheria" Content="{res:Str Key=PM_Diphtheria}" Margin="0,2"/>
+                                    <CheckBox x:Name="MedVaccinatedPolio" Content="{res:Str Key=PM_Polio}" Margin="0,2"/>
+                                </StackPanel>
+                            </GroupBox>
+
+                            <GroupBox Header="{res:Str Key=RP_Section_CurrentHealth}" Width="330" Margin="0,0,10,8">
+                                <StackPanel Margin="6">
+                                    <CheckBox x:Name="MedChronicDisease" Content="{res:Str Key=PM_ChronicDisease}" Margin="0,2"/>
+                                    <CheckBox x:Name="MedInfectiousDisease" Content="{res:Str Key=PM_InfectiousDisease}" Margin="0,2"/>
+                                    <CheckBox x:Name="MedHealthCentre" Content="{res:Str Key=PM_HealthCentreVisited}" Margin="0,2"/>
+                                    <CheckBox x:Name="MedPublicHealthCentre" Content="{res:Str Key=PM_PublicHealthCentre}" Margin="0,2"/>
+                                    <TextBlock x:Name="MedicalUpdatedText" Margin="0,8,0,0" Foreground="#4A5568"/>
+                                </StackPanel>
+                            </GroupBox>
+                        </WrapPanel>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
         </TabControl>
     </DockPanel>
 </Window>

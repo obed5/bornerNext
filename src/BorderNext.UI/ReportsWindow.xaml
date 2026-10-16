@@ -1,0 +1,136 @@
+<Window x:Class="BorderNext.UI.ReportsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:res="clr-namespace:BorderNext.UI.Resources"
+        Title="{res:Str Key=RP_Title}"
+        Height="820" Width="1360"
+        WindowStartupLocation="CenterOwner">
+    <DockPanel>
+        <Border DockPanel.Dock="Bottom" Padding="10">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock x:Name="StatusText" VerticalAlignment="Center" Margin="0,0,12,0" Foreground="#4A5568"/>
+                <TextBlock x:Name="RecordCountText" VerticalAlignment="Center" Margin="0,0,12,0" FontWeight="SemiBold"/>
+                <Button Content="{res:Str Key=PAL_Close}" Padding="16,8" Click="Close_Click"/>
+            </StackPanel>
+        </Border>
+
+        <Grid Margin="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="330"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Catalogue des éditions -->
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="{res:Str Key=RP_Catalog}" FontWeight="SemiBold" Margin="0,0,0,4"/>
+            <TreeView x:Name="CatalogTree" Grid.Row="1" Grid.Column="0" Margin="0,0,10,0" BorderBrush="{StaticResource ThemeBorderBrush}"
+                      SelectedItemChanged="Catalog_SelectedItemChanged"/>
+
+            <!-- Critères -->
+            <Border Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" Background="{StaticResource ThemePanelBrush}"
+                    BorderBrush="{StaticResource ThemeBorderBrush}" BorderThickness="1" Padding="10" Margin="0,0,10,0">
+                <StackPanel>
+                    <TextBlock Text="{res:Str Key=RP_Criteria}" FontWeight="SemiBold" Margin="0,0,0,6"/>
+
+                    <WrapPanel x:Name="PeriodPanel">
+                        <TextBlock Text="{res:Str Key=EX_From}" VerticalAlignment="Center" Margin="0,0,4,4"/>
+                        <DatePicker x:Name="FromPicker" Width="110" Margin="0,0,8,4"/>
+                        <TextBlock Text="{res:Str Key=Admin_Audit_To}" VerticalAlignment="Center" Margin="0,0,4,4"/>
+                        <DatePicker x:Name="ToPicker" Width="110" Margin="0,0,0,4"/>
+                    </WrapPanel>
+
+                    <StackPanel x:Name="BorderPointPanel" Orientation="Horizontal" Margin="0,2,0,2">
+                        <TextBlock Text="{res:Str Key=RP_Filter_BorderPoint}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                        <ComboBox x:Name="BorderPointCombo" Width="200" Style="{StaticResource FieldCombo}"/>
+                    </StackPanel>
+
+                    <StackPanel x:Name="DirectionPanel" Orientation="Horizontal" Margin="0,2,0,2">
+                        <TextBlock Text="{res:Str Key=PAL_Col_Direction}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                        <ComboBox x:Name="DirectionCombo" Width="150" Style="{StaticResource FieldCombo}"/>
+                    </StackPanel>
+
+                    <StackPanel x:Name="CountryPanel" Orientation="Horizontal" Margin="0,2,0,2">
+                        <TextBlock Text="{res:Str Key=WL_Col_Citizenship}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                        <ComboBox x:Name="CountryCombo" Width="230" Style="{StaticResource FieldCombo}"/>
+                    </StackPanel>
+
+                    <StackPanel x:Name="DocumentTypePanel" Orientation="Horizontal" Margin="0,2,0,2">
+                        <TextBlock Text="{res:Str Key=RP_Col_DocumentType}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                        <ComboBox x:Name="DocumentTypeCombo" Width="190" Style="{StaticResource FieldCombo}"/>
+                    </StackPanel>
+
+                    <StackPanel x:Name="VisaTypePanel" Orientation="Horizontal" Margin="0,2,0,2">
+                        <TextBlock Text="{res:Str Key=Visa_Type}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                        <ComboBox x:Name="VisaTypeCombo" Width="190" Style="{StaticResource FieldCombo}"/>
+                    </StackPanel>
+
+                    <StackPanel x:Name="FlightPanel" Orientation="Horizontal" Margin="0,2,0,2">
+                        <TextBlock Text="{res:Str Key=BO_Col_Trip}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                        <TextBox x:Name="FlightBox" Width="140" Style="{StaticResource FieldBox}"/>
+                    </StackPanel>
+
+                    <StackPanel x:Name="InspectorPanel" Orientation="Horizontal" Margin="0,2,0,2">
+                        <TextBlock Text="{res:Str Key=RP_Filter_Inspector}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                        <TextBox x:Name="InspectorBox" Width="140" Style="{StaticResource FieldBox}"/>
+                    </StackPanel>
+
+                    <StackPanel x:Name="PersonPanel" Margin="0,2,0,2">
+                        <WrapPanel>
+                            <TextBlock Text="{res:Str Key=WL_Col_Surname}" VerticalAlignment="Center" Margin="0,0,4,4"/>
+                            <TextBox x:Name="SurnameBox" Width="120" Style="{StaticResource FieldBox}" Margin="0,0,8,4"/>
+                            <TextBlock Text="{res:Str Key=WL_Col_GivenName}" VerticalAlignment="Center" Margin="0,0,4,4"/>
+                            <TextBox x:Name="GivenNameBox" Width="110" Style="{StaticResource FieldBox}" Margin="0,0,0,4"/>
+                        </WrapPanel>
+                        <WrapPanel Margin="0,2,0,0">
+                            <TextBlock Text="{res:Str Key=WL_Col_Document}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                            <TextBox x:Name="DocumentNumberBox" Width="150" Style="{StaticResource FieldBox}"/>
+                        </WrapPanel>
+                    </StackPanel>
+
+                    <CheckBox x:Name="ChildrenCheck" Content="{res:Str Key=RP_IncludeChildren}" Margin="0,4,0,0"/>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                        <Button x:Name="PreviewBtn" Content="{res:Str Key=RP_Preview}" Style="{StaticResource PrimaryButton}"
+                                Padding="14,6" Margin="0,0,8,0" Click="Preview_Click"/>
+                        <Button x:Name="ExportPdfBtn" Content="{res:Str Key=RP_ExportPdf}" Style="{StaticResource ToolbarButton}"
+                                Padding="14,6" Click="ExportPdf_Click"/>
+                    </StackPanel>
+                    <Button x:Name="PrintBtn" Content="{res:Str Key=RP_Print}" Style="{StaticResource ToolbarButton}"
+                            Padding="14,6" Margin="0,6,0,0" Click="Print_Click"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Aperçu -->
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="{res:Str Key=RP_PreviewTitle}" FontWeight="SemiBold" Margin="0,0,0,4"/>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Background="{StaticResource ThemePanelBrush}" BorderBrush="{StaticResource ThemeBorderBrush}"
+                        BorderThickness="1" Padding="8" Margin="0,0,0,6">
+                    <StackPanel>
+                        <TextBlock x:Name="ReportTitleText" FontWeight="SemiBold" FontSize="14"/>
+                        <TextBlock x:Name="ReportFiltersText" Foreground="#4A5568" Margin="0,2,0,0" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+
+                <TabControl x:Name="PreviewTabs" Grid.Row="1"/>
+
+                <Border Grid.Row="2" Background="{StaticResource ThemePanelBrush}" BorderBrush="{StaticResource ThemeBorderBrush}"
+                        BorderThickness="1" Padding="8" Margin="0,6,0,0">
+                    <StackPanel>
+                        <TextBlock Text="{res:Str Key=RP_Summary}" FontWeight="SemiBold"/>
+                        <ItemsControl x:Name="SummaryList" Margin="0,4,0,0"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
+    </DockPanel>
+</Window>

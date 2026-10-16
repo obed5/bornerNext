@@ -697,4 +697,286 @@ Open the watchlist: the entry must be reviewed by the supervisor (second inspect
   <data name="EX_Error_ConnectorInactive" xml:space="preserve"><value>The connector is disabled.</value></data>
   <data name="EX_Error_NoMessageSelected" xml:space="preserve"><value>No message to export.</value></data>
   <data name="Shell_Menu_Exchanges" xml:space="preserve"><value>_Exchanges (APIS / EDIFACT)</value></data>
+  <data name="RP_Title" xml:space="preserve"><value>Editions and reports</value></data>
+  <data name="RP_Catalog" xml:space="preserve"><value>Edition catalogue</value></data>
+  <data name="RP_Criteria" xml:space="preserve"><value>Edition criteria</value></data>
+  <data name="RP_Preview" xml:space="preserve"><value>Preview</value></data>
+  <data name="RP_PreviewTitle" xml:space="preserve"><value>Edition preview</value></data>
+  <data name="RP_ExportPdf" xml:space="preserve"><value>Export as PDF</value></data>
+  <data name="RP_Print" xml:space="preserve"><value>Print</value></data>
+  <data name="RP_Summary" xml:space="preserve"><value>Summary</value></data>
+  <data name="RP_IncludeChildren" xml:space="preserve"><value>Include attached children</value></data>
+  <data name="RP_Status_Select" xml:space="preserve"><value>Select an edition in the catalogue.</value></data>
+  <data name="RP_Status_Criteria" xml:space="preserve"><value>Fill in the criteria and run the preview.</value></data>
+  <data name="RP_Status_Previewed" xml:space="preserve"><value>Preview ready.</value></data>
+  <data name="RP_RecordsFound" xml:space="preserve"><value>{0} record(s) in the preview</value></data>
+  <data name="RP_ExportDone" xml:space="preserve"><value>Edition exported: {0}</value></data>
+  <data name="RP_PrintStarted" xml:space="preserve"><value>Edition opened for printing: {0}</value></data>
+  <data name="RP_GeneratedLine" xml:space="preserve"><value>Generated on {date} by {user}</value></data>
+  <data name="RP_Total" xml:space="preserve"><value>Total</value></data>
+  <data name="RP_Error_UnknownReport" xml:space="preserve"><value>Unknown edition.</value></data>
+  <data name="RP_Error_RecordNotFound" xml:space="preserve"><value>No dossier matches this edition's criteria.</value></data>
+  <data name="RP_Filter_Period" xml:space="preserve"><value>Period</value></data>
+  <data name="RP_Filter_BorderPoint" xml:space="preserve"><value>Border post</value></data>
+  <data name="RP_Filter_Inspector" xml:space="preserve"><value>Inspector</value></data>
+  <data name="RP_Filter_Person" xml:space="preserve"><value>Person</value></data>
+  <data name="RP_Table_Register" xml:space="preserve"><value>Registration register</value></data>
+  <data name="RP_Table_Trends" xml:space="preserve"><value>Monthly trend of leading nationalities</value></data>
+  <data name="RP_Table_NationalityReasons" xml:space="preserve"><value>Nationalities by travel reason</value></data>
+  <data name="RP_Table_NoAnswers" xml:space="preserve"><value>No answer recorded for the period</value></data>
+  <data name="RP_Group_Documents" xml:space="preserve"><value>Individual printouts</value></data>
+  <data name="RP_Group_Movements" xml:space="preserve"><value>Movements (1)</value></data>
+  <data name="RP_Group_Inspections" xml:space="preserve"><value>Secondary inspections (2)</value></data>
+  <data name="RP_Group_Nationalities" xml:space="preserve"><value>Nationalities (3)</value></data>
+  <data name="RP_Group_Profiles" xml:space="preserve"><value>Profiles and permits (4)</value></data>
+  <data name="RP_Group_Transport" xml:space="preserve"><value>Transport</value></data>
+  <data name="RP_Group_Exchange" xml:space="preserve"><value>Exchanges</value></data>
+  <data name="RP_Group_Health" xml:space="preserve"><value>Health</value></data>
+  <data name="RP_Col_Month" xml:space="preserve"><value>Month</value></data>
+  <data name="RP_Col_Movements" xml:space="preserve"><value>Movements</value></data>
+  <data name="RP_Col_Granted" xml:space="preserve"><value>Granted</value></data>
+  <data name="RP_Col_Refused" xml:space="preserve"><value>Refused</value></data>
+  <data name="RP_Col_Transit" xml:space="preserve"><value>In transit</value></data>
+  <data name="RP_Col_DistinctDocuments" xml:space="preserve"><value>Distinct documents</value></data>
+  <data name="RP_Col_DistinctNationalities" xml:space="preserve"><value>Distinct nationalities</value></data>
+  <data name="RP_Col_TopNationality" xml:space="preserve"><value>Leading nationality</value></data>
+  <data name="RP_Col_Total" xml:space="preserve"><value>Total</value></data>
+  <data name="RP_Col_Share" xml:space="preserve"><value>Share</value></data>
+  <data name="RP_Col_BalanceAbsolute" xml:space="preserve"><value>Entries/exits gap</value></data>
+  <data name="RP_Col_Children" xml:space="preserve"><value>Children</value></data>
+  <data name="RP_Col_Passengers" xml:space="preserve"><value>Passengers</value></data>
+  <data name="RP_Col_Drivers" xml:space="preserve"><value>Drivers</value></data>
+  <data name="RP_Col_TravelDate" xml:space="preserve"><value>Travel date</value></data>
+  <data name="RP_Col_TravelReason" xml:space="preserve"><value>Travel reason</value></data>
+  <data name="RP_Col_DocumentType" xml:space="preserve"><value>Document type</value></data>
+  <data name="RP_Col_Residence" xml:space="preserve"><value>Country of residence</value></data>
+  <data name="RP_Col_Inspections" xml:space="preserve"><value>Inspections</value></data>
+  <data name="RP_Col_Reasons" xml:space="preserve"><value>Reasons</value></data>
+  <data name="RP_Col_State" xml:space="preserve"><value>State</value></data>
+  <data name="RP_Col_Visas" xml:space="preserve"><value>Visas</value></data>
+  <data name="RP_Col_Active" xml:space="preserve"><value>Active</value></data>
+  <data name="RP_Col_Revoked" xml:space="preserve"><value>Revoked</value></data>
+  <data name="RP_Col_AverageDuration" xml:space="preserve"><value>Average duration (days)</value></data>
+  <data name="RP_Col_FirstIssue" xml:space="preserve"><value>First issue</value></data>
+  <data name="RP_Col_LastIssue" xml:space="preserve"><value>Last issue</value></data>
+  <data name="RP_Col_TransportUnits" xml:space="preserve"><value>Distinct flights / vehicles</value></data>
+  <data name="RP_Col_Messages" xml:space="preserve"><value>Messages</value></data>
+  <data name="RP_Col_Doubtful" xml:space="preserve"><value>Doubtful passengers</value></data>
+  <data name="RP_Col_Records" xml:space="preserve"><value>Records</value></data>
+  <data name="RP_Col_SecurityType" xml:space="preserve"><value>Record type</value></data>
+  <data name="RP_Col_MedicalItem" xml:space="preserve"><value>History or vaccine</value></data>
+  <data name="RP_Col_Permits" xml:space="preserve"><value>Permits</value></data>
+  <data name="RP_Col_MedicalRecorded" xml:space="preserve"><value>Medical record</value></data>
+  <data name="RP_Col_SecurityRecorded" xml:space="preserve"><value>Security record</value></data>
+  <data name="RP_Col_Dependants" xml:space="preserve"><value>Dependants</value></data>
+  <data name="RP_Col_PermitType" xml:space="preserve"><value>Permit type</value></data>
+  <data name="RP_Col_ContactType" xml:space="preserve"><value>Contact type</value></data>
+  <data name="RP_Col_Iso2" xml:space="preserve"><value>ISO 2</value></data>
+  <data name="RP_Col_Iso3" xml:space="preserve"><value>ISO 3</value></data>
+  <data name="RP_Col_Latitude" xml:space="preserve"><value>Latitude</value></data>
+  <data name="RP_Col_Longitude" xml:space="preserve"><value>Longitude</value></data>
+  <data name="RP_Col_AgeCategory" xml:space="preserve"><value>Age band</value></data>
+  <data name="RP_Col_MaritalStatus" xml:space="preserve"><value>Marital status</value></data>
+  <data name="RP_Col_Occupation" xml:space="preserve"><value>Occupation</value></data>
+  <data name="RP_Col_Province" xml:space="preserve"><value>Province</value></data>
+  <data name="RP_Col_Qualification" xml:space="preserve"><value>Qualification</value></data>
+  <data name="RP_Col_Field" xml:space="preserve"><value>Field</value></data>
+  <data name="RP_Col_Value" xml:space="preserve"><value>Value</value></data>
+  <data name="RP_Col_Questionnaire" xml:space="preserve"><value>Questionnaire</value></data>
+  <data name="RP_Col_Applied" xml:space="preserve"><value>Applications</value></data>
+  <data name="RP_Col_Expired" xml:space="preserve"><value>Expired</value></data>
+  <data name="RP_Col_AverageAnswers" xml:space="preserve"><value>Answers (average)</value></data>
+  <data name="RP_Col_WithEnding" xml:space="preserve"><value>With ending message</value></data>
+  <data name="RP_Col_EndingMessage" xml:space="preserve"><value>Ending message</value></data>
+  <data name="RP_Col_Count" xml:space="preserve"><value>Count</value></data>
+  <data name="RP_Col_Answer" xml:space="preserve"><value>Answer</value></data>
+  <data name="RP_Col_Order" xml:space="preserve"><value>No.</value></data>
+  <data name="RP_Col_Question" xml:space="preserve"><value>Question</value></data>
+  <data name="RP_Col_AnswerType" xml:space="preserve"><value>Answer type</value></data>
+  <data name="RP_Section_Identity" xml:space="preserve"><value>Identity</value></data>
+  <data name="RP_Section_Document" xml:space="preserve"><value>Travel document</value></data>
+  <data name="RP_Section_Movement" xml:space="preserve"><value>Border crossing</value></data>
+  <data name="RP_Section_Children" xml:space="preserve"><value>Attached children</value></data>
+  <data name="RP_Section_Visa" xml:space="preserve"><value>Visa</value></data>
+  <data name="RP_Section_Permit" xml:space="preserve"><value>Residence permit</value></data>
+  <data name="RP_Section_Contacts" xml:space="preserve"><value>Contacts</value></data>
+  <data name="RP_Section_Refusal" xml:space="preserve"><value>Entry refusal</value></data>
+  <data name="RP_Section_Holder" xml:space="preserve"><value>Holder</value></data>
+  <data name="RP_Section_Penalty" xml:space="preserve"><value>Fine</value></data>
+  <data name="RP_Section_Order" xml:space="preserve"><value>Removal order</value></data>
+  <data name="RP_Section_Questionnaire" xml:space="preserve"><value>Questionnaire</value></data>
+  <data name="RP_Section_Questions" xml:space="preserve"><value>Questions</value></data>
+  <data name="RP_Section_CurrentHealth" xml:space="preserve"><value>Current health</value></data>
+  <data name="RP_Section_Suffered" xml:space="preserve"><value>Diseases suffered</value></data>
+  <data name="RP_Section_Vaccinated" xml:space="preserve"><value>Vaccinations</value></data>
+  <data name="RP_Section_MedicalHistory" xml:space="preserve"><value>Medical history</value></data>
+  <data name="RP_Sum_DistinctPersons" xml:space="preserve"><value>Distinct persons</value></data>
+  <data name="RP_Sum_RefusalRate" xml:space="preserve"><value>Refusal rate</value></data>
+  <data name="RP_Sum_WithVisa" xml:space="preserve"><value>Movements with visa</value></data>
+  <data name="RP_Sum_Drivers" xml:space="preserve"><value>Drivers</value></data>
+  <data name="RP_Sum_BorderPoints" xml:space="preserve"><value>Border posts listed</value></data>
+  <data name="RP_Sum_ActivePosts" xml:space="preserve"><value>Posts with activity</value></data>
+  <data name="RP_Sum_Unassigned" xml:space="preserve"><value>Movements without post</value></data>
+  <data name="RP_Sum_Days" xml:space="preserve"><value>Days covered</value></data>
+  <data name="RP_Sum_DailyAverage" xml:space="preserve"><value>Daily average</value></data>
+  <data name="RP_Sum_PeakDay" xml:space="preserve"><value>Busiest day</value></data>
+  <data name="RP_Sum_Months" xml:space="preserve"><value>Months covered</value></data>
+  <data name="RP_Sum_MonthlyAverage" xml:space="preserve"><value>Monthly average</value></data>
+  <data name="RP_Sum_Records" xml:space="preserve"><value>Records</value></data>
+  <data name="RP_Sum_Refused" xml:space="preserve"><value>Refusals</value></data>
+  <data name="RP_Sum_Children" xml:space="preserve"><value>Attached children</value></data>
+  <data name="RP_Sum_TravellersWithChildren" xml:space="preserve"><value>Travellers with children</value></data>
+  <data name="RP_Sum_Flights" xml:space="preserve"><value>Distinct flights / crossings</value></data>
+  <data name="RP_Sum_WithoutFlight" xml:space="preserve"><value>Without flight</value></data>
+  <data name="RP_Sum_SecondaryInspections" xml:space="preserve"><value>Secondary inspections</value></data>
+  <data name="RP_Sum_Pending" xml:space="preserve"><value>Pending</value></data>
+  <data name="RP_Sum_Processed" xml:space="preserve"><value>Processed</value></data>
+  <data name="RP_Sum_Cancelled" xml:space="preserve"><value>Cancelled</value></data>
+  <data name="RP_Sum_Nationalities" xml:space="preserve"><value>Nationalities represented</value></data>
+  <data name="RP_Sum_DirectionBalanced" xml:space="preserve"><value>Balanced nationalities</value></data>
+  <data name="RP_Sum_MostlyEntries" xml:space="preserve"><value>Mostly entering</value></data>
+  <data name="RP_Sum_MostlyExits" xml:space="preserve"><value>Mostly leaving</value></data>
+  <data name="RP_Sum_LeadingNationalities" xml:space="preserve"><value>Leading nationalities</value></data>
+  <data name="RP_Sum_Reasons" xml:space="preserve"><value>Distinct travel reasons</value></data>
+  <data name="RP_Sum_NationalitiesShown" xml:space="preserve"><value>Nationalities shown</value></data>
+  <data name="RP_Sum_LocatedCountries" xml:space="preserve"><value>Located nationalities</value></data>
+  <data name="RP_Sum_NotLocated" xml:space="preserve"><value>Without coordinates</value></data>
+  <data name="RP_Sum_Unspecified" xml:space="preserve"><value>Without reason</value></data>
+  <data name="RP_Sum_ResidenceCountries" xml:space="preserve"><value>Countries of residence</value></data>
+  <data name="RP_Sum_WithoutResidence" xml:space="preserve"><value>Without residence</value></data>
+  <data name="RP_Sum_Criteria" xml:space="preserve"><value>Distinct criteria</value></data>
+  <data name="RP_Sum_WithoutCriterion" xml:space="preserve"><value>Without criterion</value></data>
+  <data name="RP_Sum_MedicalFiles" xml:space="preserve"><value>Medical records</value></data>
+  <data name="RP_Sum_PublicHealthCentre" xml:space="preserve"><value>Public health centres</value></data>
+  <data name="RP_Sum_SecurityRecords" xml:space="preserve"><value>Security records</value></data>
+  <data name="RP_Sum_PermitsConcerned" xml:space="preserve"><value>Permits concerned</value></data>
+  <data name="RP_Sum_Visas" xml:space="preserve"><value>Visas issued</value></data>
+  <data name="RP_Sum_VisaTypes" xml:space="preserve"><value>Visa types</value></data>
+  <data name="RP_Sum_ExpiringSoon" xml:space="preserve"><value>Expiring within a month</value></data>
+  <data name="RP_Sum_Entries" xml:space="preserve"><value>List entries</value></data>
+  <data name="RP_Sum_Active" xml:space="preserve"><value>Active</value></data>
+  <data name="RP_Sum_CancelledEntries" xml:space="preserve"><value>Cancelled</value></data>
+  <data name="RP_Sum_TransportTypes" xml:space="preserve"><value>Transport modes</value></data>
+  <data name="RP_Sum_Vessels" xml:space="preserve"><value>Vessels / crossings</value></data>
+  <data name="RP_Sum_WithoutVessel" xml:space="preserve"><value>Without vessel</value></data>
+  <data name="RP_Sum_Messages" xml:space="preserve"><value>Messages received</value></data>
+  <data name="RP_Sum_Passengers" xml:space="preserve"><value>Passengers</value></data>
+  <data name="RP_Sum_Doubtful" xml:space="preserve"><value>Doubtful passengers</value></data>
+  <data name="RP_Sum_Questionnaires" xml:space="preserve"><value>Applied questionnaires</value></data>
+  <data name="RP_Sum_Valid" xml:space="preserve"><value>Valid applications</value></data>
+  <data name="RP_Sum_Expired" xml:space="preserve"><value>Expired applications</value></data>
+  <data name="RP_Sum_AnsweredQuestions" xml:space="preserve"><value>Questions answered</value></data>
+  <data name="RP_Sum_Answers" xml:space="preserve"><value>Answers recorded</value></data>
+  <data name="RP_Sum_OtherAnswers" xml:space="preserve"><value>« Other » answers specified</value></data>
+  <data name="RP_Sum_MovementId" xml:space="preserve"><value>Registration no.</value></data>
+  <data name="RP_Sum_VisaNumber" xml:space="preserve"><value>Visa no.</value></data>
+  <data name="RP_Sum_PermitNumber" xml:space="preserve"><value>Permit no.</value></data>
+  <data name="RP_Sum_Dependants" xml:space="preserve"><value>Dependants</value></data>
+  <data name="RP_Sum_PenaltyNumber" xml:space="preserve"><value>Fine no.</value></data>
+  <data name="RP_Sum_Paid" xml:space="preserve"><value>Paid</value></data>
+  <data name="RP_Sum_OrderId" xml:space="preserve"><value>Order no.</value></data>
+  <data name="RP_Sum_UpdatedOn" xml:space="preserve"><value>Last update</value></data>
+  <data name="RP_Sum_UpdatedBy" xml:space="preserve"><value>Updated by</value></data>
+  <data name="RP_Sum_Questions" xml:space="preserve"><value>Questionnaire questions</value></data>
+  <data name="RP_Report_Registration" xml:space="preserve"><value>Border registration sheet</value></data>
+  <data name="RP_Report_Visa" xml:space="preserve"><value>Visa sheet</value></data>
+  <data name="RP_Report_Permit" xml:space="preserve"><value>Residence permit sheet</value></data>
+  <data name="RP_Report_Refusal" xml:space="preserve"><value>Entry refusal sheet</value></data>
+  <data name="RP_Report_Penalty" xml:space="preserve"><value>Fine sheet</value></data>
+  <data name="RP_Report_RemovalOrder" xml:space="preserve"><value>Removal order sheet</value></data>
+  <data name="RP_Report_MedicalHistory" xml:space="preserve"><value>Medical history sheet</value></data>
+  <data name="RP_Report_HealthBlank" xml:space="preserve"><value>Blank health form</value></data>
+  <data name="RP_Report_MovementSummary" xml:space="preserve"><value>1.1 — Movement summary</value></data>
+  <data name="RP_Report_ByBorderPoint" xml:space="preserve"><value>1.2 — Movements by border post</value></data>
+  <data name="RP_Report_Daily" xml:space="preserve"><value>1.3 — Daily movements</value></data>
+  <data name="RP_Report_Monthly" xml:space="preserve"><value>1.4 — Monthly movements</value></data>
+  <data name="RP_Report_Register" xml:space="preserve"><value>1.5 — Detailed registration register</value></data>
+  <data name="RP_Report_Children" xml:space="preserve"><value>1.6 — Attached children</value></data>
+  <data name="RP_Report_Passengers" xml:space="preserve"><value>1.7 — Passenger statistics by flight</value></data>
+  <data name="RP_Report_DoubtfulList" xml:space="preserve"><value>2.1 — Secondary inspections</value></data>
+  <data name="RP_Report_DoubtfulNationality" xml:space="preserve"><value>2.2 — Nationalities of secondary inspected travellers</value></data>
+  <data name="RP_Report_DoubtfulReason" xml:space="preserve"><value>2.3 — Secondary inspection reasons</value></data>
+  <data name="RP_Report_Nationalities" xml:space="preserve"><value>3.1 — Statistics by nationalities</value></data>
+  <data name="RP_Report_NationalitiesDirection" xml:space="preserve"><value>3.2 — Nationalities by direction</value></data>
+  <data name="RP_Report_NationalitiesDocument" xml:space="preserve"><value>3.3 — Nationalities by document type</value></data>
+  <data name="RP_Report_NationalitiesTrends" xml:space="preserve"><value>3.4 — Nationality trends</value></data>
+  <data name="RP_Report_NationalitiesReason" xml:space="preserve"><value>3.5 — Nationalities by travel reason</value></data>
+  <data name="RP_Report_NationalitiesMap" xml:space="preserve"><value>3.6 — Nationality map data</value></data>
+  <data name="RP_Report_TravelReasons" xml:space="preserve"><value>4.1 — Travel reasons</value></data>
+  <data name="RP_Report_DocumentTypes" xml:space="preserve"><value>4.4 — Document types</value></data>
+  <data name="RP_Report_Residence" xml:space="preserve"><value>4.5 — Countries of residence</value></data>
+  <data name="RP_Report_Foreigners" xml:space="preserve"><value>4.6 — Foreigner registrations (summary)</value></data>
+  <data name="RP_Report_ForeignersAge" xml:space="preserve"><value>4.7 — Foreigner registrations by age</value></data>
+  <data name="RP_Report_ForeignersMarital" xml:space="preserve"><value>4.8 — Foreigner registrations by marital status</value></data>
+  <data name="RP_Report_ForeignersOccupation" xml:space="preserve"><value>4.9 — Foreigner registrations by occupation</value></data>
+  <data name="RP_Report_ForeignersProvince" xml:space="preserve"><value>4.10 — Foreigner registrations by province</value></data>
+  <data name="RP_Report_ForeignersQualification" xml:space="preserve"><value>4.11 — Foreigner registrations by qualification</value></data>
+  <data name="RP_Report_ForeignersMedical" xml:space="preserve"><value>4.12 — Medical history of permits</value></data>
+  <data name="RP_Report_ForeignersSecurity" xml:space="preserve"><value>4.13 — Security records of permits</value></data>
+  <data name="RP_Report_VisaStatistics" xml:space="preserve"><value>4.14 — Visas by issue date</value></data>
+  <data name="RP_Report_StopPersons" xml:space="preserve"><value>4.15 — Person stop lists</value></data>
+  <data name="RP_Report_StopDocuments" xml:space="preserve"><value>4.16 — Document stop lists</value></data>
+  <data name="RP_Report_ByTransport" xml:space="preserve"><value>5.1 — Statistics by transport mode</value></data>
+  <data name="RP_Report_Vessels" xml:space="preserve"><value>5.2 — Statistics by vessel</value></data>
+  <data name="RP_Report_Apis" xml:space="preserve"><value>6.1 — APIS messages by status</value></data>
+  <data name="RP_Report_Questionnaires" xml:space="preserve"><value>7.1 — Questionnaire statistics</value></data>
+  <data name="RP_Report_QuestionnaireAnswers" xml:space="preserve"><value>7.2 — Answer breakdown</value></data>
+  <data name="HE_Title" xml:space="preserve"><value>Traveller health form</value></data>
+  <data name="HE_Menu_Health" xml:space="preserve"><value>_Health form</value></data>
+  <data name="HE_OpenForm" xml:space="preserve"><value>Health form</value></data>
+  <data name="HE_FindDossier" xml:space="preserve"><value>Traveller dossier</value></data>
+  <data name="HE_Applications" xml:space="preserve"><value>Dossier applications</value></data>
+  <data name="HE_Apply" xml:space="preserve"><value>Apply</value></data>
+  <data name="HE_PrintBlank" xml:space="preserve"><value>Print blank form</value></data>
+  <data name="HE_SaveAnswers" xml:space="preserve"><value>Save answers</value></data>
+  <data name="HE_Validate" xml:space="preserve"><value>Validate form</value></data>
+  <data name="HE_Status_Search" xml:space="preserve"><value>Search a document or open the form from passport registration.</value></data>
+  <data name="HE_Status_SelectQuestionnaire" xml:space="preserve"><value>Select a questionnaire.</value></data>
+  <data name="HE_FoundDocuments" xml:space="preserve"><value>{0} document(s) found</value></data>
+  <data name="HE_DossierSelected" xml:space="preserve"><value>Dossier no. {0}</value></data>
+  <data name="HE_ApplicationsFound" xml:space="preserve"><value>{0} application(s) on this dossier</value></data>
+  <data name="HE_NoApplication" xml:space="preserve"><value>No health form applied to this dossier: use “Apply”.</value></data>
+  <data name="HE_Applied" xml:space="preserve"><value>Health form applied to the dossier.</value></data>
+  <data name="HE_AnswersSaved" xml:space="preserve"><value>Answers saved.</value></data>
+  <data name="HE_Validated" xml:space="preserve"><value>Form complete.</value></data>
+  <data name="HE_Expired" xml:space="preserve"><value>Expired</value></data>
+  <data name="HE_Active" xml:space="preserve"><value>Valid</value></data>
+  <data name="HE_Validity" xml:space="preserve"><value>Valid until {0}</value></data>
+  <data name="HE_ValidityExpired" xml:space="preserve"><value>Expired since {0}</value></data>
+  <data name="HE_ValidityNone" xml:space="preserve"><value>No validity limit</value></data>
+  <data name="HE_Error_QuestionnaireNotFound" xml:space="preserve"><value>Questionnaire not found.</value></data>
+  <data name="HE_Error_QuestionnaireRevoked" xml:space="preserve"><value>This questionnaire is no longer used.</value></data>
+  <data name="HE_Error_DossierRequired" xml:space="preserve"><value>Select a dossier first (document or crossing).</value></data>
+  <data name="HE_Error_AlreadyApplied" xml:space="preserve"><value>An active form already exists for this questionnaire and dossier.</value></data>
+  <data name="HE_Error_ApplicationNotFound" xml:space="preserve"><value>Questionnaire application not found.</value></data>
+  <data name="HE_Error_QuestionNotInQuestionnaire" xml:space="preserve"><value>This question is not part of the questionnaire.</value></data>
+  <data name="HE_Error_AnswerNotInQuestion" xml:space="preserve"><value>This answer does not belong to the question.</value></data>
+  <data name="HE_Error_Incomplete" xml:space="preserve"><value>All visible questions must be answered.</value></data>
+  <data name="PM_Holder" xml:space="preserve"><value>Permit holder</value></data>
+  <data name="PM_Dependant" xml:space="preserve"><value>Person concerned</value></data>
+  <data name="PM_CurrentIllness" xml:space="preserve"><value>Current illness</value></data>
+  <data name="PM_CurrentMedication" xml:space="preserve"><value>Current medication</value></data>
+  <data name="PM_Malaria" xml:space="preserve"><value>Malaria</value></data>
+  <data name="PM_YellowFever" xml:space="preserve"><value>Yellow fever</value></data>
+  <data name="PM_Tuberculosis" xml:space="preserve"><value>Tuberculosis</value></data>
+  <data name="PM_Measles" xml:space="preserve"><value>Measles</value></data>
+  <data name="PM_Cholera" xml:space="preserve"><value>Cholera</value></data>
+  <data name="PM_Typhoid" xml:space="preserve"><value>Typhoid</value></data>
+  <data name="PM_Jaundice" xml:space="preserve"><value>Jaundice</value></data>
+  <data name="PM_ChronicCough" xml:space="preserve"><value>Chronic cough</value></data>
+  <data name="PM_OtherSuffered" xml:space="preserve"><value>Other history</value></data>
+  <data name="PM_MMR" xml:space="preserve"><value>MMR (measles-mumps-rubella)</value></data>
+  <data name="PM_Diphtheria" xml:space="preserve"><value>Diphtheria</value></data>
+  <data name="PM_Polio" xml:space="preserve"><value>Polio</value></data>
+  <data name="PM_ChronicDisease" xml:space="preserve"><value>Chronic disease</value></data>
+  <data name="PM_InfectiousDisease" xml:space="preserve"><value>Infectious disease</value></data>
+  <data name="PM_HealthCentreVisited" xml:space="preserve"><value>Health centre visit</value></data>
+  <data name="PM_PublicHealthCentre" xml:space="preserve"><value>Public health centre</value></data>
+  <data name="PM_RequiresSaved" xml:space="preserve"><value>Save the permit first.</value></data>
+  <data name="PM_UpdatedOn" xml:space="preserve"><value>Last update: {0} by {1}</value></data>
+  <data name="PM_Saved" xml:space="preserve"><value>Medical history saved.</value></data>
+  <data name="PV_Error_PermitNotFound" xml:space="preserve"><value>Permit not found.</value></data>
+  <data name="PV_Error_DependantNotFound" xml:space="preserve"><value>Dependant not found for this permit.</value></data>
+  <data name="DB_NationalitiesMap" xml:space="preserve"><value>Nationality map (today)</value></data>
+  <data name="DB_MapEmpty" xml:space="preserve"><value>No nationality located today.</value></data>
 </root>
