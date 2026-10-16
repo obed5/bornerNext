@@ -53,7 +53,10 @@ dotnet run --project src/BorderNext.UI
 
 Au premier lancement :
 1. les migrations sont appliquées automatiquement (base `BorderNext` créée si absente) ;
-2. un compte administrateur initial est créé : **admin / ChangeMe!2026** ;
+2. un compte administrateur initial est créé (identifiant `admin`) avec le mot de passe
+   d'amorçage — fourni par la variable d'environnement `BORDERNEXT_BOOTSTRAP_PASSWORD`,
+   sinon généré aléatoirement et déposé une seule fois dans
+   `%ProgramData%\BorderNext\mot-de-passe-initial.txt` (aucun mot de passe en configuration) ;
 3. le changement de mot de passe est **obligatoire** à la première connexion ;
 4. les référentiels sont semés (idempotent, section par section) : nomenclatures,
    pays/villes, postes frontières, transporteurs et terminaux, paramétrage de départ
@@ -63,8 +66,11 @@ Administration : menu **Modules → Administration** (rôles ADMIN/SUPERUSER, ou
 matrice des droits `ControlsToRoles`) — 6 onglets : référentiels, pays & géographie,
 postes frontières, utilisateurs & droits, paramètres, journal d'audit.
 
-Configuration : `src/BorderNext.UI/appsettings.json` (chaîne de connexion, culture par
-défaut, mot de passe bootstrap — à remplacer en production par un secret protégé).
+Configuration : `src/BorderNext.UI/appsettings.json` (culture par défaut ; chaîne de
+connexion de développement). En production, la chaîne de connexion et le mot de passe
+d'amorçage se fournissent par variable d'environnement
+(`BORDERNEXT_CONNECTION_STRING`, `BORDERNEXT_BOOTSTRAP_PASSWORD`) — voir
+[docs/installation.md](docs/installation.md).
 Le répertoire de conservation des fichiers échangés (paramètre
 `Exchange_MessageDirectory`) et les points d'accès des systèmes partenaires se règlent
 dans l'application (module **Échanges → Connecteurs**), connecteurs par défaut en mode
